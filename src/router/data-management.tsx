@@ -1,3 +1,4 @@
+import ProductList from "@/components/DataManagement/ProductList";
 import {
   PRODUCT_MANAGEMENT,
   FILTERCAKE_MANAGEMENT,
@@ -8,7 +9,7 @@ const dataManagement = [
   {
     title: "产品列表",
     path: "product-list",
-    element: <div>产品列表</div>,
+    element: <ProductList />,
     parentDir: PRODUCT_MANAGEMENT,
   },
   {
