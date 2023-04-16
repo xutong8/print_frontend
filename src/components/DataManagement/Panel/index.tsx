@@ -6,9 +6,10 @@ import {
   RAWMATERIAL_MANAGEMENT,
 } from "@/constants/data-management";
 import routes from "@/router/data-management";
-import { manage, submanage } from "@/assets";
+import { manage, submanage, submanageSelected } from "@/assets";
 import { NavLink, useLocation } from "react-router-dom";
-import cn from 'classnames';
+import cn from "classnames";
+import { RouteType } from "@/types";
 
 const directorys = [
   {
@@ -27,6 +28,7 @@ const directorys = [
 
 const Panel = () => {
   const location = useLocation();
+  const selected = (route: RouteType) => location.pathname.includes(route.path);
 
   return (
     <div className={styles.panel}>
@@ -42,12 +44,20 @@ const Panel = () => {
               <NavLink
                 key={route.title}
                 to={route.path}
-                className={cn(styles.link, {
-                  [styles.selected]: location.pathname.includes(route.path)
-                })}
+                className={styles.link}
               >
-                <img src={submanage} alt="submanage icon" />
-                <p className={styles.submanageDesc}>{route.title}</p>
+                <img
+                  src={selected(route) ? submanageSelected : submanage}
+                  alt="submanage icon"
+                />
+                <p
+                  className={cn(styles.submanageDesc, {
+                    [styles.selected]: selected(route),
+                    [styles.normal]: !selected(route),
+                  })}
+                >
+                  {route.title}
+                </p>
               </NavLink>
             ))}
         </div>
