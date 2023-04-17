@@ -1,9 +1,14 @@
 import styles from "./index.module.less";
 import { icon } from "../../assets/images";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate, useLocation } from "react-router-dom";
 import { routes } from "../../router/routes";
+import cn from 'classnames';
+import { RouteType } from "@/types";
 
 const NavBar = () => {
+  const location = useLocation();
+  const selected = (route: RouteType) => location.pathname.includes(route.path.split('/')[0]);
+
   return (
     <div className={styles.navbar}>
       <div className={styles.title}>
@@ -12,7 +17,9 @@ const NavBar = () => {
       </div>
       <div className={styles.links}>
         {routes.map((route) => (
-          <NavLink key={route.title} to={route.path} className={styles.link}>
+          <NavLink key={route.title} to={route.path.split('/')[0]} className={cn(styles.link, {
+            [styles.selected]: selected(route)
+          })}>
             {route.title}
           </NavLink>
         ))}

@@ -6,7 +6,7 @@ import {
   RAWMATERIAL_MANAGEMENT,
 } from "@/constants/data-management";
 import routes from "@/router/data-management";
-import { manage, submanage, submanageSelected } from "@/assets";
+import { manage, submanage, submanage_selected } from "@/assets";
 import { NavLink, useLocation } from "react-router-dom";
 import cn from "classnames";
 import { RouteType } from "@/types";
@@ -47,7 +47,7 @@ const Panel = () => {
                 className={styles.link}
               >
                 <img
-                  src={selected(route) ? submanageSelected : submanage}
+                  src={selected(route) ? submanage_selected : submanage}
                   alt="submanage icon"
                 />
                 <p

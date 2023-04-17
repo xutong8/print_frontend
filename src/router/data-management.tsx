@@ -4,6 +4,7 @@ import {
   FILTERCAKE_MANAGEMENT,
   RAWMATERIAL_MANAGEMENT,
 } from "../constants/data-management";
+import FilterCakeList from "@/components/DataManagement/FilterCakeList";
 
 const dataManagement = [
   {
@@ -21,7 +22,7 @@ const dataManagement = [
   {
     title: "滤饼列表",
     path: "filtercake-list",
-    element: <div>滤饼列表</div>,
+    element: <FilterCakeList />,
     parentDir: FILTERCAKE_MANAGEMENT,
   },
   {

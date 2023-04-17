@@ -6,43 +6,66 @@ import {
   IProductSeries,
   fetchAllProductSeries,
 } from "@/services/fetchProductSeries";
-import { IRawMaterial, fetchAllRawMaterials } from "@/services/fetchRawMaterials";
+import {
+  IRawMaterial,
+  fetchAllRawMaterials,
+} from "@/services/fetchRawMaterials";
+import { FilterCakeType, ProductSeriesType, RawMaterialType } from "..";
+import { SearchOutlined, ReloadOutlined } from "@ant-design/icons";
 
-const Search = () => {
-  // 选中的系列
-  const [productSeries, setProductSeries] = useState<
-    IProductSeries | undefined
-  >();
+export interface ISearchProps {
+  filterCake: FilterCakeType;
+  setFilterCake: (filterCake: FilterCakeType) => void;
+  productSeries: ProductSeriesType;
+  setProductSeries: (productSeries: ProductSeriesType) => void;
+  rawMaterial: RawMaterialType;
+  setRawMaterial: (rawMaterial: RawMaterialType) => void;
+}
+
+const Search: React.FC<ISearchProps> = (props) => {
+  const {
+    filterCake,
+    setFilterCake,
+    productSeries,
+    rawMaterial,
+    setProductSeries,
+    setRawMaterial,
+  } = props;
+
   // 全部的系列
   const [allProductSeries, setAllProductSeries] = useState<IProductSeries[]>(
     []
   );
-
-  // 选中的滤饼
-  const [filterCake, setFilterCake] = useState<IFilterCake | undefined>();
   // 全部的滤饼
   const [filterCakes, setFilterCakes] = useState<IFilterCake[]>([]);
-
-  // 选中的原料
-  const [rawMaterial, setRawMaterial] = useState<IRawMaterial | undefined>();
   // 全部的原料
   const [rawMaterials, setRawMaterials] = useState<IRawMaterial[]>([]);
 
+  // 缓存的选中系列
+  const [tempProductSeries, setTempProductSeries] =
+    useState<ProductSeriesType>(productSeries);
+  // 缓存的选中滤饼
+  const [tempFilterCake, setTempFilterCake] =
+    useState<FilterCakeType>(filterCake);
+  // 缓存的选中原料
+  const [tempRawMaterial, setTempRawMaterial] =
+    useState<RawMaterialType>(rawMaterial);
+    
   // 滤饼change事件
   const handleFilterCakeChange = (value: number) => {
     const filterCake =
       filterCakes.find((filterCake) => filterCake.filterCakeId === value) ??
       void 0;
-    setFilterCake(filterCake);
+    setTempFilterCake(filterCake);
   };
 
-  // 滤饼change事件
+  // 产品系列change事件
   const handleProductSeriesChange = (value: number) => {
     const productSeries =
       allProductSeries.find(
         (productSeries) => productSeries.productSeriesId === value
       ) ?? void 0;
-    setProductSeries(productSeries);
+    setTempProductSeries(productSeries);
   };
 
   // 原料change事件
@@ -50,7 +73,7 @@ const Search = () => {
     const rawMaterial =
       rawMaterials.find((rawMaterial) => rawMaterial.rawMaterialId === value) ??
       void 0;
-    setRawMaterial(rawMaterial);
+    setTempRawMaterial(rawMaterial);
   };
 
   // 首次加载数据
@@ -80,8 +103,23 @@ const Search = () => {
   const mapRawMaterialData = () => {
     return rawMaterials.map((rawMaterial) => ({
       value: rawMaterial.rawMaterialId,
-      title: rawMaterial.rawMaterialName
+      title: rawMaterial.rawMaterialName,
     }));
+  };
+
+  const handleReset = () => {
+    setFilterCake(void 0);
+    setTempFilterCake(void 0);
+    setProductSeries(void 0);
+    setTempProductSeries(void 0);
+    setRawMaterial(void 0);
+    setTempRawMaterial(void 0);
+  };
+
+  const handleSearch = () => {
+    setFilterCake(tempFilterCake);
+    setProductSeries(tempProductSeries);
+    setRawMaterial(tempRawMaterial);
   };
 
   useEffect(() => {
@@ -94,43 +132,51 @@ const Search = () => {
         <div className={styles.base}>
           <p>系列名称：</p>
           <TreeSelect
-            value={productSeries?.productSeriesId}
+            value={tempProductSeries?.productSeriesId}
             placeholder="Please select"
             allowClear
             treeDefaultExpandAll
             treeData={mapProductSeriesData()}
-            onChange={handleProductSeriesChange}
             className={styles.select}
+            onChange={handleProductSeriesChange}
           />
         </div>
         <div className={styles.base}>
           <p>滤饼名称：</p>
           <TreeSelect
-            value={filterCake?.filterCakeId}
+            value={tempFilterCake?.filterCakeId}
             placeholder="Please select"
             allowClear
             treeDefaultExpandAll
             treeData={mapFilterCakeData()}
-            onChange={handleFilterCakeChange}
             className={styles.select}
+            onChange={handleFilterCakeChange}
           />
         </div>
         <div className={styles.base}>
           <p>原料名称：</p>
           <TreeSelect
-            value={rawMaterial?.rawMaterialId}
+            value={tempRawMaterial?.rawMaterialId}
             placeholder="Please select"
             allowClear
             treeDefaultExpandAll
             treeData={mapRawMaterialData()}
-            onChange={handleRawMaterialChange}
             className={styles.select}
+            onChange={handleRawMaterialChange}
           />
         </div>
       </div>
       <div className={styles.right}>
-        <Button type="primary">搜索</Button>
-        <Button type="primary" danger className={styles.reset}>
+        <Button type="primary" icon={<SearchOutlined />} onClick={handleSearch}>
+          搜索
+        </Button>
+        <Button
+          type="primary"
+          danger
+          icon={<ReloadOutlined />}
+          className={styles.reset}
+          onReset={handleReset}
+        >
           重置
         </Button>
       </div>
