@@ -4,49 +4,48 @@ import { unitPriceFormat } from "@/utils";
 import ChangeRatio from "@/components/ChangeRatio";
 
 export interface IRecord {
-  filterCakeId: string;
-  filterCakeName: string;
-  filterCakeIndex: string;
-  filterCakeColor: string;
-  filterCakeUnitPrice: number;
-  filterCakePriceIncreasePercent: number;
-  filterCakeSpecification: string;
-  filterCakeRemarks: string;
+  rawMaterialId: string;
+  rawMaterialName: string;
+  rawMaterialIndex: string;
+  rawMaterialConventional: string;
+  rawMaterialUnitPrice: number;
+  rawMaterialIncreasePercent: number;
+  rawMaterialSpecification: string;
 }
 
 const columns: ColumnsType<IRecord> = [
   {
     title: "序号",
-    dataIndex: "filterCakeId",
-    key: "filterCakeId",
+    dataIndex: "rawMaterialId",
+    key: "rawMaterialId",
   },
   {
-    title: "滤饼名称",
-    dataIndex: "filterCakeName",
-    key: "filterCakeName",
+    title: "原料品名",
+    dataIndex: "rawMaterialName",
+    key: "rawMaterialName",
   },
   {
-    title: "滤饼编号",
-    dataIndex: "filterCakeIndex",
-    key: "filterCakeIndex",
+    title: "存货编号",
+    dataIndex: "rawMaterialIndex",
+    key: "rawMaterialIndex",
   },
   {
-    title: "滤饼颜色",
-    dataIndex: "filterCakeColor",
-    key: "filterCakeColor",
+    title: "是否为常规原料",
+    dataIndex: "rawMaterialConventional",
+    key: "rawMaterialConventional",
   },
   {
-    title: "滤饼单价",
-    dataIndex: "filterCakeUnitPrice",
-    key: "filterCakeUnitPrice",
+    title: "原料单价",
+    dataIndex: "rawMaterialUnitPrice",
+    key: "rawMaterialUnitPrice",
     render: (value: number) => {
       return <div>{unitPriceFormat(value)}</div>;
     },
   },
   {
     title: "近期涨幅",
-    dataIndex: "filterCakePriceIncreasePercent",
-    key: "filterCakePriceIncreasePercent",
+    dataIndex: "rawMaterialIncreasePercent",
+    key: "rawMaterialIncreasePercent",
     width: 120,
     render: (value: number) => {
       return <ChangeRatio value={value} />;
@@ -54,13 +53,8 @@ const columns: ColumnsType<IRecord> = [
   },
   {
     title: "规格",
-    dataIndex: "filterCakeSpecification",
-    key: "filterCakeSpecification",
-  },
-  {
-    title: "附加信息",
-    dataIndex: "filterCakeRemarks",
-    key: "filterCakeRemarks",
+    dataIndex: "rawMaterialSpecification",
+    key: "rawMaterialSpecification",
   },
   {
     title: "操作",

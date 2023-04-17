@@ -155,7 +155,6 @@ const Search: React.FC<ISearchProps> = (props) => {
           <p>原料名称：</p>
           <TreeSelect
             value={tempRawMaterial?.rawMaterialId}
-            placeholder="Please select"
             allowClear
             treeDefaultExpandAll
             treeData={mapRawMaterialData()}

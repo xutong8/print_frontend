@@ -5,6 +5,7 @@ import {
   RAWMATERIAL_MANAGEMENT,
 } from "../constants/data-management";
 import FilterCakeList from "@/components/DataManagement/FilterCakeList";
+import RawMaterialList from "@/components/DataManagement/RawMaterialList";
 
 const dataManagement = [
   {
@@ -34,7 +35,7 @@ const dataManagement = [
   {
     title: "原料列表",
     path: "rawmaterial-list",
-    element: <div>原料列表</div>,
+    element: <RawMaterialList />,
     parentDir: RAWMATERIAL_MANAGEMENT,
   },
   {
