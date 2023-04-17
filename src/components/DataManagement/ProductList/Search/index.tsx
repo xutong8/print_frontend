@@ -133,7 +133,6 @@ const Search: React.FC<ISearchProps> = (props) => {
           <p>系列名称：</p>
           <TreeSelect
             value={tempProductSeries?.productSeriesId}
-            placeholder="Please select"
             allowClear
             treeDefaultExpandAll
             treeData={mapProductSeriesData()}
@@ -145,7 +144,6 @@ const Search: React.FC<ISearchProps> = (props) => {
           <p>滤饼名称：</p>
           <TreeSelect
             value={tempFilterCake?.filterCakeId}
-            placeholder="Please select"
             allowClear
             treeDefaultExpandAll
             treeData={mapFilterCakeData()}

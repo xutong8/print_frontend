@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from "axios";
 const BASE_URL = "http://10.196.55.11:8080/";
 
 const instance = axios.create({
-  baseURL: BASE_URL
+  baseURL: BASE_URL,
 });
 
 const httpRequest = {
@@ -21,6 +21,16 @@ const httpRequest = {
     return new Promise((resolve, reject) => {
       instance
         .post(url, data, config ?? {})
+        .then((res) => resolve(res))
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+  delete(url: string, config?: AxiosRequestConfig) {
+    return new Promise((resolve, reject) => {
+      instance
+        .delete(url, config ?? {})
         .then((res) => resolve(res))
         .catch((err) => {
           reject(err);

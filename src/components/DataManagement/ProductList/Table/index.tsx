@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./index.module.less";
 import { FilterCakeType, ProductSeriesType, RawMaterialType } from "..";
 import CustomTable from "@/components/Table";
 import { table_header } from "@/assets";
 import { Button } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
-import columns, { IRecord } from './columns';
+import genColumns, { IRecord } from "./columns";
 
 export interface ITableProps {
   filterCake: FilterCakeType;
@@ -16,6 +16,7 @@ export interface ITableProps {
 const Table: React.FC<ITableProps> = (props) => {
   const baseUrl = "/product/findAllByCondition";
   const { filterCake, productSeries, rawMaterial } = props;
+  const [, setForceUpdate] = useState<{}>({});
 
   return (
     <div className={styles.table}>
@@ -24,7 +25,9 @@ const Table: React.FC<ITableProps> = (props) => {
           <img src={table_header} alt="table desc" />
           <p className={styles.desc}>产品列表</p>
         </div>
-        <Button type="primary" icon={<DownloadOutlined />}>下载</Button>
+        <Button type="primary" icon={<DownloadOutlined />}>
+          下载
+        </Button>
       </div>
       <div className={styles.main}>
         <CustomTable
@@ -34,7 +37,7 @@ const Table: React.FC<ITableProps> = (props) => {
             productSeriesName: productSeries?.productSeriesName ?? void 0,
             rawMaterialName: rawMaterial?.rawMaterialName ?? void 0,
           }}
-          columns={columns}
+          columns={genColumns(setForceUpdate)}
           rowKey={(record: IRecord) => record.productId}
         />
       </div>

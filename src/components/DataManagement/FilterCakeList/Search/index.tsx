@@ -62,7 +62,6 @@ const Search: React.FC<ISearchProps> = (props) => {
           <p>查询依据：</p>
           <TreeSelect
             value={tempSearchField}
-            placeholder="Please select"
             allowClear
             treeDefaultExpandAll
             treeData={mapFieldsData}
@@ -74,7 +73,6 @@ const Search: React.FC<ISearchProps> = (props) => {
           <p>查询条件：</p>
           <Input 
             value={tempSearchCondition}
-            placeholder="Please input"
             className={styles.select}
             onChange={handleSearchConditionChange}
           />
