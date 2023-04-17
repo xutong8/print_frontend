@@ -1,5 +1,7 @@
 import { ColumnsType } from "antd/es/table";
 import styles from './index.module.less';
+import { unitPriceFormat } from "@/utils";
+import ChangeRatio from "@/components/ChangeRatio";
 
 export interface IRecord {
   filterCakeId: string;
@@ -36,12 +38,23 @@ const columns: ColumnsType<IRecord> = [
   {
     title: '滤饼单价',
     dataIndex: 'filterCakeUnitPrice',
-    key: 'filterCakeUnitPrice'
+    key: 'filterCakeUnitPrice',
+    render: (value: number) => {
+      return (
+        <div>{unitPriceFormat(value)}</div>
+      )
+    }
   },
   {
     title: '近期涨幅',
     dataIndex: 'filterCakePriceIncreasePercent',
-    key: 'filterCakePriceIncreasePercent'
+    key: 'filterCakePriceIncreasePercent',
+    width: 120,
+    render: (value: number) => {
+      return (
+        <ChangeRatio value={value} />
+      )
+    }
   },
   {
     title: '规格',

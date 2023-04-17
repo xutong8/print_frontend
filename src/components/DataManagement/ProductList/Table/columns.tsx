@@ -3,6 +3,8 @@ import styles from "./index.module.less";
 import { deleteProductById } from "@/services/deleteProductById";
 import { Popconfirm, message } from "antd";
 import { Dispatch, SetStateAction } from "react";
+import ChangeRatio from "@/components/ChangeRatio";
+import { unitPriceFormat } from "@/utils";
 
 export interface IRecord {
   productId: string;
@@ -49,11 +51,22 @@ const genColumns = (setForceUpdate: Dispatch<SetStateAction<{}>>) => {
       title: "产品单价",
       dataIndex: "productUnitPrice",
       key: "productUnitPrice",
+      render: (value: number) => {
+        return (
+          <div>{unitPriceFormat(value)}</div>
+        )
+      }
     },
     {
       title: "近期涨幅",
       dataIndex: "productPriceIncreasePercent",
       key: "productPriceIncreasePercent",
+      width: 120,
+      render: (value: number) => {
+        return (
+          <ChangeRatio value={value}  />
+        )
+      }
     },
     {
       title: "附加信息",
