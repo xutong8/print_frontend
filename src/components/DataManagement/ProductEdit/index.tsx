@@ -89,6 +89,10 @@ const ProductEdit = (
   const relations = [
     { name: "原料1", amount: 100 },
     { name: "原料2", amount: 150 },
+    { name: "原料1", amount: 100 },
+    { name: "原料2", amount: 150 },
+    { name: "原料1", amount: 100 },
+    { name: "原料2", amount: 150 },
   ];
 
   const handleClose = () => {};
