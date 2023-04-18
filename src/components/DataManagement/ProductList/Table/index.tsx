@@ -7,6 +7,7 @@ import { DownloadOutlined } from "@ant-design/icons";
 import genColumns, { IRecord } from "./columns";
 import { ProductEditRef } from "../../ProductEdit";
 import Header from "@/components/Header";
+import { ProductDetailRef } from "../../ProductDetail";
 
 export interface ITableProps {
   filterCake: FilterCakeType;
@@ -19,6 +20,7 @@ const Table: React.FC<ITableProps> = (props) => {
   const { filterCake, productSeries, rawMaterial } = props;
   const [, setForceUpdate] = useState<{}>({});
   const editModalRef = useRef<ProductEditRef>(null);
+  const previewModalRef = useRef<ProductDetailRef>(null);
 
   return (
     <div className={styles.table}>
@@ -36,7 +38,7 @@ const Table: React.FC<ITableProps> = (props) => {
             productSeriesName: productSeries?.productSeriesName ?? void 0,
             rawMaterialName: rawMaterial?.rawMaterialName ?? void 0,
           }}
-          columns={genColumns(setForceUpdate, editModalRef)}
+          columns={genColumns(setForceUpdate, editModalRef, previewModalRef)}
           rowKey={(record: IRecord) => record.productId}
         />
       </div>

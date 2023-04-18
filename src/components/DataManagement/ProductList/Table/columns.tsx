@@ -10,6 +10,7 @@ import { fetchProductById } from "@/services/fetchProductById";
 import { fetchAllProductSeries } from "@/services/fetchProductSeries";
 import { fetchAllRawMaterials } from "@/services/fetchRawMaterials";
 import { fetchAllFilterCakes } from "@/services/fetchFilterCakes";
+import ProductDetail, { ProductDetailRef } from "../../ProductDetail";
 
 export interface IRecord {
   productId: string;
@@ -22,7 +23,8 @@ export interface IRecord {
 
 const genColumns = (
   setForceUpdate: Dispatch<SetStateAction<{}>>,
-  editModalRef: RefObject<ProductEditRef>
+  editModalRef: RefObject<ProductEditRef>,
+  previewModalRef: RefObject<ProductDetailRef>
 ) => {
   const columns: ColumnsType<IRecord> = [
     {
@@ -116,6 +118,14 @@ const genColumns = (
           editModalRef.current?.setShowModal(true);
         };
 
+        // 查看详情逻辑
+        const handlePreview = async () => {
+          previewModalRef.current?.setShowModal(false);
+          const product = await fetchProductById(record.productId);
+          previewModalRef.current?.setProduct(product);
+          previewModalRef.current?.setShowModal(true);
+        };
+
         return (
           <div className={styles.action}>
             <Popconfirm
@@ -130,8 +140,11 @@ const genColumns = (
             <div className={styles.text} onClick={handleEdit}>
               编辑
             </div>
-            <div className={styles.text}>查看详细信息</div>
+            <div className={styles.text} onClick={handlePreview}>
+              查看详细信息
+            </div>
             <ProductEdit ref={editModalRef} />
+            <ProductDetail ref={previewModalRef} />
           </div>
         );
       },
