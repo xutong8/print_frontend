@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Input, InputNumber, Select, Tag } from "antd";
+import React, { ChangeEvent, useState } from "react";
+import { Button, Input, InputNumber, Select, Tag, message } from "antd";
 import styles from "./index.module.less";
 import TextArea from "antd/es/input/TextArea";
 import { PlusCircleTwoTone } from "@ant-design/icons";
@@ -7,7 +7,11 @@ import Checkbox, { CheckboxChangeEvent } from "antd/es/checkbox/Checkbox";
 import { FilterCakeType, ProductType, RawMaterialType } from "../ProductEdit";
 import { IProductSeries } from "@/services/fetchProductSeries";
 import { IRawMaterial } from "@/services/fetchRawMaterials";
-import { IProduct } from "@/services/fetchProductById";
+import {
+  IFilterCakeSimple,
+  IProduct,
+  IRawMaterialSimple,
+} from "@/services/fetchProductById";
 import { IFilterCake } from "@/services/fetchFilterCakes";
 
 export interface IProductBaseEditProps {
@@ -36,15 +40,56 @@ const ProductBaseEdit: React.FC<IProductBaseEditProps> = (props) => {
   // 滤饼启用百分比
   const [fcEnable, setFCEnable] = useState<boolean>(false);
 
+  // 原料关联
+  const [rmRelations, setRMRelations] = useState<IRawMaterialSimple[]>(
+    product?.rawMaterialSimpleList ?? []
+  );
+  // 滤饼关联
+  const [fcRelations, setFCRelations] = useState<IFilterCakeSimple[]>(
+    product?.filterCakeSimpleList ?? []
+  );
+
   // 添加原料关联
-  const handleRmAdd = () => {};
+  const handleRmAdd = () => {
+    if (selectedRawMaterial === null || rmAmount <= 0) {
+      message.warning("原料关联数据不能为空，新增失败！");
+      return;
+    }
 
-  const relations = [
-    { name: "原料1", amount: 100 },
-    { name: "原料2", amount: 150 },
-  ];
+    const relation = {
+      rawMaterialId: selectedRawMaterial?.rawMaterialId ?? 0,
+      rawMaterialName: selectedRawMaterial?.rawMaterialName ?? "",
+      inventory: rmEnable ? rmAmount / 100 : rmAmount,
+    };
+    setRMRelations([...rmRelations, relation]);
+  };
+  // 删除原料关联
+  const handleRmDel = (relation: IRawMaterialSimple) => {
+    setRMRelations(
+      rmRelations.filter((rm) => rm.rawMaterialId !== relation.rawMaterialId)
+    );
+  };
 
-  const handleClose = () => {};
+  // 添加滤饼关联
+  const handleFcAdd = () => {
+    if (selectedFilterCake === null || fcAmount <= 0) {
+      message.warning("滤饼关联数据不能为空，新增失败！");
+      return;
+    }
+
+    const relation = {
+      filterCakeId: selectedFilterCake?.filterCakeId ?? 0,
+      filterCakeName: selectedFilterCake?.filterCakeName ?? "",
+      inventory: fcEnable ? fcAmount / 100 : fcAmount,
+    };
+    setFCRelations([...fcRelations, relation]);
+  };
+  // 删除滤饼关联
+  const handleFcDel = (relation: IFilterCakeSimple) => {
+    setFCRelations(
+      fcRelations.filter((fc) => fc.filterCakeId !== relation.filterCakeId)
+    );
+  };
 
   return (
     <div className={styles.container}>
@@ -117,20 +162,47 @@ const ProductBaseEdit: React.FC<IProductBaseEditProps> = (props) => {
             }}
           />
         </div>
-        {/* TODO: 加工成本 */}
+        {/* 加工成本 */}
         <div className={styles.base}>
           <p className={styles.field}>加工成本：</p>
-          <Input className={styles.input} defaultValue={0} />
+          <Input
+            className={styles.input}
+            value={product?.productProcessingCost ?? 0}
+            onChange={(event) => {
+              setProduct({
+                ...(product ?? ({} as IProduct)),
+                productProcessingCost: event.target.value,
+              });
+            }}
+          />
         </div>
-        {/* TODO: 核算数量 */}
+        {/* 核算数量 */}
         <div className={styles.base}>
           <p className={styles.field}>核算数量：</p>
-          <Input className={styles.input} defaultValue={0} />
+          <Input
+            className={styles.input}
+            value={product?.productAccountingQuantity ?? 0}
+            onChange={(event) => {
+              setProduct({
+                ...(product ?? ({} as IProduct)),
+                productAccountingQuantity: event.target.value,
+              });
+            }}
+          />
         </div>
-        {/* TODO: 附加信息 */}
+        {/* 附加信息 */}
         <div className={styles.base}>
           <p className={styles.field}>附加信息：</p>
-          <TextArea className={styles.input} defaultValue={"请输入附加信息"} />
+          <TextArea
+            className={styles.input}
+            value={product?.productRemarks ?? ""}
+            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+              setProduct({
+                ...(product ?? ({} as IProduct)),
+                productRemarks: event.target.value,
+              });
+            }}
+          />
         </div>
       </div>
       <div className={styles.right}>
@@ -186,10 +258,12 @@ const ProductBaseEdit: React.FC<IProductBaseEditProps> = (props) => {
             </div>
           </div>
           <div className={styles.exist_relations}>
-            {relations.map((relation, index: number) => (
-              <Tag closable key={index}>
-                <span>{relation.amount}</span>
-                <span>{relation.name}</span>
+            {rmRelations.map((relation, index: number) => (
+              <Tag closable key={index} onClose={() => handleRmDel(relation)}>
+                <span>{relation.rawMaterialName}</span>
+                <span className={styles.tag_inventory}>
+                  {Number(relation.inventory).toFixed(2)}
+                </span>
               </Tag>
             ))}
           </div>
@@ -202,7 +276,7 @@ const ProductBaseEdit: React.FC<IProductBaseEditProps> = (props) => {
               type="primary"
               ghost
               icon={<PlusCircleTwoTone />}
-              onClick={handleRmAdd}
+              onClick={handleFcAdd}
             >
               新增
             </Button>
@@ -246,10 +320,12 @@ const ProductBaseEdit: React.FC<IProductBaseEditProps> = (props) => {
             </div>
           </div>
           <div className={styles.exist_relations}>
-            {relations.map((relation, index: number) => (
-              <Tag closable key={index}>
-                <span>{relation.amount}</span>
-                <span>{relation.name}</span>
+            {fcRelations.map((relation, index: number) => (
+              <Tag closable key={index} onClose={() => handleFcDel(relation)}>
+                <span>{relation.filterCakeName}</span>
+                <span className={styles.tag_inventory}>
+                  {Number(relation.inventory).toFixed(2)}
+                </span>
               </Tag>
             ))}
           </div>

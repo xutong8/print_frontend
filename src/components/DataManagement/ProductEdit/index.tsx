@@ -63,6 +63,7 @@ const ProductEdit = (
       okText="确认"
       cancelText="取消"
       width={1000}
+      destroyOnClose={true}
     >
       <ProductBaseEdit
         product={product}
