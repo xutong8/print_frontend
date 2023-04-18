@@ -1,3 +1,5 @@
 {
-  "eslint.nodeEnv": "development"
+  "eslint.nodeEnv": "development",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

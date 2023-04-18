@@ -8,6 +8,8 @@ import { unitPriceFormat } from "@/utils";
 import ProductEdit, { ProductEditRef } from "../../ProductEdit";
 import { fetchProductById } from "@/services/fetchProductById";
 import { fetchAllProductSeries } from "@/services/fetchProductSeries";
+import { fetchAllRawMaterials } from "@/services/fetchRawMaterials";
+import { fetchAllFilterCakes } from "@/services/fetchFilterCakes";
 
 export interface IRecord {
   productId: string;
@@ -100,12 +102,17 @@ const genColumns = (
         // 处理编辑逻辑
         const handleEdit = async () => {
           editModalRef.current?.setShowModal(false);
-          const [product, series] = await Promise.all([
-            fetchProductById(record.productId),
-            fetchAllProductSeries()
-          ]);
+          const [product, series, rawMaterials, filterCakes] =
+            await Promise.all([
+              fetchProductById(record.productId),
+              fetchAllProductSeries(),
+              fetchAllRawMaterials(),
+              fetchAllFilterCakes(),
+            ]);
           editModalRef.current?.setProduct(product);
           editModalRef.current?.setSeries(series);
+          editModalRef.current?.setFilterCakes(filterCakes);
+          editModalRef.current?.setRawMaterials(rawMaterials);
           editModalRef.current?.setShowModal(true);
         };
 
