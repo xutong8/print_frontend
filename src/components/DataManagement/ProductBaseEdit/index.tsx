@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Button, Input, InputNumber, Select } from "antd";
+import { Button, Input, InputNumber, Select, Tag } from "antd";
 import styles from "./index.module.less";
 import TextArea from "antd/es/input/TextArea";
 import { PlusCircleTwoTone } from "@ant-design/icons";
 import Checkbox, { CheckboxChangeEvent } from "antd/es/checkbox/Checkbox";
-import { close } from "@/assets";
 import { FilterCakeType, ProductType, RawMaterialType } from "../ProductEdit";
 import { IProductSeries } from "@/services/fetchProductSeries";
 import { IRawMaterial } from "@/services/fetchRawMaterials";
@@ -188,15 +187,10 @@ const ProductBaseEdit: React.FC<IProductBaseEditProps> = (props) => {
           </div>
           <div className={styles.exist_relations}>
             {relations.map((relation, index: number) => (
-              <div key={index} className={styles.exist_relation}>
-                <div className={styles.content}>
-                  <p>{relation.amount}</p>
-                  <p>{relation.name}</p>
-                </div>
-                <div className={styles.close}>
-                  <img src={close} alt="close icon" onClick={handleClose} />
-                </div>
-              </div>
+              <Tag closable key={index}>
+                <span>{relation.amount}</span>
+                <span>{relation.name}</span>
+              </Tag>
             ))}
           </div>
         </div>
@@ -253,15 +247,10 @@ const ProductBaseEdit: React.FC<IProductBaseEditProps> = (props) => {
           </div>
           <div className={styles.exist_relations}>
             {relations.map((relation, index: number) => (
-              <div key={index} className={styles.exist_relation}>
-                <div className={styles.content}>
-                  <p>{relation.amount}</p>
-                  <p>{relation.name}</p>
-                </div>
-                <div className={styles.close}>
-                  <img src={close} alt="close icon" onClick={handleClose} />
-                </div>
-              </div>
+              <Tag closable key={index}>
+                <span>{relation.amount}</span>
+                <span>{relation.name}</span>
+              </Tag>
             ))}
           </div>
         </div>

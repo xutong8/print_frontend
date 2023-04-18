@@ -14,7 +14,7 @@
     .text {
       display: flex;
       align-items: center;
-      
+
       .desc {
         margin-left: 6px;
         font-weight: 800;
@@ -25,18 +25,18 @@
   }
 
   .main {
+    flex: 1 0 0;
     display: flex;
+  }
 
-    .left {
-      flex: 1 0 0;
-      display: flex;
-      flex-direction: column;
-    }
+  .footer {
+    height: 100px;
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end;
 
-    .right {
-      flex: 1 0 0;
-      display: flex;
-      flex-direction: column;
+    .reset {
+      margin-left: 16px;
     }
   }
 }
