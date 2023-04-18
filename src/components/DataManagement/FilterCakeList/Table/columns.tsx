@@ -67,6 +67,7 @@ const columns: ColumnsType<IRecord> = [
     dataIndex: "",
     key: "action",
     render: (record) => {
+      
       return (
         <div className={styles.action}>
           <div className={styles.text}>删除</div>

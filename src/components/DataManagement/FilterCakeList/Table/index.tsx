@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./index.module.less";
 import CustomTable from "@/components/Table";
-import { table_header } from "@/assets";
 import { Button } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import columns, { IRecord } from './columns';
+import Header from "@/components/Header";
 
 export interface ITableProps {
   searchField: string;
@@ -18,10 +18,7 @@ const Table: React.FC<ITableProps> = (props) => {
   return (
     <div className={styles.table}>
       <div className={styles.header}>
-        <div className={styles.text}>
-          <img src={table_header} alt="table desc" />
-          <p className={styles.desc}>滤饼列表</p>
-        </div>
+        <Header desc="滤饼列表" />
         <Button type="primary" icon={<DownloadOutlined />}>下载</Button>
       </div>
       <div className={styles.main}>

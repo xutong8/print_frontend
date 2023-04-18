@@ -2,9 +2,12 @@ import { ColumnsType } from "antd/es/table";
 import styles from "./index.module.less";
 import { deleteProductById } from "@/services/deleteProductById";
 import { Popconfirm, message } from "antd";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, RefObject, SetStateAction } from "react";
 import ChangeRatio from "@/components/ChangeRatio";
 import { unitPriceFormat } from "@/utils";
+import ProductEdit, { ProductEditRef } from "../../ProductEdit";
+import { fetchProductById } from "@/services/fetchProductById";
+import { fetchAllProductSeries } from "@/services/fetchProductSeries";
 
 export interface IRecord {
   productId: string;
@@ -15,7 +18,10 @@ export interface IRecord {
   productColor: string;
 }
 
-const genColumns = (setForceUpdate: Dispatch<SetStateAction<{}>>) => {
+const genColumns = (
+  setForceUpdate: Dispatch<SetStateAction<{}>>,
+  editModalRef: RefObject<ProductEditRef>
+) => {
   const columns: ColumnsType<IRecord> = [
     {
       title: "序号",
@@ -52,10 +58,8 @@ const genColumns = (setForceUpdate: Dispatch<SetStateAction<{}>>) => {
       dataIndex: "productUnitPrice",
       key: "productUnitPrice",
       render: (value: number) => {
-        return (
-          <div>{unitPriceFormat(value)}</div>
-        )
-      }
+        return <div>{unitPriceFormat(value)}</div>;
+      },
     },
     {
       title: "近期涨幅",
@@ -63,10 +67,8 @@ const genColumns = (setForceUpdate: Dispatch<SetStateAction<{}>>) => {
       key: "productPriceIncreasePercent",
       width: 120,
       render: (value: number) => {
-        return (
-          <ChangeRatio value={value}  />
-        )
-      }
+        return <ChangeRatio value={value} />;
+      },
     },
     {
       title: "附加信息",
@@ -83,18 +85,30 @@ const genColumns = (setForceUpdate: Dispatch<SetStateAction<{}>>) => {
           try {
             await deleteProductById(record.productId);
             message.open({
-              type: 'success',
-              content: '删除成功!'
+              type: "success",
+              content: "删除成功!",
             });
             setForceUpdate({});
           } catch (err) {
             message.open({
-              type: 'error',
-              content: '删除失败!'
+              type: "error",
+              content: "删除失败!",
             });
           }
         };
-  
+
+        // 处理编辑逻辑
+        const handleEdit = async () => {
+          editModalRef.current?.setShowModal(false);
+          const [product, series] = await Promise.all([
+            fetchProductById(record.productId),
+            fetchAllProductSeries()
+          ]);
+          editModalRef.current?.setProduct(product);
+          editModalRef.current?.setSeries(series);
+          editModalRef.current?.setShowModal(true);
+        };
+
         return (
           <div className={styles.action}>
             <Popconfirm
@@ -106,8 +120,11 @@ const genColumns = (setForceUpdate: Dispatch<SetStateAction<{}>>) => {
             >
               <div className={styles.text}>删除</div>
             </Popconfirm>
-            <div className={styles.text}>编辑</div>
+            <div className={styles.text} onClick={handleEdit}>
+              编辑
+            </div>
             <div className={styles.text}>查看详细信息</div>
+            <ProductEdit ref={editModalRef} />
           </div>
         );
       },

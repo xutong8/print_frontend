@@ -6,6 +6,7 @@ import {
 } from "../constants/data-management";
 import FilterCakeList from "@/components/DataManagement/FilterCakeList";
 import RawMaterialList from "@/components/DataManagement/RawMaterialList";
+import ProductAdd from "@/components/DataManagement/ProductAdd";
 
 const dataManagement = [
   {
@@ -17,7 +18,7 @@ const dataManagement = [
   {
     title: "新增产品",
     path: "add-product",
-    element: <div>新增产品</div>,
+    element: <ProductAdd />,
     parentDir: PRODUCT_MANAGEMENT,
   },
   {
