@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styles from "./index.module.less";
 import CustomTable from "@/components/Table";
 import { Button } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
-import columns, { IRecord } from './columns';
+import genColumns, { IRecord } from "./columns";
 import Header from "@/components/Header";
+import { FilterCakeEditRef } from "../../FilterCakeEdit";
 
 export interface ITableProps {
   searchField: string;
@@ -14,21 +15,25 @@ export interface ITableProps {
 const Table: React.FC<ITableProps> = (props) => {
   const baseUrl = "/filterCake/findAllFilterCakeByCondition";
   const { searchField, searchCondition } = props;
+  const [, setForceUpdate] = useState<{}>({});
+  const editModalRef = useRef<FilterCakeEditRef>(null);
 
   return (
     <div className={styles.table}>
       <div className={styles.header}>
         <Header desc="滤饼列表" />
-        <Button type="primary" icon={<DownloadOutlined />}>下载</Button>
+        <Button type="primary" icon={<DownloadOutlined />}>
+          下载
+        </Button>
       </div>
       <div className={styles.main}>
-      <CustomTable
+        <CustomTable
           baseUrl={baseUrl}
           query={{
             conditionOfQuery: searchCondition,
-            typeOfQuery: searchField
+            typeOfQuery: searchField,
           }}
-          columns={columns}
+          columns={genColumns(setForceUpdate, editModalRef)}
           rowKey={(record: IRecord) => record.filterCakeId}
         />
       </div>
