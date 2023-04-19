@@ -6,22 +6,22 @@ import React, {
 } from "react";
 import styles from "./index.module.less";
 import { Modal } from "antd";
-import { ProductType } from "../ProductEdit";
-import ProductBaseDetail from "../ProductBaseDetail";
+import { FilterCakeType } from "../FilterCakeEdit";
+import FilterCakeBaseDetail from "../FilterCakeBaseDetail";
 
-export interface IProductDetailProps {}
+export interface IFilterCakeDetailProps {}
 
-export interface ProductDetailRef {
+export interface FilterCakeDetailRef {
   setShowModal: (showModal: boolean) => void;
-  setProduct: (product: ProductType) => void;
+  setFilterCake: (product: FilterCakeType) => void;
 }
 
-const ProductDetail = (
-  props: IProductDetailProps,
-  ref: ForwardedRef<ProductDetailRef>
+const FilterCakeDetail = (
+  props: IFilterCakeDetailProps,
+  ref: ForwardedRef<FilterCakeDetailRef>
 ) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [product, setProduct] = useState<ProductType>(null);
+  const [filterCake, setFilterCake] = useState<FilterCakeType>(null);
 
   // 点击确认
   const handleOk = () => {
@@ -35,12 +35,12 @@ const ProductDetail = (
 
   useImperativeHandle(ref, () => ({
     setShowModal,
-    setProduct,
+    setFilterCake,
   }));
 
   return (
     <Modal
-      title="产品详情"
+      title="滤饼详情"
       open={showModal}
       onOk={handleOk}
       onCancel={handleCancel}
@@ -49,9 +49,11 @@ const ProductDetail = (
       width={1000}
       destroyOnClose={true}
     >
-      <ProductBaseDetail product={product} />
+      <FilterCakeBaseDetail filterCake={filterCake} />
     </Modal>
   );
 };
 
-export default forwardRef<ProductDetailRef, IProductDetailProps>(ProductDetail);
+export default forwardRef<FilterCakeDetailRef, IFilterCakeDetailProps>(
+  FilterCakeDetail
+);

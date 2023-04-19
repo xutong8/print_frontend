@@ -9,6 +9,7 @@ import FilterCakeEdit, { FilterCakeEditRef } from "../../FilterCakeEdit";
 import { fetchFilterCakeById } from "@/services/fetchFilterCakeById";
 import { fetchAllRawMaterials } from "@/services/fetchRawMaterials";
 import { fetchAllFilterCakes } from "@/services/fetchFilterCakes";
+import FilterCakeDetail, { FilterCakeDetailRef } from "../../FilterCakeDetail";
 
 export interface IRecord {
   filterCakeId: string;
@@ -23,7 +24,8 @@ export interface IRecord {
 
 const genColumns = (
   setForceUpdate: Dispatch<SetStateAction<{}>>,
-  editModalRef: RefObject<FilterCakeEditRef>
+  editModalRef: RefObject<FilterCakeEditRef>,
+  previewModalRef: RefObject<FilterCakeDetailRef>
 ) => {
   const columns: ColumnsType<IRecord> = [
     {
@@ -79,7 +81,7 @@ const genColumns = (
       key: "action",
       render: (record: IRecord) => {
         // 处理删除逻辑
-        const handleDelFilterCake = async () => {
+        const handleDel = async () => {
           try {
             await deleteFilterCakeById(record.filterCakeId);
             message.open({
@@ -96,7 +98,7 @@ const genColumns = (
         };
 
         // 处理编辑逻辑
-        const handleEditFilterCake = async () => {
+        const handleEdit = async () => {
           editModalRef.current?.setShowModal(false);
           const [filterCake, rawMaterials, filterCakes] = await Promise.all([
             fetchFilterCakeById(record.filterCakeId),
@@ -109,16 +111,27 @@ const genColumns = (
           editModalRef.current?.setShowModal(true);
         };
 
+        // 查看详情
+        const handlePreview = async () => {
+          previewModalRef.current?.setShowModal(false);
+          const filterCake = await fetchFilterCakeById(record.filterCakeId);
+          previewModalRef.current?.setFilterCake(filterCake);
+          previewModalRef.current?.setShowModal(true);
+        };
+
         return (
           <div className={styles.action}>
-            <div className={styles.text} onClick={handleDelFilterCake}>
+            <div className={styles.text} onClick={handleDel}>
               删除
             </div>
-            <div className={styles.text} onClick={handleEditFilterCake}>
+            <div className={styles.text} onClick={handleEdit}>
               编辑
             </div>
-            <div className={styles.text}>查看详细信息</div>
+            <div className={styles.text} onClick={handlePreview}>
+              查看详细信息
+            </div>
             <FilterCakeEdit ref={editModalRef} />
+            <FilterCakeDetail ref={previewModalRef} />
           </div>
         );
       },

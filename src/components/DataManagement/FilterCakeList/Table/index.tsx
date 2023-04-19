@@ -6,6 +6,7 @@ import { DownloadOutlined } from "@ant-design/icons";
 import genColumns, { IRecord } from "./columns";
 import Header from "@/components/Header";
 import { FilterCakeEditRef } from "../../FilterCakeEdit";
+import { FilterCakeDetailRef } from "../../FilterCakeDetail";
 
 export interface ITableProps {
   searchField: string;
@@ -17,6 +18,7 @@ const Table: React.FC<ITableProps> = (props) => {
   const { searchField, searchCondition } = props;
   const [, setForceUpdate] = useState<{}>({});
   const editModalRef = useRef<FilterCakeEditRef>(null);
+  const previewModalRef = useRef<FilterCakeDetailRef>(null);
 
   return (
     <div className={styles.table}>
@@ -33,7 +35,7 @@ const Table: React.FC<ITableProps> = (props) => {
             conditionOfQuery: searchCondition,
             typeOfQuery: searchField,
           }}
-          columns={genColumns(setForceUpdate, editModalRef)}
+          columns={genColumns(setForceUpdate, editModalRef, previewModalRef)}
           rowKey={(record: IRecord) => record.filterCakeId}
         />
       </div>
