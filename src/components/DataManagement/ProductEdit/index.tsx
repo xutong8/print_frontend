@@ -3,9 +3,9 @@ import { Modal } from "antd";
 import React, { forwardRef, useState } from "react";
 import { useImperativeHandle, ForwardedRef } from "react";
 import styles from "./index.module.less";
-import { IProductSeries } from "@/services/fetchProductSeries";
-import { IRawMaterial } from "@/services/fetchRawMaterials";
-import { IFilterCake } from "@/services/fetchFilterCakes";
+import { IProductSeriesName } from "@/services/fetchProductSeries";
+import { IRawMaterialName } from "@/services/fetchRawMaterials";
+import { IFilterCakeName } from "@/services/fetchFilterCakes";
 import ProductBaseEdit from "../ProductBaseEdit";
 
 export interface IProductEditProps {}
@@ -13,14 +13,14 @@ export interface IProductEditProps {}
 export interface ProductEditRef {
   setShowModal: (showModal: boolean) => void;
   setProduct: (product: ProductType) => void;
-  setSeries: (series: IProductSeries[]) => void;
-  setRawMaterials: (rawMaterials: IRawMaterial[]) => void;
-  setFilterCakes: (filterCakes: IFilterCake[]) => void;
+  setSeries: (series: IProductSeriesName[]) => void;
+  setRawMaterials: (rawMaterials: IRawMaterialName[]) => void;
+  setFilterCakes: (filterCakes: IFilterCakeName[]) => void;
 }
 
 export type ProductType = IProduct | null;
-export type RawMaterialType = IRawMaterial | null;
-export type FilterCakeType = IFilterCake | null;
+export type RawMaterialNameType = IRawMaterialName | null;
+export type FilterCakeNameType = IFilterCakeName | null;
 
 const ProductEdit = (
   props: IProductEditProps,
@@ -29,11 +29,11 @@ const ProductEdit = (
   const [showModal, setShowModal] = useState<boolean>(false);
   const [product, setProduct] = useState<ProductType>(null);
   // 产品系列
-  const [series, setSeries] = useState<IProductSeries[]>([]);
+  const [series, setSeries] = useState<IProductSeriesName[]>([]);
   // 原料名称
-  const [rawMaterials, setRawMaterials] = useState<IRawMaterial[]>([]);
+  const [rawMaterials, setRawMaterials] = useState<IRawMaterialName[]>([]);
   // 滤饼名称
-  const [filterCakes, setFilterCakes] = useState<IFilterCake[]>([]);
+  const [filterCakes, setFilterCakes] = useState<IFilterCakeName[]>([]);
 
   // 点击确认
   const handleOk = () => {

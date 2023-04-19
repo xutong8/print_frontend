@@ -1,17 +1,17 @@
-import { httpRequest } from '@/services';
-import { AxiosResponse } from 'axios';
+import { httpRequest } from "@/services";
+import { AxiosResponse } from "axios";
 
-export interface IProductSeries {
+export interface IProductSeriesName {
   productSeriesId: number;
   productSeriesName: string;
 }
 
 const fetchAllProductSeries = async () => {
-  const res = await httpRequest.get('/productSeries/findAllProductSeriesName') as AxiosResponse<IProductSeries[]>;
-  const productSeries = (res?.data ?? []) as IProductSeries[];
+  const res = (await httpRequest.get(
+    "/productSeries/findAllProductSeriesName"
+  )) as AxiosResponse<IProductSeriesName[]>;
+  const productSeries = (res?.data ?? []) as IProductSeriesName[];
   return productSeries;
 };
 
-export {
-  fetchAllProductSeries
-};
+export { fetchAllProductSeries };

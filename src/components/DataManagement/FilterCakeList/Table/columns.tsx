@@ -7,6 +7,8 @@ import { message } from "antd";
 import { Dispatch, RefObject, SetStateAction } from "react";
 import FilterCakeEdit, { FilterCakeEditRef } from "../../FilterCakeEdit";
 import { fetchFilterCakeById } from "@/services/fetchFilterCakeById";
+import { fetchAllRawMaterials } from "@/services/fetchRawMaterials";
+import { fetchAllFilterCakes } from "@/services/fetchFilterCakes";
 
 export interface IRecord {
   filterCakeId: string;
@@ -96,7 +98,13 @@ const genColumns = (
         // 处理编辑逻辑
         const handleEditFilterCake = async () => {
           editModalRef.current?.setShowModal(false);
-          const filterCake = await fetchFilterCakeById(record.filterCakeId);
+          const [filterCake, rawMaterials, filterCakes] = await Promise.all([
+            fetchFilterCakeById(record.filterCakeId),
+            fetchAllRawMaterials(),
+            fetchAllFilterCakes(),
+          ]);
+          editModalRef.current?.setRawMaterials(rawMaterials);
+          editModalRef.current?.setFilterCakes(filterCakes);
           editModalRef.current?.setFilterCake(filterCake);
           editModalRef.current?.setShowModal(true);
         };

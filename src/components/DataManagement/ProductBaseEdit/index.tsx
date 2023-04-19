@@ -10,22 +10,26 @@ import styles from "./index.module.less";
 import TextArea from "antd/es/input/TextArea";
 import { PlusCircleTwoTone } from "@ant-design/icons";
 import Checkbox, { CheckboxChangeEvent } from "antd/es/checkbox/Checkbox";
-import { FilterCakeType, ProductType, RawMaterialType } from "../ProductEdit";
-import { IProductSeries } from "@/services/fetchProductSeries";
-import { IRawMaterial } from "@/services/fetchRawMaterials";
+import {
+  FilterCakeNameType,
+  ProductType,
+  RawMaterialNameType,
+} from "../ProductEdit";
+import { IProductSeriesName } from "@/services/fetchProductSeries";
+import { IRawMaterialName } from "@/services/fetchRawMaterials";
 import {
   IFilterCakeSimple,
   IProduct,
   IRawMaterialSimple,
 } from "@/services/fetchProductById";
-import { IFilterCake } from "@/services/fetchFilterCakes";
+import { IFilterCakeName } from "@/services/fetchFilterCakes";
 
 export interface IProductBaseEditProps {
   product: ProductType;
   setProduct: (product: ProductType) => void;
-  series: IProductSeries[];
-  rawMaterials: IRawMaterial[];
-  filterCakes: IFilterCake[];
+  series: IProductSeriesName[];
+  rawMaterials: IRawMaterialName[];
+  filterCakes: IFilterCakeName[];
 }
 
 export interface ProductBaseEditRef {
@@ -43,10 +47,10 @@ const ProductBaseEdit = (
 
   // 选中的原料
   const [selectedRawMaterial, setSelectedRawMaterial] =
-    useState<RawMaterialType>(null);
+    useState<RawMaterialNameType>(null);
   // 选中的滤饼
   const [selectedFilterCake, setSelectedFilterCake] =
-    useState<FilterCakeType>(null);
+    useState<FilterCakeNameType>(null);
   // 原料投入量
   const [rmAmount, setRMAmount] = useState<number>(0);
   // 原料启用百分比

@@ -4,14 +4,17 @@ import Header from "@/components/Header";
 import ProductBaseEdit, { ProductBaseEditRef } from "../ProductBaseEdit";
 import { ProductType } from "../ProductEdit";
 import {
-  IProductSeries,
+  IProductSeriesName,
   fetchAllProductSeries,
 } from "@/services/fetchProductSeries";
 import {
-  IRawMaterial,
+  IRawMaterialName,
   fetchAllRawMaterials,
 } from "@/services/fetchRawMaterials";
-import { IFilterCake, fetchAllFilterCakes } from "@/services/fetchFilterCakes";
+import {
+  IFilterCakeName,
+  fetchAllFilterCakes,
+} from "@/services/fetchFilterCakes";
 import { Button, message } from "antd";
 import { addProduct } from "@/services/addProduct";
 import { IProduct } from "@/services/fetchProductById";
@@ -19,11 +22,11 @@ import { IProduct } from "@/services/fetchProductById";
 const ProductAdd = () => {
   const [product, setProduct] = useState<ProductType>(null);
   // 产品系列
-  const [series, setSeries] = useState<IProductSeries[]>([]);
+  const [series, setSeries] = useState<IProductSeriesName[]>([]);
   // 原料名称
-  const [rawMaterials, setRawMaterials] = useState<IRawMaterial[]>([]);
+  const [rawMaterials, setRawMaterials] = useState<IRawMaterialName[]>([]);
   // 滤饼名称
-  const [filterCakes, setFilterCakes] = useState<IFilterCake[]>([]);
+  const [filterCakes, setFilterCakes] = useState<IFilterCakeName[]>([]);
 
   const fetchInitialData = async () => {
     const [series, rawMaterials, filterCakes] = await Promise.all([
