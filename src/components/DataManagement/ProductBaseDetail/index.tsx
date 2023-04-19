@@ -4,7 +4,8 @@ import { ProductType } from "../ProductEdit";
 import { unitPriceFormat } from "@/utils";
 import { Button, Group, RadioChangeEvent } from "antd/es/radio";
 import { Table } from "antd";
-import { IFilterCakeSimple, IRawMaterialSimple } from "@/services/fetchProductById";
+import { IFilterCakeSimple } from "@/services/fetchFilterCakeById";
+import { IRawMaterialSimple } from "@/services/fetchProductById";
 
 export interface IProductBaseDetailProps {
   product: ProductType;
@@ -67,12 +68,12 @@ const ProductBaseDetail: React.FC<IProductBaseDetailProps> = (props) => {
             <Table
               columns={fcRelationColumns}
               dataSource={product?.filterCakeSimpleList ?? []}
-              rowKey={(record) => record.filterCakeId}
+              rowKey={(record: IFilterCakeSimple) => record.filterCakeId}
             />
             <Table
               columns={rmRelationColumns}
               dataSource={product?.rawMaterialSimpleList ?? []}
-              rowKey={(record) => record.rawMaterialId}
+              rowKey={(record: IRawMaterialSimple) => record.rawMaterialId}
             />
           </div>
         );
