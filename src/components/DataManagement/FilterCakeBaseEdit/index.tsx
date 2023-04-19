@@ -45,6 +45,8 @@ export interface FilterCakeBaseEditRef {
   setRMRelations: (rmRelations: IRawMaterialSimple[]) => void;
   fcRelations: IFilterCakeSimple[];
   setFCRelations: (fcRelations: IFilterCakeSimple[]) => void;
+  hpRelations: IHistoryPriceSimple[];
+  setHPRelations: (hpRelations: IHistoryPriceSimple[]) => void;
 }
 
 export type DayType = dayjs.Dayjs | null;
@@ -156,6 +158,8 @@ const FilterCakeBaseEdit = (
     setRMRelations,
     fcRelations,
     setFCRelations,
+    hpRelations,
+    setHPRelations,
   }));
 
   return (

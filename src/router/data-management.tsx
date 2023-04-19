@@ -7,6 +7,7 @@ import {
 import FilterCakeList from "@/components/DataManagement/FilterCakeList";
 import RawMaterialList from "@/components/DataManagement/RawMaterialList";
 import ProductAdd from "@/components/DataManagement/ProductAdd";
+import FilterCakeAdd from "@/components/DataManagement/FilterCakeAdd";
 
 const dataManagement = [
   {
@@ -30,7 +31,7 @@ const dataManagement = [
   {
     title: "新增滤饼",
     path: "add-filtercake",
-    element: <div>新增滤饼</div>,
+    element: <FilterCakeAdd />,
     parentDir: FILTERCAKE_MANAGEMENT,
   },
   {
