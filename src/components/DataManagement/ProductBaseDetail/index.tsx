@@ -4,6 +4,7 @@ import { ProductType } from "../ProductEdit";
 import { unitPriceFormat } from "@/utils";
 import { Button, Group, RadioChangeEvent } from "antd/es/radio";
 import { Table } from "antd";
+import { IFilterCakeSimple, IRawMaterialSimple } from "@/services/fetchProductById";
 
 export interface IProductBaseDetailProps {
   product: ProductType;
