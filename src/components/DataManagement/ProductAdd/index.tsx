@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./index.module.less";
 import Header from "@/components/Header";
-import ProductBaseEdit from "../ProductBaseEdit";
+import ProductBaseEdit, { ProductBaseEditRef } from "../ProductBaseEdit";
 import { ProductType } from "../ProductEdit";
 import {
   IProductSeries,
@@ -12,7 +12,9 @@ import {
   fetchAllRawMaterials,
 } from "@/services/fetchRawMaterials";
 import { IFilterCake, fetchAllFilterCakes } from "@/services/fetchFilterCakes";
-import { Button } from "antd";
+import { Button, message } from "antd";
+import { addProduct } from "@/services/addProduct";
+import { IProduct } from "@/services/fetchProductById";
 
 const ProductAdd = () => {
   const [product, setProduct] = useState<ProductType>(null);
@@ -38,6 +40,32 @@ const ProductAdd = () => {
     fetchInitialData();
   }, []);
 
+  const handleConfirm = async () => {
+    if (product === null) {
+      message.warning("产品对象不能为空");
+      return;
+    }
+    try {
+      await addProduct({
+        ...{ productAccountingQuantity: 0, productProcessingCost: 0 },
+        ...(product as IProduct),
+        rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
+        filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
+      });
+      message.info("新建对象成功！");
+    } catch (err) {
+      message.error("新建对象失败！");
+    }
+  };
+
+  const baseEditRef = useRef<ProductBaseEditRef>(null);
+
+  const handleReset = () => {
+    setProduct(null);
+    baseEditRef.current?.setRMRelations(product?.rawMaterialSimpleList ?? []);
+    baseEditRef.current?.setFCRelations(product?.filterCakeSimpleList ?? []);
+  };
+
   return (
     <div className={styles.product_add}>
       <div className={styles.header}>
@@ -50,11 +78,19 @@ const ProductAdd = () => {
           series={series}
           rawMaterials={rawMaterials}
           filterCakes={filterCakes}
+          ref={baseEditRef}
         />
       </div>
       <div className={styles.footer}>
-        <Button type="primary">确认</Button>
-        <Button type="primary" danger className={styles.reset}>
+        <Button type="primary" onClick={handleConfirm}>
+          确认
+        </Button>
+        <Button
+          type="primary"
+          danger
+          className={styles.reset}
+          onClick={handleReset}
+        >
           重置
         </Button>
       </div>

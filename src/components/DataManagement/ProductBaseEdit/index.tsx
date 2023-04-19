@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useState } from "react";
+import React, {
+  ChangeEvent,
+  ForwardedRef,
+  forwardRef,
+  useImperativeHandle,
+  useState,
+} from "react";
 import { Button, Input, InputNumber, Select, Tag, message } from "antd";
 import styles from "./index.module.less";
 import TextArea from "antd/es/input/TextArea";
@@ -22,7 +28,17 @@ export interface IProductBaseEditProps {
   filterCakes: IFilterCake[];
 }
 
-const ProductBaseEdit: React.FC<IProductBaseEditProps> = (props) => {
+export interface ProductBaseEditRef {
+  rmRelations: IRawMaterialSimple[];
+  setRMRelations: (rmRelations: IRawMaterialSimple[]) => void;
+  fcRelations: IFilterCakeSimple[];
+  setFCRelations: (fcRelations: IFilterCakeSimple[]) => void;
+}
+
+const ProductBaseEdit = (
+  props: IProductBaseEditProps,
+  ref: ForwardedRef<ProductBaseEditRef>
+) => {
   const { product, setProduct, series, rawMaterials, filterCakes } = props;
 
   // 选中的原料
@@ -91,6 +107,13 @@ const ProductBaseEdit: React.FC<IProductBaseEditProps> = (props) => {
     );
   };
 
+  useImperativeHandle(ref, () => ({
+    rmRelations,
+    setRMRelations,
+    fcRelations,
+    setFCRelations,
+  }));
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
@@ -146,6 +169,12 @@ const ProductBaseEdit: React.FC<IProductBaseEditProps> = (props) => {
               value: item.productSeriesName,
               label: item.productSeriesName,
             }))}
+            onChange={(productSeriesName) => {
+              setProduct({
+                ...(product ?? ({} as IProduct)),
+                productSeriesName,
+              });
+            }}
           />
         </div>
         {/* 产品颜色 */}
@@ -335,4 +364,6 @@ const ProductBaseEdit: React.FC<IProductBaseEditProps> = (props) => {
   );
 };
 
-export default ProductBaseEdit;
+export default forwardRef<ProductBaseEditRef, IProductBaseEditProps>(
+  ProductBaseEdit
+);
