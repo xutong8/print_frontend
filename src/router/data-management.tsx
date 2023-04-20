@@ -8,6 +8,7 @@ import FilterCakeList from "@/components/DataManagement/FilterCakeList";
 import RawMaterialList from "@/components/DataManagement/RawMaterialList";
 import ProductAdd from "@/components/DataManagement/ProductAdd";
 import FilterCakeAdd from "@/components/DataManagement/FilterCakeAdd";
+import RawMaterialAdd from "@/components/DataManagement/RawMaterialAdd";
 
 const dataManagement = [
   {
@@ -43,7 +44,7 @@ const dataManagement = [
   {
     title: "新增原料",
     path: "add-rawmaterial",
-    element: <div>新增原料</div>,
+    element: <RawMaterialAdd />,
     parentDir: RAWMATERIAL_MANAGEMENT,
   },
 ];
