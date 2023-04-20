@@ -31,7 +31,7 @@ import {
 } from "@/services/fetchFilterCakeById";
 import { IRawMaterialName } from "@/services/fetchRawMaterials";
 import { IFilterCakeName } from "@/services/fetchFilterCakes";
-import dayjs from "dayjs";
+import { DayType } from "@/types";
 
 export interface IFilterCakeBaseEditProps {
   filterCake: FilterCakeType;
@@ -48,8 +48,6 @@ export interface FilterCakeBaseEditRef {
   hpRelations: IHistoryPriceSimple[];
   setHPRelations: (hpRelations: IHistoryPriceSimple[]) => void;
 }
-
-export type DayType = dayjs.Dayjs | null;
 
 const FilterCakeBaseEdit = (
   props: IFilterCakeBaseEditProps,

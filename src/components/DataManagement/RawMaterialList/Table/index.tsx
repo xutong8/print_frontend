@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styles from "./index.module.less";
 import CustomTable from "@/components/Table";
 import { Button } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
-import columns, { IRecord } from "./columns";
+import genColumns, { IRecord } from "./columns";
 import Header from "@/components/Header";
+import { RawMaterialEditRef } from "../../RawMaterialEdit";
+import { RawMaterialDetailRef } from "../../RawMaterialDetail";
 
 export interface ITableProps {
   searchField: string;
@@ -14,6 +16,9 @@ export interface ITableProps {
 const Table: React.FC<ITableProps> = (props) => {
   const baseUrl = "/rawMaterial/findAllRawMaterialByCondition";
   const { searchField, searchCondition } = props;
+  const [, setForceUpdate] = useState<{}>({});
+  const editModalRef = useRef<RawMaterialEditRef>(null);
+  const previewModalRef = useRef<RawMaterialDetailRef>(null);
 
   return (
     <div className={styles.table}>
@@ -30,7 +35,7 @@ const Table: React.FC<ITableProps> = (props) => {
             conditionOfQuery: searchCondition,
             typeOfQuery: searchField,
           }}
-          columns={columns}
+          columns={genColumns(setForceUpdate, editModalRef, previewModalRef)}
           rowKey={(record: IRecord) => record.rawMaterialId}
         />
       </div>

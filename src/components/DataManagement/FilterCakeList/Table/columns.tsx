@@ -81,7 +81,7 @@ const genColumns = (
       key: "action",
       render: (record: IRecord) => {
         // 处理删除逻辑
-        const handleDel = async () => {
+        const handleDelFilterCake = async () => {
           try {
             await deleteFilterCakeById(record.filterCakeId);
             message.open({
@@ -98,7 +98,7 @@ const genColumns = (
         };
 
         // 处理编辑逻辑
-        const handleEdit = async () => {
+        const handleEditFilterCake = async () => {
           editModalRef.current?.setShowModal(false);
           const [filterCake, rawMaterials, filterCakes] = await Promise.all([
             fetchFilterCakeById(record.filterCakeId),
@@ -112,7 +112,7 @@ const genColumns = (
         };
 
         // 查看详情
-        const handlePreview = async () => {
+        const handlePreviewFilterCake = async () => {
           previewModalRef.current?.setShowModal(false);
           const filterCake = await fetchFilterCakeById(record.filterCakeId);
           previewModalRef.current?.setFilterCake(filterCake);
@@ -121,13 +121,13 @@ const genColumns = (
 
         return (
           <div className={styles.action}>
-            <div className={styles.text} onClick={handleDel}>
+            <div className={styles.text} onClick={handleDelFilterCake}>
               删除
             </div>
-            <div className={styles.text} onClick={handleEdit}>
+            <div className={styles.text} onClick={handleEditFilterCake}>
               编辑
             </div>
-            <div className={styles.text} onClick={handlePreview}>
+            <div className={styles.text} onClick={handlePreviewFilterCake}>
               查看详细信息
             </div>
             <FilterCakeEdit ref={editModalRef} />

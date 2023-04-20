@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export type RouteType = {
   title: string;
   path: string;
@@ -5,3 +7,5 @@ export type RouteType = {
   parentDir?: string;
   children?: RouteType[];
 };
+
+export type DayType = dayjs.Dayjs | null;
