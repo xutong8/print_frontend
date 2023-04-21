@@ -9,3 +9,4 @@ declare module "*.module.less" {
 }
 
 declare module "@ant-design/icons";
+declare module 'antd/es/input/TextArea';
