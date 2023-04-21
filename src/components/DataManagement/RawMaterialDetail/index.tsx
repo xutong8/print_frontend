@@ -6,22 +6,22 @@ import React, {
 } from "react";
 import styles from "./index.module.less";
 import { Modal } from "antd";
-import { ProductType } from "../ProductEdit";
-import ProductBaseDetail from "../ProductBaseDetail";
+import { RawMaterialType } from "../RawMaterialEdit";
+import RawMaterialBaseDetail from "../RawMaterialBaseDetail";
 
-export interface IProductDetailProps {}
+export interface IRawMaterialDetailProps {}
 
-export interface ProductDetailRef {
+export interface RawMaterialDetailRef {
   setShowModal: (showModal: boolean) => void;
-  setProduct: (product: ProductType) => void;
+  setRawMaterial: (rawMaterial: RawMaterialType) => void;
 }
 
-const ProductDetail = (
-  props: IProductDetailProps,
-  ref: ForwardedRef<ProductDetailRef>
+const RawMaterialDetail = (
+  props: IRawMaterialDetailProps,
+  ref: ForwardedRef<RawMaterialDetailRef>
 ) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [product, setProduct] = useState<ProductType>(null);
+  const [rawMaterial, setRawMaterial] = useState<RawMaterialType>(null);
 
   // 点击确认
   const handleOk = () => {
@@ -35,12 +35,12 @@ const ProductDetail = (
 
   useImperativeHandle(ref, () => ({
     setShowModal,
-    setProduct,
+    setRawMaterial,
   }));
 
   return (
     <Modal
-      title="产品详情"
+      title="原料详情"
       open={showModal}
       onOk={handleOk}
       onCancel={handleCancel}
@@ -49,9 +49,11 @@ const ProductDetail = (
       width={1000}
       destroyOnClose={true}
     >
-      <ProductBaseDetail product={product} />
+      <RawMaterialBaseDetail rawMaterial={rawMaterial} />
     </Modal>
   );
 };
 
-export default forwardRef<ProductDetailRef, IProductDetailProps>(ProductDetail);
+export default forwardRef<RawMaterialDetailRef, IRawMaterialDetailProps>(
+  RawMaterialDetail
+);

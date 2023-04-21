@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import styles from "./index.module.less";
 import Search from "./Search";
-import { IFilterCake } from "@/services/fetchFilterCakes";
-import { IProductSeries } from "@/services/fetchProductSeries";
-import { IRawMaterial } from "@/services/fetchRawMaterials";
+import { IFilterCakeName } from "@/services/fetchFilterCakes";
+import { IProductSeriesName } from "@/services/fetchProductSeries";
+import { IRawMaterialName } from "@/services/fetchRawMaterials";
 import Table from "./Table";
 
-export type FilterCakeType = IFilterCake | undefined;
-export type ProductSeriesType = IProductSeries | undefined;
-export type RawMaterialType = IRawMaterial | undefined;
+export type FilterCakeType = IFilterCakeName | undefined;
+export type ProductSeriesType = IProductSeriesName | undefined;
+export type RawMaterialType = IRawMaterialName | undefined;
 
 const ProductList = () => {
   // 选中的滤饼

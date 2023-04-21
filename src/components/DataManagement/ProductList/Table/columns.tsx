@@ -102,7 +102,7 @@ const genColumns = (
         };
 
         // 处理编辑逻辑
-        const handleEdit = async () => {
+        const handleEditProduct = async () => {
           editModalRef.current?.setShowModal(false);
           const [product, series, rawMaterials, filterCakes] =
             await Promise.all([
@@ -119,7 +119,7 @@ const genColumns = (
         };
 
         // 查看详情逻辑
-        const handlePreview = async () => {
+        const handlePreviewProduct = async () => {
           previewModalRef.current?.setShowModal(false);
           const product = await fetchProductById(record.productId);
           previewModalRef.current?.setProduct(product);
@@ -137,10 +137,10 @@ const genColumns = (
             >
               <div className={styles.text}>删除</div>
             </Popconfirm>
-            <div className={styles.text} onClick={handleEdit}>
+            <div className={styles.text} onClick={handleEditProduct}>
               编辑
             </div>
-            <div className={styles.text} onClick={handlePreview}>
+            <div className={styles.text} onClick={handlePreviewProduct}>
               查看详细信息
             </div>
             <ProductEdit ref={editModalRef} />

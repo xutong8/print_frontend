@@ -7,6 +7,9 @@ import { message } from "antd";
 import { Dispatch, RefObject, SetStateAction } from "react";
 import FilterCakeEdit, { FilterCakeEditRef } from "../../FilterCakeEdit";
 import { fetchFilterCakeById } from "@/services/fetchFilterCakeById";
+import { fetchAllRawMaterials } from "@/services/fetchRawMaterials";
+import { fetchAllFilterCakes } from "@/services/fetchFilterCakes";
+import FilterCakeDetail, { FilterCakeDetailRef } from "../../FilterCakeDetail";
 
 export interface IRecord {
   filterCakeId: string;
@@ -21,7 +24,8 @@ export interface IRecord {
 
 const genColumns = (
   setForceUpdate: Dispatch<SetStateAction<{}>>,
-  editModalRef: RefObject<FilterCakeEditRef>
+  editModalRef: RefObject<FilterCakeEditRef>,
+  previewModalRef: RefObject<FilterCakeDetailRef>
 ) => {
   const columns: ColumnsType<IRecord> = [
     {
@@ -96,9 +100,23 @@ const genColumns = (
         // 处理编辑逻辑
         const handleEditFilterCake = async () => {
           editModalRef.current?.setShowModal(false);
-          const filterCake = await fetchFilterCakeById(record.filterCakeId);
+          const [filterCake, rawMaterials, filterCakes] = await Promise.all([
+            fetchFilterCakeById(record.filterCakeId),
+            fetchAllRawMaterials(),
+            fetchAllFilterCakes(),
+          ]);
+          editModalRef.current?.setRawMaterials(rawMaterials);
+          editModalRef.current?.setFilterCakes(filterCakes);
           editModalRef.current?.setFilterCake(filterCake);
           editModalRef.current?.setShowModal(true);
+        };
+
+        // 查看详情
+        const handlePreviewFilterCake = async () => {
+          previewModalRef.current?.setShowModal(false);
+          const filterCake = await fetchFilterCakeById(record.filterCakeId);
+          previewModalRef.current?.setFilterCake(filterCake);
+          previewModalRef.current?.setShowModal(true);
         };
 
         return (
@@ -109,8 +127,11 @@ const genColumns = (
             <div className={styles.text} onClick={handleEditFilterCake}>
               编辑
             </div>
-            <div className={styles.text}>查看详细信息</div>
+            <div className={styles.text} onClick={handlePreviewFilterCake}>
+              查看详细信息
+            </div>
             <FilterCakeEdit ref={editModalRef} />
+            <FilterCakeDetail ref={previewModalRef} />
           </div>
         );
       },

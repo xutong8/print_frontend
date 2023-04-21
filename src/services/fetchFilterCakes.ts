@@ -1,17 +1,17 @@
-import { httpRequest } from '@/services';
-import { AxiosResponse } from 'axios';
+import { httpRequest } from "@/services";
+import { AxiosResponse } from "axios";
 
-export interface IFilterCake {
+export interface IFilterCakeName {
   filterCakeId: number;
   filterCakeName: string;
 }
 
 const fetchAllFilterCakes = async () => {
-  const res = await httpRequest.get('/filterCake/findAllFilterCakeName') as AxiosResponse<IFilterCake[]>;
-  const filterCakes = (res?.data ?? []) as IFilterCake[];
+  const res = (await httpRequest.get(
+    "/filterCake/findAllFilterCakeName"
+  )) as AxiosResponse<IFilterCakeName[]>;
+  const filterCakes = (res?.data ?? []) as IFilterCakeName[];
   return filterCakes;
 };
 
-export {
-  fetchAllFilterCakes
-};
+export { fetchAllFilterCakes };

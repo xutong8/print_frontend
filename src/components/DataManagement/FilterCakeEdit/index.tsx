@@ -4,17 +4,21 @@ import { useImperativeHandle, ForwardedRef } from "react";
 import styles from "./index.module.less";
 import { IFilterCake } from "@/services/fetchFilterCakeById";
 import FilterCakeBaseEdit from "../FilterCakeBaseEdit";
-import { IRawMaterial } from "@/services/fetchRawMaterials";
+import { IRawMaterialName } from "@/services/fetchRawMaterials";
+import { IFilterCakeName } from "@/services/fetchFilterCakes";
 
 export interface IFilterCakeEditProps {}
 
 export interface FilterCakeEditRef {
   setShowModal: (showModal: boolean) => void;
   setFilterCake: (filterCake: FilterCakeType) => void;
+  setRawMaterials: (rawMaterials: IRawMaterialName[]) => void;
+  setFilterCakes: (filterCakes: IFilterCakeName[]) => void;
 }
 
 export type FilterCakeType = IFilterCake | null;
-export type RawMaterialType = IRawMaterial | null;
+export type FilterCakeNameType = IFilterCakeName | null;
+export type RawMaterialNameType = IRawMaterialName | null;
 
 const FilterCakeEdit = (
   props: IFilterCakeEditProps,
@@ -22,6 +26,10 @@ const FilterCakeEdit = (
 ) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [filterCake, setFilterCake] = useState<FilterCakeType>(null);
+  // 原料名称
+  const [rawMaterials, setRawMaterials] = useState<IRawMaterialName[]>([]);
+  // 滤饼名称
+  const [filterCakes, setFilterCakes] = useState<IFilterCakeName[]>([]);
 
   // 点击确认
   const handleOk = () => {
@@ -37,11 +45,13 @@ const FilterCakeEdit = (
   useImperativeHandle(ref, () => ({
     setShowModal,
     setFilterCake,
+    setRawMaterials,
+    setFilterCakes,
   }));
 
   return (
     <Modal
-      title="产品编辑"
+      title="滤饼编辑"
       open={showModal}
       onOk={handleOk}
       onCancel={handleCancel}
@@ -53,6 +63,8 @@ const FilterCakeEdit = (
       <FilterCakeBaseEdit
         filterCake={filterCake}
         setFilterCake={setFilterCake}
+        rawMaterials={rawMaterials}
+        filterCakes={filterCakes}
       />
     </Modal>
   );

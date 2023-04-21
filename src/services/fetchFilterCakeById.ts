@@ -13,6 +13,12 @@ export interface IRawMaterialSimple {
   inventory: number;
 }
 
+export interface IHistoryPriceSimple {
+  historyPriceId?: number;
+  historyPriceDate: string;
+  value: number;
+}
+
 export interface IFilterCake {
   filterCakeId: number;
   filterCakeName: string;
@@ -28,6 +34,7 @@ export interface IFilterCake {
   filterCakeAccountingQuantity: string;
   filterCakeSimpleList: IFilterCakeSimple[];
   rawMaterialSimpleList: IRawMaterialSimple[];
+  historyPriceSimpleList: IHistoryPriceSimple[];
 }
 
 const fetchFilterCakeById = async (filterCakeId: string) => {

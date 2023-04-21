@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styles from "./index.module.less";
 import { Button, TreeSelect } from "antd";
-import { IFilterCake, fetchAllFilterCakes } from "@/services/fetchFilterCakes";
 import {
-  IProductSeries,
+  IFilterCakeName,
+  fetchAllFilterCakes,
+} from "@/services/fetchFilterCakes";
+import {
+  IProductSeriesName,
   fetchAllProductSeries,
 } from "@/services/fetchProductSeries";
 import {
-  IRawMaterial,
+  IRawMaterialName,
   fetchAllRawMaterials,
 } from "@/services/fetchRawMaterials";
 import { FilterCakeType, ProductSeriesType, RawMaterialType } from "..";
@@ -33,13 +36,13 @@ const Search: React.FC<ISearchProps> = (props) => {
   } = props;
 
   // 全部的系列
-  const [allProductSeries, setAllProductSeries] = useState<IProductSeries[]>(
-    []
-  );
+  const [allProductSeries, setAllProductSeries] = useState<
+    IProductSeriesName[]
+  >([]);
   // 全部的滤饼
-  const [filterCakes, setFilterCakes] = useState<IFilterCake[]>([]);
+  const [filterCakes, setFilterCakes] = useState<IFilterCakeName[]>([]);
   // 全部的原料
-  const [rawMaterials, setRawMaterials] = useState<IRawMaterial[]>([]);
+  const [rawMaterials, setRawMaterials] = useState<IRawMaterialName[]>([]);
 
   // 缓存的选中系列
   const [tempProductSeries, setTempProductSeries] =
@@ -50,7 +53,7 @@ const Search: React.FC<ISearchProps> = (props) => {
   // 缓存的选中原料
   const [tempRawMaterial, setTempRawMaterial] =
     useState<RawMaterialType>(rawMaterial);
-    
+
   // 滤饼change事件
   const handleFilterCakeChange = (value: number) => {
     const filterCake =

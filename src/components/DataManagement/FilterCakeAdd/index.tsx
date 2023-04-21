@@ -18,23 +18,25 @@ import {
 import { Button, message } from "antd";
 import { addProduct } from "@/services/addProduct";
 import { IProduct } from "@/services/fetchProductById";
+import FilterCakeEdit, { FilterCakeEditRef } from "../FilterCakeEdit";
+import FilterCakeBaseEdit from "../FilterCakeBaseEdit";
+import { FilterCakeType } from "../FilterCakeEdit";
+import { FilterCakeBaseEditRef } from "../FilterCakeBaseEdit";
+import { addFilterCake } from "@/services/addFilterCake";
+import { IFilterCake } from "@/services/fetchFilterCakeById";
 
-const ProductAdd = () => {
-  const [product, setProduct] = useState<ProductType>(null);
-  // 产品系列
-  const [series, setSeries] = useState<IProductSeriesName[]>([]);
+const FilterCakeAdd = () => {
+  const [filterCake, setFilterCake] = useState<FilterCakeType>(null);
   // 原料名称
   const [rawMaterials, setRawMaterials] = useState<IRawMaterialName[]>([]);
   // 滤饼名称
   const [filterCakes, setFilterCakes] = useState<IFilterCakeName[]>([]);
 
   const fetchInitialData = async () => {
-    const [series, rawMaterials, filterCakes] = await Promise.all([
-      fetchAllProductSeries(),
+    const [rawMaterials, filterCakes] = await Promise.all([
       fetchAllRawMaterials(),
       fetchAllFilterCakes(),
     ]);
-    setSeries(series);
     setRawMaterials(rawMaterials);
     setFilterCakes(filterCakes);
   };
@@ -44,16 +46,17 @@ const ProductAdd = () => {
   }, []);
 
   const handleConfirm = async () => {
-    if (product === null) {
-      message.warning("产品对象不能为空");
+    if (filterCake === null) {
+      message.warning("滤饼对象不能为空");
       return;
     }
     try {
-      await addProduct({
-        ...{ productAccountingQuantity: 0, productProcessingCost: 0 },
-        ...(product as IProduct),
+      await addFilterCake({
+        ...{ filterCakeAccountingQuantity: 0, filterCakeProcessingCost: 0 },
+        ...(filterCake as IFilterCake),
         rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
+        historyPriceSimpleList: baseEditRef.current?.hpRelations ?? [],
       });
       message.info("新建对象成功！");
     } catch (err) {
@@ -61,24 +64,25 @@ const ProductAdd = () => {
     }
   };
 
-  const baseEditRef = useRef<ProductBaseEditRef>(null);
+  const baseEditRef = useRef<FilterCakeBaseEditRef>(null);
 
   const handleReset = () => {
-    setProduct(null);
-    baseEditRef.current?.setRMRelations(product?.rawMaterialSimpleList ?? []);
-    baseEditRef.current?.setFCRelations(product?.filterCakeSimpleList ?? []);
+    setFilterCake(null);
+    baseEditRef.current?.setRMRelations(
+      filterCake?.rawMaterialSimpleList ?? []
+    );
+    baseEditRef.current?.setFCRelations(filterCake?.filterCakeSimpleList ?? []);
   };
 
   return (
-    <div className={styles.product_add}>
+    <div className={styles.filtercake_add}>
       <div className={styles.header}>
-        <Header desc="新增产品项" />
+        <Header desc="新增滤饼项" />
       </div>
       <div className={styles.main}>
-        <ProductBaseEdit
-          product={product}
-          setProduct={setProduct}
-          series={series}
+        <FilterCakeBaseEdit
+          filterCake={filterCake}
+          setFilterCake={setFilterCake}
           rawMaterials={rawMaterials}
           filterCakes={filterCakes}
           ref={baseEditRef}
@@ -101,4 +105,4 @@ const ProductAdd = () => {
   );
 };
 
-export default ProductAdd;
+export default FilterCakeAdd;
