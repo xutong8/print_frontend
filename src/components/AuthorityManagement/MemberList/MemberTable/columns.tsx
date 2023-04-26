@@ -1,0 +1,78 @@
+import { deleteUserByName } from "@/services/deleteUserByName";
+import { IMemberInfo } from "@/services/fetchAllMember";
+import { Popconfirm, message } from "antd";
+import { ColumnsType } from "antd/es/table";
+import styles from "./index.module.less"
+import { Dispatch, SetStateAction } from "react";
+
+const getColumns = (setForceUpdate: Dispatch<SetStateAction<{}>>) => {
+    const columns: ColumnsType<IMemberInfo> = [
+        {
+            title: '名称',
+            dataIndex: 'userName',
+            key: 'userName',
+            render: (text) => <a>{text}</a>,
+        },
+        {
+            title: '密码',
+            dataIndex: 'password',
+            key: 'password',
+        },
+        {
+            title: '用户类型',
+            dataIndex: 'userType',
+            key: 'userType',
+        },
+        {
+            title: '权限',
+            dataIndex: 'authority',
+            key: 'authority',
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record: IMemberInfo) => {
+                // 处理删除逻辑
+                const handleDelUser = async () => {
+                    try {
+                        await deleteUserByName(record.userName);
+                        message.open({
+                            type: "success",
+                            content: "删除成功!",
+                        });
+                        setForceUpdate({});
+                    } catch (err) {
+                        message.open({
+                            type: "error",
+                            content: "删除失败!",
+                        });
+                    }
+                };
+                return (
+                    <div className={styles.action}>
+                        <Popconfirm
+                            title="删除成员"
+                            description="是否要删除该成员?"
+                            okText="是"
+                            cancelText="否"
+                            onConfirm={handleDelUser}
+                        >
+                            <div className={styles.text}>删除</div>
+                        </Popconfirm>
+                        {/* <div className={styles.text} onClick={handleEditProduct}>
+                            编辑
+                        </div>
+                        <div className={styles.text} onClick={handlePreviewProduct}>
+                            查看详细信息
+                        </div>
+                        <ProductEdit ref={editModalRef} />
+                        <ProductDetail ref={previewModalRef} /> */}
+                    </div>
+                );
+            },
+        },
+    ];
+    return columns;
+}
+
+export default getColumns;

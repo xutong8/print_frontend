@@ -4,13 +4,14 @@ import { deleteProductById } from "@/services/deleteProductById";
 import { Popconfirm, message } from "antd";
 import { Dispatch, RefObject, SetStateAction } from "react";
 import ChangeRatio from "@/components/ChangeRatio";
-import { unitPriceFormat } from "@/utils";
+import { checkPermission, unitPriceFormat } from "@/utils";
 import ProductEdit, { ProductEditRef } from "../../ProductEdit";
 import { fetchProductById } from "@/services/fetchProductById";
 import { fetchAllProductSeries } from "@/services/fetchProductSeries";
 import { fetchAllRawMaterials } from "@/services/fetchRawMaterials";
 import { fetchAllFilterCakes } from "@/services/fetchFilterCakes";
 import ProductDetail, { ProductDetailRef } from "../../ProductDetail";
+import { MANAGER } from "@/constants/data-management";
 
 export interface IRecord {
   productId: string;
@@ -86,6 +87,9 @@ const genColumns = (
       render: (record: IRecord) => {
         // 处理删除逻辑
         const handleDelProduct = async () => {
+          //判断用户权限
+          if (!checkPermission(MANAGER))
+            return;
           try {
             await deleteProductById(record.productId);
             message.open({
@@ -103,6 +107,9 @@ const genColumns = (
 
         // 处理编辑逻辑
         const handleEditProduct = async () => {
+          //判断用户权限
+          if (!checkPermission(MANAGER))
+            return;
           editModalRef.current?.setShowModal(false);
           const [product, series, rawMaterials, filterCakes] =
             await Promise.all([
