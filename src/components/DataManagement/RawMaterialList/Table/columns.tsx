@@ -1,6 +1,6 @@
 import { ColumnsType } from "antd/es/table";
 import styles from "./index.module.less";
-import { unitPriceFormat } from "@/utils";
+import { checkPermission, unitPriceFormat } from "@/utils";
 import ChangeRatio from "@/components/ChangeRatio";
 import { Dispatch, RefObject, SetStateAction } from "react";
 import { deleteRawMaterialById } from "@/services/deleteRawMaterialById";
@@ -10,6 +10,7 @@ import RawMaterialEdit, { RawMaterialEditRef } from "../../RawMaterialEdit";
 import RawMaterialDetail, {
   RawMaterialDetailRef,
 } from "../../RawMaterialDetail";
+import { MANAGER } from "@/constants/data-management";
 
 export interface IRecord {
   rawMaterialId: string;
@@ -75,6 +76,9 @@ const genColumns = (
       render: (record: IRecord) => {
         // 处理删除逻辑
         const handleDelRawMaterial = async () => {
+          //判断用户权限
+          if (!checkPermission(MANAGER))
+            return;
           try {
             await deleteRawMaterialById(record.rawMaterialId);
             message.open({
@@ -92,6 +96,9 @@ const genColumns = (
 
         // 处理编辑逻辑
         const handleEditRawMaterial = async () => {
+          //判断用户权限
+          if (!checkPermission(MANAGER))
+            return;
           editModalRef.current?.setShowModal(false);
           const rawMaterial = await fetchRawMaterialById(record.rawMaterialId);
           editModalRef.current?.setRawMaterial(rawMaterial);

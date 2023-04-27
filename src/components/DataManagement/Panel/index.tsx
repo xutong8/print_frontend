@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./index.module.less";
 import {
   PRODUCT_MANAGEMENT,
@@ -10,6 +9,8 @@ import { manage, submanage, submanage_selected } from "@/assets";
 import { NavLink, useLocation } from "react-router-dom";
 import cn from "classnames";
 import { RouteType } from "@/types";
+import { useSelector } from "react-redux";
+import { StoreState } from "@/store/type";
 
 const directorys = [
   {
@@ -29,6 +30,7 @@ const directorys = [
 const Panel = () => {
   const location = useLocation();
   const selected = (route: RouteType) => location.pathname.includes(route.path);
+  const user = useSelector(state => state) as StoreState;
 
   return (
     <div className={styles.panel}>
@@ -39,7 +41,7 @@ const Panel = () => {
             <p className={styles.manageDesc}>{directory.title}</p>
           </div>
           {routes
-            .filter((route) => route.parentDir === directory.abbr)
+            .filter((route) => route.parentDir === directory.abbr && user.authority >= route.authority)
             .map((route) => (
               <NavLink
                 key={route.title}

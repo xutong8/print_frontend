@@ -1,6 +1,6 @@
 import { ColumnsType } from "antd/es/table";
 import styles from "./index.module.less";
-import { unitPriceFormat } from "@/utils";
+import { checkPermission, unitPriceFormat } from "@/utils";
 import ChangeRatio from "@/components/ChangeRatio";
 import { deleteFilterCakeById } from "@/services/deleteFilterCakeById";
 import { message } from "antd";
@@ -10,6 +10,7 @@ import { fetchFilterCakeById } from "@/services/fetchFilterCakeById";
 import { fetchAllRawMaterials } from "@/services/fetchRawMaterials";
 import { fetchAllFilterCakes } from "@/services/fetchFilterCakes";
 import FilterCakeDetail, { FilterCakeDetailRef } from "../../FilterCakeDetail";
+import { MANAGER } from "@/constants/data-management";
 
 export interface IRecord {
   filterCakeId: string;
@@ -80,6 +81,9 @@ const genColumns = (
       dataIndex: "",
       key: "action",
       render: (record: IRecord) => {
+        //判断用户权限
+        if (!checkPermission(MANAGER))
+          return;
         // 处理删除逻辑
         const handleDelFilterCake = async () => {
           try {
@@ -99,6 +103,9 @@ const genColumns = (
 
         // 处理编辑逻辑
         const handleEditFilterCake = async () => {
+          //判断用户权限
+          if (!checkPermission(MANAGER))
+            return;
           editModalRef.current?.setShowModal(false);
           const [filterCake, rawMaterials, filterCakes] = await Promise.all([
             fetchFilterCakeById(record.filterCakeId),

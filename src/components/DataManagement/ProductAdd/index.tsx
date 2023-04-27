@@ -18,6 +18,8 @@ import {
 import { Button, message } from "antd";
 import { addProduct } from "@/services/addProduct";
 import { IProduct } from "@/services/fetchProductById";
+import { checkPermission } from "@/utils";
+import { MANAGER } from "@/constants/data-management";
 
 const ProductAdd = () => {
   const [product, setProduct] = useState<ProductType>(null);
@@ -44,6 +46,9 @@ const ProductAdd = () => {
   }, []);
 
   const handleConfirm = async () => {
+    //判断用户权限
+    if (!checkPermission(MANAGER))
+      return;
     if (product === null) {
       message.warning("产品对象不能为空");
       return;
