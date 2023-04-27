@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import styles from "./index.module.less";
-import { FilterCakeType, ProductSeriesType, RawMaterialType } from "..";
+import { FilterCakeType, ProductSeriesType, RawMaterialType, SearchType } from "..";
 import CustomTable from "@/components/Table";
 import { Button } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
@@ -13,11 +13,12 @@ export interface ITableProps {
   filterCake: FilterCakeType;
   productSeries: ProductSeriesType;
   rawMaterial: RawMaterialType;
+  searchType: SearchType;
 }
 
 const Table: React.FC<ITableProps> = (props) => {
-  const baseUrl = "/product/findAllByCondition";
-  const { filterCake, productSeries, rawMaterial } = props;
+  const { filterCake, productSeries, rawMaterial, searchType } = props;
+  const baseUrl = searchType === SearchType.INDIRECT ? "/product/findAllByDirectCondition" : "/product/findAllByRelCondition";
   const [, setForceUpdate] = useState<{}>({});
   const editModalRef = useRef<ProductEditRef>(null);
   const previewModalRef = useRef<ProductDetailRef>(null);
