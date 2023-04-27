@@ -1,7 +1,7 @@
 import { RouteType } from "@/types";
 import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
-import styles from "./index.module.less"
+import styles from "./index.module.less";
 import { StoreState } from "@/store/type";
 import { manage, submanage, submanage_selected } from "@/assets/images";
 import cn from "classnames";
@@ -10,14 +10,14 @@ import authorityManagement from "@/router/authority-management";
 const directorys = [
     {
         title: "成员管理",
-        abbr: "INFORMATION_MANAGEMENT"
-    }
+        abbr: "INFORMATION_MANAGEMENT",
+    },
 ];
 
 const Panel = () => {
     const location = useLocation();
     const selected = (route: RouteType) => location.pathname.includes(route.path);
-    const user = useSelector(state => state) as StoreState;
+    const user = useSelector((state) => state) as StoreState;
     return (
         <div className={styles.panel}>
             {directorys.map((directory) => (
