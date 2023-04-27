@@ -1,4 +1,3 @@
-import { IMemberInfo } from '@/services/fetchAllMember';
 import {
     Button,
     Form,
@@ -57,7 +56,7 @@ const RegisterForm: React.FC<IMemberEditProps> = (props: IMemberEditProps) => {
                 rules={[{ required: true, message: '请输入成员名称!', whitespace: true }]}
                 initialValue={props.userInfo.userName}
             >
-                <Input />
+                <Input defaultValue={props.userInfo.userName} />
             </Form.Item>
 
             <Form.Item
@@ -71,7 +70,7 @@ const RegisterForm: React.FC<IMemberEditProps> = (props: IMemberEditProps) => {
                 ]}
                 hasFeedback
             >
-                <Input.Password value={props.userInfo.password} />
+                <Input.Password defaultValue={props.userInfo.password} />
             </Form.Item>
 
             <Form.Item
@@ -94,7 +93,7 @@ const RegisterForm: React.FC<IMemberEditProps> = (props: IMemberEditProps) => {
                     }),
                 ]}
             >
-                <Input.Password value={props.userInfo.password} />
+                <Input.Password defaultValue={props.userInfo.password} />
             </Form.Item>
 
 

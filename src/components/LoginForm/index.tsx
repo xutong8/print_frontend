@@ -27,7 +27,7 @@ const Temp: React.FC = () => {
 
   const onFinish = async (values: any) => {
     const userLogin: IUserLogin = { userName: values.username, password: values.password };
-    const res = (await httpRequest.post("/User/Login", userLogin)) as AxiosResponse<IUserRes>;
+    const res = (await httpRequest.post("/User/login", userLogin)) as AxiosResponse<IUserRes>;
     if (res.data.status === -1) {
       message.error("用户不存在或密码错误");
       navigate("/login");
