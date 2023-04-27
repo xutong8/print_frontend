@@ -18,11 +18,6 @@ const getColumns = (
             render: (text) => <a>{text}</a>,
         },
         {
-            title: '密码',
-            dataIndex: 'password',
-            key: 'password',
-        },
-        {
             title: '用户类型',
             dataIndex: 'userType',
             key: 'userType',
@@ -36,6 +31,7 @@ const getColumns = (
             title: 'Action',
             key: 'action',
             render: (_, record: IMemberInfo) => {
+
                 // 处理删除逻辑
                 const handleDelUser = async () => {
                     try {
@@ -54,7 +50,10 @@ const getColumns = (
                 };
 
                 const handleEditMember = () => {
+                    console.log("record:", record);
                     editModalRef.current?.setShowModal(true);
+                    editModalRef.current?.setUserInfo({ ...record });
+                    editModalRef.current?.registerFormRef.current?.setShowPasswordItem(false);
                 }
                 return (
                     <div className={styles.action}>
@@ -70,7 +69,7 @@ const getColumns = (
                         <div className={styles.text} onClick={handleEditMember}>
                             编辑
                         </div>
-                        <EditMember ref={editModalRef} userInfo={record}></EditMember>
+                        <EditMember ref={editModalRef}></EditMember>
                         {/* <div className={styles.text} onClick={handlePreviewProduct}>
                             查看详细信息
                         </div>

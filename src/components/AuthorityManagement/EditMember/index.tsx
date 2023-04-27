@@ -1,14 +1,14 @@
-import { ForwardedRef, forwardRef, useImperativeHandle, useState } from 'react';
+import { ForwardedRef, forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { Modal } from 'antd';
-import RegisterForm from '../AddMember/RegisterForm';
+import RegisterForm, { RegisterFormRef } from '../AddMember/RegisterForm';
 import { IMemberInfo } from '@/services/fetchAllMember';
 
-export interface IMemberEditProps {
-    userInfo: IMemberInfo;
-};
+export interface IMemberEditProps { };
 
 export interface MemberEditRef {
     setShowModal: (showModal: boolean) => void;
+    setUserInfo: React.Dispatch<React.SetStateAction<IMemberInfo>>;
+    registerFormRef: React.RefObject<RegisterFormRef>;
 }
 
 const EditMember = (
@@ -16,7 +16,12 @@ const EditMember = (
     ref: ForwardedRef<MemberEditRef>
 ) => {
     const [showModal, setShowModal] = useState(false);
-
+    const [userInfo, setUserInfo] = useState<IMemberInfo>({
+        userName: "",
+        userType: "",
+        password: "",
+        authority: 0,
+    })
     const handleOk = () => {
         setShowModal(false);
     };
@@ -26,16 +31,21 @@ const EditMember = (
     };
 
     useImperativeHandle(ref, () => ({
-        setShowModal
+        setShowModal,
+        setUserInfo,
+        registerFormRef
     }))
 
+    const registerFormRef = useRef<RegisterFormRef>(null)
+
+    console.log("EditMember:", userInfo);
     return (
         <>
             <Modal title="成员信息编辑" open={showModal} onOk={handleOk} onCancel={handleCancel} width={720}>
-                <RegisterForm userInfo={props.userInfo}></RegisterForm>
+                <RegisterForm userInfo={userInfo} ref={registerFormRef}></RegisterForm>
             </Modal>
         </>
     );
 };
 
-export default forwardRef<MemberEditRef, IMemberEditProps>(EditMember);
+export default forwardRef<MemberEditRef>(EditMember);

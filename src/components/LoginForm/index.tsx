@@ -90,10 +90,6 @@ const Temp: React.FC = () => {
 const LoginForm: React.FC = () => {
   const [open, setOpen] = useState(true);
 
-  const showDrawer = () => {
-    setOpen(true);
-  };
-
   const onClose = () => {
     setOpen(false);
   };
