@@ -13,7 +13,7 @@ import {
   IRawMaterialName,
   fetchAllRawMaterials,
 } from "@/services/fetchRawMaterials";
-import { FilterCakeType, ProductSeriesType, RawMaterialType } from "..";
+import { FilterCakeType, ProductSeriesType, RawMaterialType, SearchType } from "..";
 import { SearchOutlined, ReloadOutlined } from "@ant-design/icons";
 
 export interface ISearchProps {
@@ -23,6 +23,8 @@ export interface ISearchProps {
   setProductSeries: (productSeries: ProductSeriesType) => void;
   rawMaterial: RawMaterialType;
   setRawMaterial: (rawMaterial: RawMaterialType) => void;
+  searchType: SearchType
+  setSearchType: (searchType: SearchType) => void;
 }
 
 const Search: React.FC<ISearchProps> = (props) => {
@@ -33,7 +35,14 @@ const Search: React.FC<ISearchProps> = (props) => {
     rawMaterial,
     setProductSeries,
     setRawMaterial,
+    searchType,
+    setSearchType
   } = props;
+
+  const searchTypes = [
+    { value: SearchType.INDIRECT, title: '直接查询' },
+    { value: SearchType.RELATION, title: '关联查询' }
+  ];
 
   // 全部的系列
   const [allProductSeries, setAllProductSeries] = useState<
@@ -44,6 +53,8 @@ const Search: React.FC<ISearchProps> = (props) => {
   // 全部的原料
   const [rawMaterials, setRawMaterials] = useState<IRawMaterialName[]>([]);
 
+  // 缓存的选中搜索方式
+  const [tempSearchType, setTempSearchType] = useState<SearchType>(searchType);
   // 缓存的选中系列
   const [tempProductSeries, setTempProductSeries] =
     useState<ProductSeriesType>(productSeries);
@@ -53,6 +64,11 @@ const Search: React.FC<ISearchProps> = (props) => {
   // 缓存的选中原料
   const [tempRawMaterial, setTempRawMaterial] =
     useState<RawMaterialType>(rawMaterial);
+
+  // 搜索方式change事件
+  const handleSearchTypeChange = (value: SearchType) => {
+    setTempSearchType(value);
+  };
 
   // 滤饼change事件
   const handleFilterCakeChange = (value: number) => {
@@ -114,15 +130,18 @@ const Search: React.FC<ISearchProps> = (props) => {
     setFilterCake(void 0);
     setTempFilterCake(void 0);
     setProductSeries(void 0);
+    setSearchType(SearchType.INDIRECT);
     setTempProductSeries(void 0);
     setRawMaterial(void 0);
     setTempRawMaterial(void 0);
+    setTempSearchType(SearchType.INDIRECT);
   };
 
   const handleSearch = () => {
     setFilterCake(tempFilterCake);
     setProductSeries(tempProductSeries);
     setRawMaterial(tempRawMaterial);
+    setSearchType(tempSearchType);
   };
 
   useEffect(() => {
@@ -132,6 +151,17 @@ const Search: React.FC<ISearchProps> = (props) => {
   return (
     <div className={styles.search}>
       <div className={styles.left}>
+        <div className={styles.base}>
+          <p>搜索方式：</p>
+          <TreeSelect
+            value={tempSearchType}
+            allowClear
+            treeDefaultExpandAll
+            treeData={searchTypes}
+            className={styles.select}
+            onChange={handleSearchTypeChange}
+          />
+        </div>
         <div className={styles.base}>
           <p>系列名称：</p>
           <TreeSelect

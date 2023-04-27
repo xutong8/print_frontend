@@ -33,7 +33,7 @@ const Temp: React.FC = () => {
       navigate("/login");
       return;
     }
-    console.log(res);
+
     dispatch({
       type: ADDUSER,
       user: { userName: res.data.userName, authority: res.data.authority },
