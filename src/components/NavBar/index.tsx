@@ -21,7 +21,7 @@ const NavBar = () => {
       </div>
       <div className={styles.links}>
         {routes
-          .filter((route) => store.authority <= route.authority)
+          .filter((route) => store.authority >= route.authority)
           .map((route) => (
             <NavLink
               key={route.title}

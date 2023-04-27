@@ -41,7 +41,7 @@ const Panel = () => {
             <p className={styles.manageDesc}>{directory.title}</p>
           </div>
           {routes
-            .filter((route) => route.parentDir === directory.abbr && user.authority <= route.authority)
+            .filter((route) => route.parentDir === directory.abbr && user.authority >= route.authority)
             .map((route) => (
               <NavLink
                 key={route.title}

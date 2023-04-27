@@ -4,7 +4,7 @@ import { AxiosResponse } from "axios";
 export interface IMemberInfo {
     userName: string;
     password: string;
-    userType: number;
+    userType: string;
     authority: number;
 };
 

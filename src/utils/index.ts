@@ -6,7 +6,7 @@ export function unitPriceFormat(price: number) {
 }
 
 export function checkPermission(authority: number) {
-  if(store.getState().authority > authority){
+  if(store.getState().authority < authority){
     message.error("您没有权限进行此操作");
     return false;
   }

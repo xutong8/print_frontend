@@ -3,9 +3,13 @@ import { IMemberInfo } from "@/services/fetchAllMember";
 import { Popconfirm, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 import styles from "./index.module.less"
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, RefObject, SetStateAction } from "react";
+import EditMember, { MemberEditRef } from "../../EditMember";
 
-const getColumns = (setForceUpdate: Dispatch<SetStateAction<{}>>) => {
+const getColumns = (
+    setForceUpdate: Dispatch<SetStateAction<{}>>,
+    editModalRef: RefObject<MemberEditRef>,
+) => {
     const columns: ColumnsType<IMemberInfo> = [
         {
             title: '名称',
@@ -48,6 +52,10 @@ const getColumns = (setForceUpdate: Dispatch<SetStateAction<{}>>) => {
                         });
                     }
                 };
+
+                const handleEditMember = () => {
+                    editModalRef.current?.setShowModal(true);
+                }
                 return (
                     <div className={styles.action}>
                         <Popconfirm
@@ -59,10 +67,11 @@ const getColumns = (setForceUpdate: Dispatch<SetStateAction<{}>>) => {
                         >
                             <div className={styles.text}>删除</div>
                         </Popconfirm>
-                        {/* <div className={styles.text} onClick={handleEditProduct}>
+                        <div className={styles.text} onClick={handleEditMember}>
                             编辑
                         </div>
-                        <div className={styles.text} onClick={handlePreviewProduct}>
+                        <EditMember ref={editModalRef} userInfo={record}></EditMember>
+                        {/* <div className={styles.text} onClick={handlePreviewProduct}>
                             查看详细信息
                         </div>
                         <ProductEdit ref={editModalRef} />

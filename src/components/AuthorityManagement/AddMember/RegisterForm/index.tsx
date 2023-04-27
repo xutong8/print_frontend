@@ -1,9 +1,11 @@
+import { IMemberInfo } from '@/services/fetchAllMember';
 import {
     Button,
     Form,
     Input,
     Select,
 } from 'antd';
+import { IMemberEditProps } from '../../EditMember';
 
 const { Option } = Select;
 
@@ -31,7 +33,8 @@ const tailFormItemLayout = {
     },
 };
 
-const RegisterForm: React.FC = () => {
+
+const RegisterForm: React.FC<IMemberEditProps> = (props: IMemberEditProps) => {
     const [form] = Form.useForm();
 
     const onFinish = (values: any) => {
@@ -52,6 +55,7 @@ const RegisterForm: React.FC = () => {
                 label="名称"
                 // tooltip="What do you want others to call you?"
                 rules={[{ required: true, message: '请输入成员名称!', whitespace: true }]}
+                initialValue={props.userInfo.userName}
             >
                 <Input />
             </Form.Item>
@@ -67,7 +71,7 @@ const RegisterForm: React.FC = () => {
                 ]}
                 hasFeedback
             >
-                <Input.Password />
+                <Input.Password value={props.userInfo.password} />
             </Form.Item>
 
             <Form.Item
@@ -90,7 +94,7 @@ const RegisterForm: React.FC = () => {
                     }),
                 ]}
             >
-                <Input.Password />
+                <Input.Password value={props.userInfo.password} />
             </Form.Item>
 
 
@@ -99,9 +103,9 @@ const RegisterForm: React.FC = () => {
                 label="成员类型"
                 rules={[{ required: true, message: '请选择成员类型!' }]}
             >
-                <Select placeholder="选择成员类型">
-                    <Option value="0">拥有者</Option>
-                    <Option value="1">管理员</Option>
+                <Select placeholder="选择成员类型" defaultValue={`${props.userInfo.userType}`}>
+                    <Option value="owner">拥有者</Option>
+                    <Option value="administrator">管理员</Option>
                     <Option value="2">成员</Option>
                 </Select>
             </Form.Item>
@@ -111,7 +115,7 @@ const RegisterForm: React.FC = () => {
                 label="权限"
                 rules={[{ required: true, message: '请选择成员权限!' }]}
             >
-                <Select placeholder="选择成员权限">
+                <Select placeholder="选择成员权限" defaultValue={`${props.userInfo.authority}`}>
                     <Option value="1">只读</Option>
                     <Option value="3">读写</Option>
                     <Option value="7">拥有者权限</Option>
