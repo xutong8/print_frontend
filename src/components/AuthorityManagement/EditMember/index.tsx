@@ -7,22 +7,20 @@ export interface IMemberEditProps { };
 
 export interface MemberEditRef {
     setShowModal: (showModal: boolean) => void;
-    setUserInfo: React.Dispatch<React.SetStateAction<IMemberInfo>>;
+    setUserInfo: React.Dispatch<React.SetStateAction<IMemberInfoType>>;
     registerFormRef: React.RefObject<RegisterFormRef>;
 }
+
+export type IMemberInfoType = IMemberInfo | null;
 
 const EditMember = (
     props: IMemberEditProps,
     ref: ForwardedRef<MemberEditRef>
 ) => {
     const [showModal, setShowModal] = useState(false);
-    const [userInfo, setUserInfo] = useState<IMemberInfo>({
-        userName: "",
-        userType: "",
-        password: "",
-        authority: 0,
-    })
+    const [userInfo, setUserInfo] = useState<IMemberInfoType>(null)
     const handleOk = () => {
+        // registerFormRef.current?.onFinish()
         setShowModal(false);
     };
 

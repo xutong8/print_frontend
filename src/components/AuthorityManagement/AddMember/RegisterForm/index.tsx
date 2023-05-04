@@ -3,12 +3,17 @@ import {
     Form,
     Input,
     Select,
+    message,
 } from 'antd';
-import { IMemberEditProps } from '../../EditMember';
+import { IMemberEditProps, IMemberInfoType } from '../../EditMember';
 import { ForwardedRef, RefObject, forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { stat } from 'fs';
 import React from 'react';
 import { IMemberInfo } from '@/services/fetchAllMember';
+import { finished } from 'stream';
+import store from '@/store';
+import { updateMemberInfo } from '@/services/updateMemberInfo';
+import styles from './index.module.less'
 
 const { Option } = Select;
 
@@ -39,19 +44,27 @@ const tailFormItemLayout = {
 const checkShowPassword = (state: Boolean) => {
     if (state) {
         return (
-            <><Form.Item
-                name="password"
-                label="密码"
-                rules={[
-                    {
-                        required: true,
-                        message: '请输入密码!',
-                    },
-                ]}
-                hasFeedback
+            <Form
+                {...formItemLayout}
+                name="register"
+                initialValues={{ residence: ['zhejiang', 'hangzhou', 'xihu'], prefix: '86' }}
+                style={{ maxWidth: 600 }}
+                scrollToFirstError
             >
-                <Input.Password />
-            </Form.Item>
+                <Form.Item
+                    name="password"
+                    label="密码"
+                    rules={[
+                        {
+                            required: true,
+                            message: '请输入密码!',
+                        },
+                    ]}
+                    hasFeedback
+                    style={{ marginLeft: -170 }}
+                >
+                    <Input.Password style={{ width: 400 }} />
+                </Form.Item>
 
                 <Form.Item
                     name="confirmPassword"
@@ -66,28 +79,90 @@ const checkShowPassword = (state: Boolean) => {
                         ({ getFieldValue }) => ({
                             validator(_, value) {
                                 if (!value || getFieldValue('password') === value) {
+                                    // password = value;
                                     return Promise.resolve();
                                 }
                                 return Promise.reject(new Error('两次输入密码不相同!'));
                             },
                         }),
                     ]}
+                    style={{ marginLeft: -170 }}
                 >
-                    <Input.Password />
-                </Form.Item></>
+                    <Input.Password style={{ width: 400 }} />
+                </Form.Item>
+            </Form >
         )
     }
     return <></>
 }
 
+export interface ISubmitInfo {
+    applicant: string | undefined;
+    userModified: string | undefined;
+    userAuthority: number | undefined | UserType;
+    userType: string | undefined;
+}
+
+const handleSubmit = async (userInfo: ISubmitInfo) => {
+    console.log("ISubmitInfo: ", userInfo);
+    try {
+        await updateMemberInfo(userInfo);
+        message.info("修改成功！");
+    } catch (err) {
+        message.error("修改失败！");
+    }
+
+}
+
 export interface RegisterFormRef {
     setShowPasswordItem: (state: boolean) => void;
     setForceUpdate: React.Dispatch<React.SetStateAction<{}>>;
+    onFinish: (values: any) => void;
 }
 
 interface IRegisterForm {
-    userInfo: IMemberInfo;
+    userInfo: IMemberInfoType;
 }
+
+// ----------------------------------------------------------------------------
+const userTypeData = ['拥有者', '管理员', '成员'];
+
+const authorityData = {
+    拥有者: ['只读', '读写', '可编辑权限'],
+    管理员: ['只读', '读写', '可编辑权限'],
+    成员: ['只读', '读写']
+};
+
+const authorityMapping = {
+    1: '只读',
+    3: '读写',
+    7: '可编辑权限'
+}
+
+const authorityReverseMapping = {
+    只读: 1,
+    读写: 3,
+    可编辑权限: 7
+}
+
+const userTypeMapping = {
+    owner: '拥有者',
+    administrator: '管理员',
+    user: '成员'
+}
+
+const userTypeReverseMapping = {
+    拥有者: 'owner',
+    管理员: 'administrator',
+    成员: 'user'
+}
+
+type UserType = keyof typeof authorityData;
+type AuthMapType = keyof typeof authorityMapping;
+type UserTypeMapType = keyof typeof userTypeMapping;
+type AuthRevMapType = keyof typeof authorityReverseMapping;
+type UserTypeRevMapType = keyof typeof userTypeReverseMapping;
+// ------------------------------------------------------------------------------
 
 const RegisterForm = (
     props: IRegisterForm,
@@ -99,66 +174,87 @@ const RegisterForm = (
 
     const onFinish = (values: any) => {
         console.log('Received values of form: ', values);
+
     };
 
     useImperativeHandle(ref, () => ({
         setShowPasswordItem,
-        setForceUpdate
+        setForceUpdate,
+        onFinish,
     }))
 
     console.log("RegisterForm", props.userInfo);
+
+
+    // -------------------------------------------------------------
+    const [authorities, setAuthorities] = useState(authorityData[userTypeData[0] as UserType]);
+    const [secondAuthority, setSecondeAuthority] = useState(authorityData[userTypeData[0] as UserType][0]);
+    const [userType, setUserType] = useState<string>('成员');
+    const [submitInfo, setSubmitInfo] = useState<ISubmitInfo>({
+        applicant: store.getState().userName,
+        userModified: props.userInfo?.userName,
+        userAuthority: props.userInfo?.authority,
+        userType: props.userInfo?.userType
+    });
+
+    const handleUserTypeChange = (value: UserType) => {
+        setAuthorities(authorityData[value]);
+        setSecondeAuthority(authorityData[value][0]);
+        setUserType(value);
+        setSubmitInfo({ ...submitInfo, userType: userTypeReverseMapping[value] });
+        console.log("submitInfo in second: ", submitInfo);
+    };
+
+    const onsecondAuthorityChange = (value: UserType) => {
+        setSecondeAuthority(value);
+        console.log("second: ", value);
+        setSubmitInfo({ ...submitInfo, userAuthority: authorityReverseMapping[value as AuthRevMapType] });
+    };
+
+    useEffect(() => {
+        setAuthorities(authorityData[userType as UserType]);
+        setSecondeAuthority(authorityMapping[props.userInfo?.authority as AuthMapType]);
+        if (props.userInfo)
+            setUserType(userTypeMapping[props.userInfo?.userType as UserTypeMapType]);
+    }, [props])
+
+    console.log('userinfo: ', props.userInfo);
+    console.log('usertype: ', userType)
+    // --------------------------------------------------------------
+
     return (
-        <Form
-            {...formItemLayout}
-            form={form}
-            name="register"
-            onFinish={onFinish}
-            style={{ maxWidth: 600, marginTop: "50px", marginLeft: "20px" }}
-            scrollToFirstError
-        >
-            <Form.Item
-                name="userName"
-                label="名称"
-                // tooltip="What do you want others to call you?"
-                rules={[{ required: true, message: '请输入成员名称!', whitespace: true }]}
-            >
-                <Input
-                    value={props.userInfo.userName}
+        <div className={styles.register_form}>
+            <div className={styles.item}>
+                <span>名称：</span>
+                <Input value={props.userInfo?.userName} style={{ width: 400, marginRight: 115 }} />
+            </div>
+
+            <div className={styles.item}>
+                <span>类型：</span>
+                <Select
+                    value={userType as "拥有者" | "管理员" | "成员" | null | undefined}
+                    style={{ width: 400, marginRight: 115 }}
+                    onChange={handleUserTypeChange}
+                    options={userTypeData.map((province) => ({ label: province, value: province }))}
                 />
-            </Form.Item>
-
-            <Form.Item
-                name="userType"
-                label="成员类型"
-                rules={[{ required: true, message: '请选择成员类型!' }]}
-            >
-                <Select placeholder="选择成员类型" value={`${props.userInfo.userType}`}>
-                    <Option value="owner">拥有者</Option>
-                    <Option value="administrator">管理员</Option>
-                    <Option value="2">成员</Option>
-                </Select>
-            </Form.Item>
-
-            <Form.Item
-                name="authority"
-                label="权限"
-                rules={[{ required: true, message: '请选择成员权限!' }]}
-            >
-                <Select placeholder="选择成员权限" value={`${props.userInfo.authority}`}>
-                    <Option value="1">只读</Option>
-                    <Option value="3">读写</Option>
-                    <Option value="7">拥有者权限</Option>
-                </Select>
-            </Form.Item>
-
+            </div>
+            <div className={styles.item} style={{ marginBlock: 20 }}>
+                <span>权限：</span>
+                <Select
+                    style={{ width: 400, marginRight: 115 }}
+                    value={secondAuthority as "拥有者" | "管理员" | "成员" | null | undefined}
+                    onChange={onsecondAuthorityChange}
+                    options={authorities.map((city) => ({ label: city, value: city }))}
+                />
+            </div>
             {checkShowPassword(showPasswordItem)}
-
-            <Form.Item {...tailFormItemLayout}>
-                <Button type="primary" onClick={() => showPasswordItem ? setShowPasswordItem(false) : setShowPasswordItem(true)}>
-                    密码选项
-                </Button>
-            </Form.Item>
-        </Form>
+            <a onClick={() => showPasswordItem ? setShowPasswordItem(false) : setShowPasswordItem(true)} style={{ marginLeft: 50 }}>
+                显示密码选项
+            </a>
+            <Button type="primary" style={{ display: 'block', width: 80, margin: '20px 0 0 50px' }} onClick={() => handleSubmit(submitInfo)}>
+                提 交
+            </Button>
+        </div >
     );
 };
 

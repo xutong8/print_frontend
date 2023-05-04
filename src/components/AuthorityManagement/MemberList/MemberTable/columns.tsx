@@ -51,9 +51,9 @@ const getColumns = (
 
                 const handleEditMember = () => {
                     console.log("record:", record);
-                    editModalRef.current?.setShowModal(true);
                     editModalRef.current?.setUserInfo({ ...record });
                     editModalRef.current?.registerFormRef.current?.setShowPasswordItem(false);
+                    editModalRef.current?.setShowModal(true);
                 }
                 return (
                     <div className={styles.action}>
