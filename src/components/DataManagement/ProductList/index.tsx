@@ -24,6 +24,10 @@ const ProductList = () => {
   const [productSeries, setProductSeries] = useState<ProductSeriesType>();
   // 选中的原料
   const [rawMaterial, setRawMaterial] = useState<RawMaterialType>();
+  // 选中的字段
+  const [searchField, setSearchField] = useState<string>("");
+  // 填写的条件
+  const [searchCondition, setSearchCondition] = useState<string>("");
 
   return (
     <div className={styles.product_list}>
@@ -36,12 +40,18 @@ const ProductList = () => {
         setRawMaterial={setRawMaterial}
         searchType={searchType}
         setSearchType={setSearchType}
+        searchField={searchField}
+        setSearchField={setSearchField}
+        searchCondition={searchCondition}
+        setSearchCondition={setSearchCondition}
       />
       <Table
         filterCake={filterCake}
         productSeries={productSeries}
         rawMaterial={rawMaterial}
         searchType={searchType}
+        searchField={searchField}
+        searchCondition={searchCondition}
       />
     </div>
   );
