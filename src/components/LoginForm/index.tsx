@@ -58,7 +58,7 @@ const Temp: React.FC = () => {
       className={styles.loginform}
     >
       <Form.Item
-        label="Username"
+        label="用户"
         name="username"
         rules={[{ required: true, message: 'Please input your username!' }]}
       >
@@ -66,7 +66,7 @@ const Temp: React.FC = () => {
       </Form.Item>
 
       <Form.Item
-        label="Password"
+        label="密码"
         name="password"
         rules={[{ required: true, message: 'Please input your password!' }]}
       >
@@ -74,12 +74,12 @@ const Temp: React.FC = () => {
       </Form.Item>
 
       <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-        <Checkbox>Remember me</Checkbox>
+        <Checkbox>记住我</Checkbox>
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
-          Submit
+          登 录
         </Button>
       </Form.Item>
     </Form>

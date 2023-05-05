@@ -69,12 +69,7 @@ const getColumns = (
                         <div className={styles.text} onClick={handleEditMember}>
                             编辑
                         </div>
-                        <EditMember ref={editModalRef}></EditMember>
-                        {/* <div className={styles.text} onClick={handlePreviewProduct}>
-                            查看详细信息
-                        </div>
-                        <ProductEdit ref={editModalRef} />
-                        <ProductDetail ref={previewModalRef} /> */}
+                        <EditMember ref={editModalRef} setForceUpdate={setForceUpdate}></EditMember>
                     </div>
                 );
             },

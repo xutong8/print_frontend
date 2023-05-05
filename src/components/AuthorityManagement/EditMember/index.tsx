@@ -1,9 +1,11 @@
-import { ForwardedRef, forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import { Dispatch, ForwardedRef, SetStateAction, forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { Modal } from 'antd';
 import RegisterForm, { RegisterFormRef } from '../AddMember/RegisterForm';
 import { IMemberInfo } from '@/services/fetchAllMember';
 
-export interface IMemberEditProps { };
+export interface IMemberEditProps {
+    setForceUpdate: Dispatch<SetStateAction<{}>>
+};
 
 export interface MemberEditRef {
     setShowModal: (showModal: boolean) => void;
@@ -36,14 +38,13 @@ const EditMember = (
 
     const registerFormRef = useRef<RegisterFormRef>(null)
 
-    console.log("EditMember:", userInfo);
     return (
         <>
             <Modal title="成员信息编辑" open={showModal} onOk={handleOk} onCancel={handleCancel} width={720}>
-                <RegisterForm userInfo={userInfo} ref={registerFormRef}></RegisterForm>
+                <RegisterForm userInfo={userInfo} setForceUpdate={props.setForceUpdate} onOk={handleOk} ref={registerFormRef}></RegisterForm>
             </Modal>
         </>
     );
 };
 
-export default forwardRef<MemberEditRef>(EditMember);
+export default forwardRef<MemberEditRef, IMemberEditProps>(EditMember);

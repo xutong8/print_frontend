@@ -6,14 +6,12 @@ import {
     message,
 } from 'antd';
 import { IMemberEditProps, IMemberInfoType } from '../../EditMember';
-import { ForwardedRef, RefObject, forwardRef, useEffect, useImperativeHandle, useState } from 'react';
-import { stat } from 'fs';
+import { Dispatch, ForwardedRef, RefObject, SetStateAction, forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import React from 'react';
-import { IMemberInfo } from '@/services/fetchAllMember';
-import { finished } from 'stream';
 import store from '@/store';
 import { updateMemberInfo } from '@/services/updateMemberInfo';
 import styles from './index.module.less'
+import { updatePassword } from '@/services/updatePassword';
 
 const { Option } = Select;
 
@@ -41,7 +39,7 @@ const tailFormItemLayout = {
     },
 };
 
-const checkShowPassword = (state: Boolean) => {
+const checkShowPassword = (state: Boolean, setPassword: React.Dispatch<React.SetStateAction<string>>) => {
     if (state) {
         return (
             <Form
@@ -79,7 +77,7 @@ const checkShowPassword = (state: Boolean) => {
                         ({ getFieldValue }) => ({
                             validator(_, value) {
                                 if (!value || getFieldValue('password') === value) {
-                                    // password = value;
+                                    setPassword(value);
                                     return Promise.resolve();
                                 }
                                 return Promise.reject(new Error('两次输入密码不相同!'));
@@ -103,6 +101,12 @@ export interface ISubmitInfo {
     userType: string | undefined;
 }
 
+export interface IUpdatePassword {
+    applicant: string | undefined;
+    userModified: string | undefined;
+    password: string | undefined;
+}
+
 const handleSubmit = async (userInfo: ISubmitInfo) => {
     console.log("ISubmitInfo: ", userInfo);
     try {
@@ -111,7 +115,6 @@ const handleSubmit = async (userInfo: ISubmitInfo) => {
     } catch (err) {
         message.error("修改失败！");
     }
-
 }
 
 export interface RegisterFormRef {
@@ -122,6 +125,8 @@ export interface RegisterFormRef {
 
 interface IRegisterForm {
     userInfo: IMemberInfoType;
+    setForceUpdate: Dispatch<SetStateAction<{}>>;
+    onOk: () => void;
 }
 
 // ----------------------------------------------------------------------------
@@ -168,7 +173,6 @@ const RegisterForm = (
     props: IRegisterForm,
     ref: ForwardedRef<RegisterFormRef>
 ) => {
-    const [form] = Form.useForm();
     const [showPasswordItem, setShowPasswordItem] = useState<Boolean>(false);
     const [forceUpdata, setForceUpdate] = useState<{}>({});
 
@@ -183,9 +187,6 @@ const RegisterForm = (
         onFinish,
     }))
 
-    console.log("RegisterForm", props.userInfo);
-
-
     // -------------------------------------------------------------
     const [authorities, setAuthorities] = useState(authorityData[userTypeData[0] as UserType]);
     const [secondAuthority, setSecondeAuthority] = useState(authorityData[userTypeData[0] as UserType][0]);
@@ -196,30 +197,36 @@ const RegisterForm = (
         userAuthority: props.userInfo?.authority,
         userType: props.userInfo?.userType
     });
+    const [password, setPassword] = useState<string>('');
 
     const handleUserTypeChange = (value: UserType) => {
         setAuthorities(authorityData[value]);
         setSecondeAuthority(authorityData[value][0]);
         setUserType(value);
-        setSubmitInfo({ ...submitInfo, userType: userTypeReverseMapping[value] });
-        console.log("submitInfo in second: ", submitInfo);
+        setSubmitInfo({
+            ...submitInfo,
+            userType: userTypeReverseMapping[value],
+            userAuthority: authorityReverseMapping[authorityData[value][0] as AuthRevMapType]
+        });
     };
 
     const onsecondAuthorityChange = (value: UserType) => {
         setSecondeAuthority(value);
-        console.log("second: ", value);
         setSubmitInfo({ ...submitInfo, userAuthority: authorityReverseMapping[value as AuthRevMapType] });
     };
 
     useEffect(() => {
         setAuthorities(authorityData[userType as UserType]);
         setSecondeAuthority(authorityMapping[props.userInfo?.authority as AuthMapType]);
+        setSubmitInfo({
+            applicant: store.getState().userName,
+            userModified: props.userInfo?.userName,
+            userAuthority: props.userInfo?.authority,
+            userType: props.userInfo?.userType
+        })
         if (props.userInfo)
             setUserType(userTypeMapping[props.userInfo?.userType as UserTypeMapType]);
     }, [props])
-
-    console.log('userinfo: ', props.userInfo);
-    console.log('usertype: ', userType)
     // --------------------------------------------------------------
 
     return (
@@ -247,11 +254,21 @@ const RegisterForm = (
                     options={authorities.map((city) => ({ label: city, value: city }))}
                 />
             </div>
-            {checkShowPassword(showPasswordItem)}
-            <a onClick={() => showPasswordItem ? setShowPasswordItem(false) : setShowPasswordItem(true)} style={{ marginLeft: 50 }}>
+            {checkShowPassword(showPasswordItem, setPassword)}
+            <a onClick={() => showPasswordItem ? setShowPasswordItem(false) : setShowPasswordItem(true)} style={{ marginLeft: 50, width: 90 }}>
                 显示密码选项
             </a>
-            <Button type="primary" style={{ display: 'block', width: 80, margin: '20px 0 0 50px' }} onClick={() => handleSubmit(submitInfo)}>
+            <Button type="primary" style={{ display: 'block', width: 80, margin: '20px 0 0 50px' }} onClick={async () => {
+                await handleSubmit(submitInfo);
+                if (password)
+                    updatePassword({
+                        applicant: store.getState().userName,
+                        userModified: props.userInfo?.userName,
+                        password: password
+                    })
+                props.onOk();
+                props.setForceUpdate({});
+            }}>
                 提 交
             </Button>
         </div >

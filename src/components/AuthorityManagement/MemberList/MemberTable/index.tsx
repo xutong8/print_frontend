@@ -18,7 +18,6 @@ const MemberTable = (props: IMemberTableProps) => {
     useEffect(() => {
         fetchApiData();
     }, [data.length, forceUpdate]);
-    console.log(data);
     return (
         <div className={styles.member_list}>
             <Table columns={columns} dataSource={data} />
