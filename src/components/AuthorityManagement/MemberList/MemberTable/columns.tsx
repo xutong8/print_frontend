@@ -5,6 +5,7 @@ import { ColumnsType } from "antd/es/table";
 import styles from "./index.module.less"
 import { Dispatch, RefObject, SetStateAction } from "react";
 import EditMember, { MemberEditRef } from "../../EditMember";
+import { authorityMapping, userTypeMapping, UserTypeMapType, AuthMapType } from "../../AddMember/RegisterForm";
 
 const getColumns = (
     setForceUpdate: Dispatch<SetStateAction<{}>>,
@@ -21,11 +22,13 @@ const getColumns = (
             title: '用户类型',
             dataIndex: 'userType',
             key: 'userType',
+            render: (text) => <span>{userTypeMapping[text as UserTypeMapType]}</span>
         },
         {
             title: '权限',
             dataIndex: 'authority',
             key: 'authority',
+            render: (text) => <span>{authorityMapping[text as AuthMapType]}</span>
         },
         {
             title: 'Action',

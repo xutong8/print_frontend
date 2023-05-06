@@ -21,7 +21,7 @@ interface IUserRes {
 }
 
 //只需要在这个函数中写提交用户登录信息，并设置用户信息
-const Temp: React.FC = () => {
+const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ const Temp: React.FC = () => {
       navigate("/login");
       return;
     }
-
+    console.log("res: ", res.data);
     dispatch({
       type: ADDUSER,
       user: { userName: res.data.userName, authority: res.data.authority },
@@ -44,6 +44,10 @@ const Temp: React.FC = () => {
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
+
+  const handleRegister = () => {
+    navigate("/register");
+  }
 
   return (
     <Form
@@ -74,7 +78,7 @@ const Temp: React.FC = () => {
       </Form.Item>
 
       <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-        <Checkbox>记住我</Checkbox>
+        <a onClick={handleRegister}>没有账号？立即注册！</a>
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -87,7 +91,7 @@ const Temp: React.FC = () => {
 }
 
 
-const LoginForm: React.FC = () => {
+const Login: React.FC = () => {
   const [open, setOpen] = useState(true);
 
   const onClose = () => {
@@ -97,11 +101,11 @@ const LoginForm: React.FC = () => {
   return (
     <>
       <Drawer title="登录" placement="right" onClose={onClose} open={open} width={720}>
-        <Temp></Temp>
+        <LoginForm></LoginForm>
       </Drawer>
     </>
   );
 };
 
 
-export default LoginForm;
+export default Login;

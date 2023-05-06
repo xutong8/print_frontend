@@ -138,7 +138,7 @@ const authorityData = {
     成员: ['只读', '读写']
 };
 
-const authorityMapping = {
+export const authorityMapping = {
     1: '只读',
     3: '读写',
     7: '可编辑权限'
@@ -150,7 +150,7 @@ const authorityReverseMapping = {
     可编辑权限: 7
 }
 
-const userTypeMapping = {
+export const userTypeMapping = {
     owner: '拥有者',
     administrator: '管理员',
     user: '成员'
@@ -163,8 +163,8 @@ const userTypeReverseMapping = {
 }
 
 type UserType = keyof typeof authorityData;
-type AuthMapType = keyof typeof authorityMapping;
-type UserTypeMapType = keyof typeof userTypeMapping;
+export type AuthMapType = keyof typeof authorityMapping;
+export type UserTypeMapType = keyof typeof userTypeMapping;
 type AuthRevMapType = keyof typeof authorityReverseMapping;
 type UserTypeRevMapType = keyof typeof userTypeReverseMapping;
 // ------------------------------------------------------------------------------
