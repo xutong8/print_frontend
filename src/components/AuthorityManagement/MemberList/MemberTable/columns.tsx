@@ -31,7 +31,7 @@ const getColumns = (
             render: (text) => <span>{authorityMapping[text as AuthMapType]}</span>
         },
         {
-            title: 'Action',
+            title: '操作',
             key: 'action',
             render: (_, record: IMemberInfo) => {
 

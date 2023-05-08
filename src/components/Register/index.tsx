@@ -64,8 +64,7 @@ const RegisterForm: React.FC = () => {
         } catch (err) {
             message.error("注册失败！");
         }
-
-        // navigate("/login");
+        navigate("/login");
     };
 
     return (
