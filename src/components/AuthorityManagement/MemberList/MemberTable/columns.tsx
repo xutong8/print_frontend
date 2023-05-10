@@ -32,6 +32,7 @@ const getColumns = (
         },
         {
             title: '操作',
+            dataIndex: '',
             key: 'action',
             render: (_, record: IMemberInfo) => {
 

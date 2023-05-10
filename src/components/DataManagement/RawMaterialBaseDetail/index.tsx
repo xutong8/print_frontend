@@ -3,6 +3,7 @@ import styles from "./index.module.less";
 import { unitPriceFormat } from "@/utils";
 import { Button, Group, RadioChangeEvent } from "antd/es/radio";
 import { RawMaterialType } from "../RawMaterialEdit";
+import HistoryBasePrice from "@/components/Echarts/HistoryBasePrice";
 
 export interface IRawMaterialBaseDetailProps {
   rawMaterial: RawMaterialType;
@@ -22,7 +23,10 @@ const RawMaterialBaseDetail: React.FC<IRawMaterialBaseDetailProps> = (
 
   const renderOption = (option: string) => {
     // TODO: 添加历史价格逻辑
-    return null;
+    return <HistoryBasePrice
+      datax={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+      dataSeries={[150, 230, 224, 218, 135, 147, 260]}
+    ></HistoryBasePrice>
   };
 
   return (

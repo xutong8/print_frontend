@@ -14,7 +14,7 @@ export interface IRawMaterialSimple {
 }
 
 export interface IProduct {
-  productId: string;
+  productId: number;
   productName: string;
   productIndex: string;
   productCode: string;
@@ -24,8 +24,8 @@ export interface IProduct {
   productSeriesName: string;
   productFactoryName: string;
   productRemarks: string;
-  productProcessingCost: string;
-  productAccountingQuantity: string;
+  productProcessingCost: number;
+  productAccountingQuantity: number;
   filterCakeSimpleList: IFilterCakeSimple[];
   rawMaterialSimpleList: IRawMaterialSimple[];
 }

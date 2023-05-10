@@ -163,6 +163,34 @@ const ProductBaseEdit = (
             }}
           />
         </div>
+        {/* 产品ID */}
+        <div className={styles.base}>
+          <p className={styles.field}>产品标识：</p>
+          <Input
+            className={styles.input}
+            value={product?.productId ?? 0}
+            onChange={(event) => {
+              setProduct({
+                ...(product ?? ({} as IProduct)),
+                productId: Number(event.target.value),
+              });
+            }}
+          />
+        </div>
+        {/* 生产工厂 */}
+        <div className={styles.base}>
+          <p className={styles.field}>生产工厂：</p>
+          <Input
+            className={styles.input}
+            value={product?.productFactoryName ?? ""}
+            onChange={(event) => {
+              setProduct({
+                ...(product ?? ({} as IProduct)),
+                productFactoryName: event.target.value,
+              });
+            }}
+          />
+        </div>
         {/* 产品系列 */}
         <div className={styles.base}>
           <p className={styles.field}>产品系列：</p>
@@ -204,7 +232,7 @@ const ProductBaseEdit = (
             onChange={(event) => {
               setProduct({
                 ...(product ?? ({} as IProduct)),
-                productProcessingCost: event.target.value,
+                productProcessingCost: Number(event.target.value),
               });
             }}
           />
@@ -218,7 +246,35 @@ const ProductBaseEdit = (
             onChange={(event) => {
               setProduct({
                 ...(product ?? ({} as IProduct)),
-                productAccountingQuantity: event.target.value,
+                productAccountingQuantity: Number(event.target.value),
+              });
+            }}
+          />
+        </div>
+        {/* 产品单价 */}
+        <div className={styles.base}>
+          <p className={styles.field}>产品单价：</p>
+          <Input
+            className={styles.input}
+            value={product?.productUnitPrice ?? 0}
+            onChange={(event) => {
+              setProduct({
+                ...(product ?? ({} as IProduct)),
+                productUnitPrice: Number(event.target.value),
+              });
+            }}
+          />
+        </div>
+        {/* 产品涨幅 */}
+        <div className={styles.base}>
+          <p className={styles.field}>产品涨幅：</p>
+          <Input
+            className={styles.input}
+            value={product?.productPriceIncreasePercent ?? 0}
+            onChange={(event) => {
+              setProduct({
+                ...(product ?? ({} as IProduct)),
+                productPriceIncreasePercent: Number(event.target.value),
               });
             }}
           />

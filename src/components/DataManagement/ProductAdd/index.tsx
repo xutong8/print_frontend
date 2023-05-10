@@ -54,6 +54,12 @@ const ProductAdd = () => {
       return;
     }
     try {
+      console.log("addProduct: ", {
+        ...{ productAccountingQuantity: 0, productProcessingCost: 0 },
+        ...(product as IProduct),
+        rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
+        filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
+      })
       await addProduct({
         ...{ productAccountingQuantity: 0, productProcessingCost: 0 },
         ...(product as IProduct),

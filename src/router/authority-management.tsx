@@ -8,6 +8,7 @@ const authorityManagement = [
         title: "成员列表",
         path: "member-list",
         element: <MemberList></MemberList>,
+        Element: <div></div>,
         authority: OWNER,
     },
     {

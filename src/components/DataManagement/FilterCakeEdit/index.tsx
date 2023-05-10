@@ -1,13 +1,14 @@
-import { Modal } from "antd";
-import React, { forwardRef, useState } from "react";
+import { Modal, message } from "antd";
+import React, { forwardRef, useRef, useState } from "react";
 import { useImperativeHandle, ForwardedRef } from "react";
 import styles from "./index.module.less";
 import { IFilterCake } from "@/services/fetchFilterCakeById";
-import FilterCakeBaseEdit from "../FilterCakeBaseEdit";
+import FilterCakeBaseEdit, { FilterCakeBaseEditRef } from "../FilterCakeBaseEdit";
 import { IRawMaterialName } from "@/services/fetchRawMaterials";
 import { IFilterCakeName } from "@/services/fetchFilterCakes";
+import { updateFilterCake } from "@/services/updateFilterCake";
 
-export interface IFilterCakeEditProps {}
+export interface IFilterCakeEditProps { }
 
 export interface FilterCakeEditRef {
   setShowModal: (showModal: boolean) => void;
@@ -31,10 +32,27 @@ const FilterCakeEdit = (
   // 滤饼名称
   const [filterCakes, setFilterCakes] = useState<IFilterCakeName[]>([]);
 
+  const baseEditRef = useRef<FilterCakeBaseEditRef>(null);
   // 点击确认
-  const handleOk = () => {
+  const handleOk = async () => {
     setShowModal(false);
     // TODO：添加修改产品的逻辑
+    if (filterCake === null) {
+      message.warning("滤饼对象不能为空");
+      return;
+    }
+    try {
+      await updateFilterCake({
+        ...{ filterCakeAccountingQuantity: 0, filterCakeProcessingCost: 0 },
+        ...(filterCake as IFilterCake),
+        rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
+        filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
+        historyPriceSimpleList: baseEditRef.current?.hpRelations ?? [],
+      });
+      message.info("新建对象成功！");
+    } catch (err) {
+      message.error("新建对象失败！");
+    }
   };
 
   // 点击取消
@@ -65,6 +83,7 @@ const FilterCakeEdit = (
         setFilterCake={setFilterCake}
         rawMaterials={rawMaterials}
         filterCakes={filterCakes}
+        ref={baseEditRef}
       />
     </Modal>
   );

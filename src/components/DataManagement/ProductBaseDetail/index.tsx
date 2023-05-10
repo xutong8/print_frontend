@@ -6,6 +6,7 @@ import { Button, Group, RadioChangeEvent } from "antd/es/radio";
 import { Table } from "antd";
 import { IFilterCakeSimple } from "@/services/fetchFilterCakeById";
 import { IRawMaterialSimple } from "@/services/fetchProductById";
+import HistoryBasePrice from "@/components/Echarts/HistoryBasePrice";
 
 export interface IProductBaseDetailProps {
   product: ProductType;
@@ -80,7 +81,11 @@ const ProductBaseDetail: React.FC<IProductBaseDetailProps> = (props) => {
       }
       case HISTORY_PRICE: {
         // TODO: 添加历史价格逻辑
-        return null;
+        return <HistoryBasePrice
+          datax={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+          dataSeries={[150, 230, 224, 218, 135, 147, 260]}
+        ></HistoryBasePrice>
+        // return null;
       }
       default: {
       }

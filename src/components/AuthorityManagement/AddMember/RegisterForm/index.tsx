@@ -268,6 +268,7 @@ const RegisterForm = (
                     })
                 props.onOk();
                 props.setForceUpdate({});
+                console.log("11111111111");
             }}>
                 提 交
             </Button>
