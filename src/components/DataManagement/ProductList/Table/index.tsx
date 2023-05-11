@@ -8,11 +8,12 @@ import {
 } from "..";
 import CustomTable from "@/components/Table";
 import { Button } from "antd";
-import { DownloadOutlined } from "@ant-design/icons";
+import { DownloadOutlined, UploadOutlined } from "@ant-design/icons";
 import genColumns, { IRecord } from "./columns";
 import { ProductEditRef } from "../../ProductEdit";
 import Header from "@/components/Header";
 import { ProductDetailRef } from "../../ProductDetail";
+import Uploader, { UploaderRef } from "../Uploader";
 
 export interface ITableProps {
   filterCake: FilterCakeType;
@@ -52,13 +53,25 @@ const Table: React.FC<ITableProps> = (props) => {
         rawMaterialName: rawMaterial?.rawMaterialName ?? void 0,
       };
 
+  const uploaderRef = useRef<UploaderRef>(null);
+
+  const handleUpload = () => {
+    uploaderRef.current?.showModal();
+  }
+
   return (
     <div className={styles.table}>
       <div className={styles.header}>
         <Header desc="产品列表" />
-        <Button type="primary" icon={<DownloadOutlined />}>
-          下载
-        </Button>
+        <div className={styles.right}>
+          <Button type="primary" icon={<UploadOutlined />} className={styles.upload} onClick={handleUpload}>
+            上传
+          </Button>
+          <Uploader ref={uploaderRef}></Uploader>
+          <Button type="primary" icon={<DownloadOutlined />} className={styles.download}>
+            下载
+          </Button>
+        </div>
       </div>
       <div className={styles.main}>
         <CustomTable

@@ -113,6 +113,7 @@ const genColumns = (
             fetchAllRawMaterials(),
             fetchAllFilterCakes(),
           ]);
+          console.log("filterCake: ", filterCake);
           editModalRef.current?.setRawMaterials(rawMaterials);
           editModalRef.current?.setFilterCakes(filterCakes);
           editModalRef.current?.setFilterCake(filterCake);

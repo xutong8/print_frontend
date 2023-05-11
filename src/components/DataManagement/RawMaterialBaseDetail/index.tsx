@@ -4,6 +4,7 @@ import { unitPriceFormat } from "@/utils";
 import { Button, Group, RadioChangeEvent } from "antd/es/radio";
 import { RawMaterialType } from "../RawMaterialEdit";
 import HistoryBasePrice from "@/components/Echarts/HistoryBasePrice";
+import { IHistoryPriceSimple } from "@/services/fetchRawMaterialById";
 
 export interface IRawMaterialBaseDetailProps {
   rawMaterial: RawMaterialType;
@@ -23,9 +24,14 @@ const RawMaterialBaseDetail: React.FC<IRawMaterialBaseDetailProps> = (
 
   const renderOption = (option: string) => {
     // TODO: 添加历史价格逻辑
+    console.log("rawM history price: ", rawMaterial?.rawMaterialHistoryPrice.map((item: IHistoryPriceSimple) => {
+      return item.date;
+    }));
+    const datax = rawMaterial?.rawMaterialHistoryPrice.map((item: IHistoryPriceSimple) => item.date);
+    const dataSeries = rawMaterial?.rawMaterialHistoryPrice.map((item: IHistoryPriceSimple) => item.price);
     return <HistoryBasePrice
-      datax={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-      dataSeries={[150, 230, 224, 218, 135, 147, 260]}
+      datax={datax as string[]}
+      dataSeries={dataSeries as number[]}
     ></HistoryBasePrice>
   };
 

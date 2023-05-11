@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactNode, SetStateAction, useState } from "react";
 import styles from "./index.module.less";
 import { FilterCakeType } from "../FilterCakeEdit";
 import { unitPriceFormat } from "@/utils";
@@ -7,6 +7,8 @@ import { Table } from "antd";
 import { IFilterCakeSimple } from "@/services/fetchFilterCakeById";
 import { IRawMaterialSimple } from "@/services/fetchProductById";
 import HistoryBasePrice from "@/components/Echarts/HistoryBasePrice";
+import { fetchFCakeHistoryPriceById } from "@/services/fetchFCakeHistoryPrice";
+import { IHistoryPriceSimple } from "@/services/fetchRawMaterialById";
 
 export interface IFilterCakeBaseDetailProps {
   filterCake: FilterCakeType;
@@ -60,6 +62,21 @@ const FilterCakeBaseDetail: React.FC<IFilterCakeBaseDetailProps> = (props) => {
   const options = [RELATION_DETAIL, HISTORY_PRICE];
   // 选中的选项
   const [selectedOption, setSelectedOption] = useState<string>(RELATION_DETAIL);
+  const [historyPriceList, setHistoryPriceList] = useState<IHistoryPriceSimple[]>([]);
+
+  const handleGroupChange = async (event: RadioChangeEvent) => {
+    setSelectedOption(event.target.value);
+    if (event.target.value === HISTORY_PRICE) {
+      const res = await fetchFCakeHistoryPriceById({
+        //TO DO 这里后续有真实数据之后要用选定的ID
+        // filterCakeId: filterCake?.filterCakeId as number,
+        filterCakeId: 1002,
+        months: 12,
+      }) as IHistoryPriceSimple[];
+      setHistoryPriceList(res.reverse());
+    }
+  }
+
 
   const renderOption = (option: string) => {
     switch (option) {
@@ -81,9 +98,15 @@ const FilterCakeBaseDetail: React.FC<IFilterCakeBaseDetailProps> = (props) => {
       }
       case HISTORY_PRICE: {
         // TODO: 添加历史价格逻辑
+        console.log("FC id: ", filterCake?.filterCakeId);
+        console.log("history price: ", historyPriceList);
+        const datax = historyPriceList.map((item) => item.date);
+        const dataSeries = historyPriceList.map((item) => item.price);
         return <HistoryBasePrice
-          datax={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-          dataSeries={[150, 230, 224, 218, 135, 147, 260]}
+          // datax={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+          // dataSeries={[150, 230, 224, 218, 135, 147, 260]}
+          datax={datax}
+          dataSeries={dataSeries}
         ></HistoryBasePrice>
       }
       default: {
@@ -133,9 +156,7 @@ const FilterCakeBaseDetail: React.FC<IFilterCakeBaseDetailProps> = (props) => {
         <div className={styles.options}>
           <Group
             value={selectedOption}
-            onChange={(event: RadioChangeEvent) =>
-              setSelectedOption(event.target.value)
-            }
+            onChange={handleGroupChange}
           >
             {options.map((option) => (
               <Button value={option} key={option}>

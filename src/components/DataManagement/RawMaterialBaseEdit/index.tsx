@@ -41,7 +41,7 @@ const RawMaterialBaseEdit = (
 
   // TODO: 历史价格
   const [hpRelations, setHPRelations] = useState<IHistoryPriceSimple[]>(
-    rawMaterial?.historyPriceSimpleList ?? []
+    rawMaterial?.rawMaterialHistoryPrice ?? []
   );
 
   // 添加历史价格
@@ -52,14 +52,14 @@ const RawMaterialBaseEdit = (
     }
 
     const relation = {
-      historyPriceDate: currentDate.format(dateFormat),
-      value: currentPrice,
+      date: currentDate.format(dateFormat),
+      price: currentPrice,
     };
     setHPRelations([...hpRelations, relation]);
   };
 
   // 删除历史价格
-  const handleHpDel = (relation: IHistoryPriceSimple) => {};
+  const handleHpDel = (relation: IHistoryPriceSimple) => { };
 
   useImperativeHandle(ref, () => ({
     hpRelations,
@@ -174,9 +174,9 @@ const RawMaterialBaseEdit = (
           <div className={styles.exist_relations}>
             {hpRelations.map((relation, index: number) => (
               <Tag closable key={index} onClose={() => handleHpDel(relation)}>
-                <span>{relation.historyPriceDate}</span>
+                <span>{relation.date}</span>
                 <span className={styles.tag_inventory}>
-                  {Number(relation.value).toFixed(2)}
+                  {Number(relation.price).toFixed(2)}
                 </span>
               </Tag>
             ))}

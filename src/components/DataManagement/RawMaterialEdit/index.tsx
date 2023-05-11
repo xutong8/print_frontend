@@ -35,7 +35,7 @@ const RawMaterialEdit = (
     try {
       await updateRawMaterial({
         ...(rawMaterial as IRawMaterial),
-        historyPriceSimpleList: baseEditRef.current?.hpRelations ?? [],
+        rawMaterialHistoryPrice: baseEditRef.current?.hpRelations ?? [],
       });
       message.info("新建对象成功！");
     } catch (err) {

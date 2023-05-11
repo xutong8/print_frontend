@@ -3,8 +3,8 @@ import { AxiosResponse } from "axios";
 
 export interface IHistoryPriceSimple {
   historyPriceId?: number;
-  historyPriceDate: string;
-  value: number;
+  date: string;
+  price: number;
 }
 
 export interface IRawMaterial {
@@ -15,7 +15,7 @@ export interface IRawMaterial {
   rawMaterialIncreasePercent: number;
   rawMaterialConventional: string;
   rawMaterialSpecification: string;
-  historyPriceSimpleList: IHistoryPriceSimple[];
+  rawMaterialHistoryPrice: IHistoryPriceSimple[];
 }
 
 const fetchRawMaterialById = async (rawMaterialId: string) => {

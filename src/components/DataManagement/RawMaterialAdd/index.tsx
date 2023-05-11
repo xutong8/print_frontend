@@ -20,7 +20,7 @@ const RawMaterialAdd = () => {
     try {
       await addRawMaterial({
         ...(rawMaterial as IRawMaterial),
-        historyPriceSimpleList: baseEditRef.current?.hpRelations ?? [],
+        rawMaterialHistoryPrice: baseEditRef.current?.hpRelations ?? [],
       });
       message.info("新建对象成功！");
     } catch (err) {
@@ -33,7 +33,7 @@ const RawMaterialAdd = () => {
   const handleReset = () => {
     setRawMaterial(null);
     baseEditRef.current?.setHPRelations(
-      rawMaterial?.historyPriceSimpleList ?? []
+      rawMaterial?.rawMaterialHistoryPrice ?? []
     );
   };
 

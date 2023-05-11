@@ -7,6 +7,8 @@ import { Table } from "antd";
 import { IFilterCakeSimple } from "@/services/fetchFilterCakeById";
 import { IRawMaterialSimple } from "@/services/fetchProductById";
 import HistoryBasePrice from "@/components/Echarts/HistoryBasePrice";
+import { fetchProductHistoryPriceById } from "@/services/fetchProductHistoryPrice";
+import { IHistoryPriceSimple } from "@/services/fetchRawMaterialById";
 
 export interface IProductBaseDetailProps {
   product: ProductType;
@@ -60,6 +62,17 @@ const ProductBaseDetail: React.FC<IProductBaseDetailProps> = (props) => {
   const options = [RELATION_DETAIL, HISTORY_PRICE];
   // 选中的选项
   const [selectedOption, setSelectedOption] = useState<string>(RELATION_DETAIL);
+  const [historyPriceList, setHistoryPriceList] = useState<IHistoryPriceSimple[]>([]);
+
+  const handleGroupChange = async (event: RadioChangeEvent) => {
+    setSelectedOption(event.target.value);
+    const res = await fetchProductHistoryPriceById({
+      productId: 1012,
+      months: 12
+    })
+    setHistoryPriceList(res.reverse());
+  }
+
 
   const renderOption = (option: string) => {
     switch (option) {
@@ -81,9 +94,13 @@ const ProductBaseDetail: React.FC<IProductBaseDetailProps> = (props) => {
       }
       case HISTORY_PRICE: {
         // TODO: 添加历史价格逻辑
+        const datax = historyPriceList.map((item) => item.date);
+        const dataSeries = historyPriceList.map((item) => item.price);
         return <HistoryBasePrice
-          datax={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-          dataSeries={[150, 230, 224, 218, 135, 147, 260]}
+          // datax={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+          // dataSeries={[150, 230, 224, 218, 135, 147, 260]}
+          datax={datax}
+          dataSeries={dataSeries}
         ></HistoryBasePrice>
         // return null;
       }
@@ -141,9 +158,7 @@ const ProductBaseDetail: React.FC<IProductBaseDetailProps> = (props) => {
         <div className={styles.options}>
           <Group
             value={selectedOption}
-            onChange={(event: RadioChangeEvent) =>
-              setSelectedOption(event.target.value)
-            }
+            onChange={handleGroupChange}
           >
             {options.map((option) => (
               <Button value={option} key={option}>

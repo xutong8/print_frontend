@@ -149,7 +149,7 @@ const FilterCakeBaseEdit = (
   };
 
   // 删除历史价格
-  const handleHpDel = (relation: IHistoryPriceSimple) => {};
+  const handleHpDel = (relation: IHistoryPriceSimple) => { };
 
   useImperativeHandle(ref, () => ({
     rmRelations,

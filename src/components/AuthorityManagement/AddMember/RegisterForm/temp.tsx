@@ -52,18 +52,55 @@
 
 // export default CoSelect;
 
-import type { DatePickerProps } from 'antd';
-import { DatePicker, Space } from 'antd';
+// import type { DatePickerProps } from 'antd';
+// import { DatePicker, Space } from 'antd';
+// import React from 'react';
+
+// const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+//     console.log(date, dateString);
+// };
+
+// const Temp: React.FC = () => (
+//     <Space direction="vertical">
+//         <DatePicker onChange={onChange} />
+//     </Space>
+// );
+
+// export default Temp;
+
 import React from 'react';
+import { UploadOutlined } from '@ant-design/icons';
+import type { UploadProps } from 'antd';
+import { Button, message, Upload } from 'antd';
 
-const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-    console.log(date, dateString);
-};
+interface IUpload {
+    text: string;
+    url: string;
+}
 
-const Temp: React.FC = () => (
-    <Space direction="vertical">
-        <DatePicker onChange={onChange} />
-    </Space>
-);
+const Temp: React.FC<IUpload> = (props) => {
+    const uploadProps: UploadProps = {
+        name: 'file',
+        action: props.url,
+        headers: {
+            authorization: 'authorization-text',
+        },
+        onChange(info) {
+            if (info.file.status !== 'uploading') {
+                console.log(info.file, info.fileList);
+            }
+            if (info.file.status === 'done') {
+                message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
+    };
+    return (
+        <Upload {...uploadProps}>
+            <Button icon={<UploadOutlined />}>{props.text}</Button>
+        </Upload>
+    );
+}
 
 export default Temp;
