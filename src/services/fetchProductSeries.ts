@@ -2,8 +2,8 @@ import { httpRequest } from "@/services";
 import { AxiosResponse } from "axios";
 
 export interface IProductSeriesName {
-  productSeriesId: number;
-  productSeriesName: string;
+  id: number;
+  name: string;
 }
 
 const fetchAllProductSeries = async () => {

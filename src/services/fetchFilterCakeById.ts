@@ -28,14 +28,15 @@ export interface IFilterCake {
   filterCakeColor: string;
   filterCakeUnitPrice: number;
   filterCakePriceIncreasePercent: number;
-  filterCakeSeriesName: string;
-  filterCakeFactoryName: string;
+  // filterCakeSeriesName: string;
+  // filterCakeFactoryName: string;
+  filterCakeSpecification:string;
   filterCakeRemarks: string;
-  filterCakeProcessingCost: string;
-  filterCakeAccountingQuantity: string;
+  filterCakeProcessingCost: number;
+  filterCakeAccountingQuantity: number;
   filterCakeSimpleList: IFilterCakeSimple[];
   rawMaterialSimpleList: IRawMaterialSimple[];
-  historyPriceSimpleList: IHistoryPriceSimple[];
+  // historyPriceSimpleList: IHistoryPriceSimple[];
 }
 
 const fetchFilterCakeById = async (filterCakeId: string) => {

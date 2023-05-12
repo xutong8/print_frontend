@@ -77,17 +77,19 @@ const ProductBaseEdit = (
     }
 
     const relation = {
-      rawMaterialId: selectedRawMaterial?.rawMaterialId ?? 0,
-      rawMaterialName: selectedRawMaterial?.rawMaterialName ?? "",
+      rawMaterialId: selectedRawMaterial?.id ?? 0,
+      rawMaterialName: selectedRawMaterial?.name ?? "",
       inventory: rmEnable ? rmAmount / 100 : rmAmount,
     };
     setRMRelations([...rmRelations, relation]);
   };
   // 删除原料关联
   const handleRmDel = (relation: IRawMaterialSimple) => {
+    console.log("RMRelations b: ", rmRelations);
     setRMRelations(
       rmRelations.filter((rm) => rm.rawMaterialId !== relation.rawMaterialId)
     );
+    console.log("RMRelations a: ", rmRelations);
   };
 
   // 添加滤饼关联
@@ -98,11 +100,13 @@ const ProductBaseEdit = (
     }
 
     const relation = {
-      filterCakeId: selectedFilterCake?.filterCakeId ?? 0,
-      filterCakeName: selectedFilterCake?.filterCakeName ?? "",
+      filterCakeId: selectedFilterCake?.id ?? 0,
+      filterCakeName: selectedFilterCake?.name ?? "",
       inventory: fcEnable ? fcAmount / 100 : fcAmount,
     };
+    console.log("relation: ", relation);
     setFCRelations([...fcRelations, relation]);
+    console.log("FCRelation: ", fcRelations);
   };
   // 删除滤饼关联
   const handleFcDel = (relation: IFilterCakeSimple) => {
@@ -198,8 +202,8 @@ const ProductBaseEdit = (
             className={styles.input}
             value={product?.productSeriesName ?? ""}
             options={series.map((item) => ({
-              value: item.productSeriesName,
-              label: item.productSeriesName,
+              value: item.name,
+              label: item.name,
             }))}
             onChange={(productSeriesName) => {
               setProduct({
@@ -312,17 +316,17 @@ const ProductBaseEdit = (
             <div className={styles.name}>
               <p>原料名称：</p>
               <Select
-                value={selectedRawMaterial?.rawMaterialName}
+                value={selectedRawMaterial?.name}
                 options={rawMaterials.map((rawMaterial) => ({
-                  value: rawMaterial?.rawMaterialName ?? "",
-                  label: rawMaterial?.rawMaterialName ?? "",
+                  value: rawMaterial?.name ?? "",
+                  label: rawMaterial?.name ?? "",
                 }))}
                 className={styles.select}
                 onChange={(rawMaterialName: string) => {
                   const rawMaterial =
                     rawMaterials.find(
                       (rawMaterial) =>
-                        rawMaterial.rawMaterialName === rawMaterialName
+                        rawMaterial.name === rawMaterialName
                     ) ?? null;
                   setSelectedRawMaterial(rawMaterial);
                 }}
@@ -374,17 +378,17 @@ const ProductBaseEdit = (
             <div className={styles.name}>
               <p>滤饼名称：</p>
               <Select
-                value={selectedFilterCake?.filterCakeName}
+                value={selectedFilterCake?.name}
                 options={filterCakes.map((filterCake) => ({
-                  value: filterCake?.filterCakeName ?? "",
-                  label: filterCake?.filterCakeName ?? "",
+                  value: filterCake?.name ?? "",
+                  label: filterCake?.name ?? "",
                 }))}
                 className={styles.select}
                 onChange={(filterCakeName: string) => {
                   const filterCake =
                     filterCakes.find(
                       (filterCake) =>
-                        filterCake.filterCakeName === filterCakeName
+                        filterCake.name === filterCakeName
                     ) ?? null;
                   setSelectedFilterCake(filterCake);
                 }}

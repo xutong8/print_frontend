@@ -25,6 +25,7 @@ const RawMaterialAdd = () => {
       message.info("新建对象成功！");
     } catch (err) {
       message.error("新建对象失败！");
+      console.log("error: ", err);
     }
   };
 

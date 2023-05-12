@@ -97,7 +97,7 @@ const Search: React.FC<ISearchProps> = (props) => {
   // 滤饼change事件
   const handleFilterCakeChange = (value: number) => {
     const filterCake =
-      filterCakes.find((filterCake) => filterCake.filterCakeId === value) ??
+      filterCakes.find((filterCake) => filterCake.id === value) ??
       void 0;
     setTempFilterCake(filterCake);
   };
@@ -106,7 +106,7 @@ const Search: React.FC<ISearchProps> = (props) => {
   const handleProductSeriesChange = (value: number) => {
     const productSeries =
       allProductSeries.find(
-        (productSeries) => productSeries.productSeriesId === value
+        (productSeries) => productSeries.id === value
       ) ?? void 0;
     setTempProductSeries(productSeries);
   };
@@ -114,7 +114,7 @@ const Search: React.FC<ISearchProps> = (props) => {
   // 原料change事件
   const handleRawMaterialChange = (value: number) => {
     const rawMaterial =
-      rawMaterials.find((rawMaterial) => rawMaterial.rawMaterialId === value) ??
+      rawMaterials.find((rawMaterial) => rawMaterial.id === value) ??
       void 0;
     setTempRawMaterial(rawMaterial);
   };
@@ -131,22 +131,22 @@ const Search: React.FC<ISearchProps> = (props) => {
 
   const mapFilterCakeData = () => {
     return filterCakes.map((filterCake) => ({
-      value: filterCake.filterCakeId,
-      title: filterCake.filterCakeName,
+      value: filterCake.id,
+      title: filterCake.name,
     }));
   };
 
   const mapProductSeriesData = () => {
     return allProductSeries.map((productSeries) => ({
-      value: productSeries.productSeriesId,
-      title: productSeries.productSeriesName,
+      value: productSeries.id,
+      title: productSeries.name,
     }));
   };
 
   const mapRawMaterialData = () => {
     return rawMaterials.map((rawMaterial) => ({
-      value: rawMaterial.rawMaterialId,
-      title: rawMaterial.rawMaterialName,
+      value: rawMaterial.id,
+      title: rawMaterial.name,
     }));
   };
 
@@ -228,7 +228,7 @@ const Search: React.FC<ISearchProps> = (props) => {
           <div className={styles.base}>
             <p>系列名称：</p>
             <TreeSelect
-              value={tempProductSeries?.productSeriesId}
+              value={tempProductSeries?.id}
               allowClear
               treeDefaultExpandAll
               treeData={mapProductSeriesData()}
@@ -239,7 +239,7 @@ const Search: React.FC<ISearchProps> = (props) => {
           <div className={styles.base}>
             <p>滤饼名称：</p>
             <TreeSelect
-              value={tempFilterCake?.filterCakeId}
+              value={tempFilterCake?.id}
               allowClear
               treeDefaultExpandAll
               treeData={mapFilterCakeData()}
@@ -250,7 +250,7 @@ const Search: React.FC<ISearchProps> = (props) => {
           <div className={styles.base}>
             <p>原料名称：</p>
             <TreeSelect
-              value={tempRawMaterial?.rawMaterialId}
+              value={tempRawMaterial?.id}
               allowClear
               treeDefaultExpandAll
               treeData={mapRawMaterialData()}

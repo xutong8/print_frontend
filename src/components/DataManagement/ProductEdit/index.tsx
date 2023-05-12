@@ -49,6 +49,7 @@ const ProductEdit = (
       return;
     }
     try {
+      console.log("-------------: ", baseEditRef.current)
       console.log("updateProduct: ", {
         ...{ productAccountingQuantity: 0, productProcessingCost: 0 },
         ...(product as IProduct),
@@ -97,7 +98,7 @@ const ProductEdit = (
         series={series}
         rawMaterials={rawMaterials}
         filterCakes={filterCakes}
-      // ref={baseEditRef}
+        ref={baseEditRef}
       />
     </Modal>
   );

@@ -51,12 +51,19 @@ const FilterCakeAdd = () => {
       return;
     }
     try {
-      await addFilterCake({
-        ...{ filterCakeAccountingQuantity: 0, filterCakeProcessingCost: 0 },
+      console.log("addFilterCake: ", {
+        ...{ filterCakeAccountingQuantity: 0, filterCakeProcessingCost: 0, filterCakeRemarks: "" },
         ...(filterCake as IFilterCake),
         rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
-        historyPriceSimpleList: baseEditRef.current?.hpRelations ?? [],
+        // historyPriceSimpleList: baseEditRef.current?.hpRelations ?? [],
+      })
+      await addFilterCake({
+        ...{ filterCakeAccountingQuantity: 0, filterCakeProcessingCost: 0, filterCakeRemarks: "" },
+        ...(filterCake as IFilterCake),
+        rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
+        filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
+        // historyPriceSimpleList: baseEditRef.current?.hpRelations ?? [],
       });
       message.info("新建对象成功！");
     } catch (err) {

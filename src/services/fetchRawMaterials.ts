@@ -2,8 +2,8 @@ import { httpRequest } from "@/services";
 import { AxiosResponse } from "axios";
 
 export interface IRawMaterialName {
-  rawMaterialId: number;
-  rawMaterialName: string;
+  id: number;
+  name: string;
 }
 
 const fetchAllRawMaterials = async () => {

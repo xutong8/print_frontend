@@ -2,8 +2,8 @@ import { httpRequest } from "@/services";
 import { AxiosResponse } from "axios";
 
 export interface IFilterCakeName {
-  filterCakeId: number;
-  filterCakeName: string;
+  id: number;
+  name: string;
 }
 
 const fetchAllFilterCakes = async () => {

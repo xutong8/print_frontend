@@ -35,7 +35,7 @@ const RawMaterialBaseEdit = (
   const [currentPrice, setCurrentPrice] = useState<number>(0);
 
   // 日期格式化
-  const dateFormat = "YYYY/MM/DD";
+  const dateFormat = "YYYY-MM-DD";
   // 当前日期
   const [currentDate, setCurrentDate] = useState<DayType>(null);
 
@@ -59,7 +59,12 @@ const RawMaterialBaseEdit = (
   };
 
   // 删除历史价格
-  const handleHpDel = (relation: IHistoryPriceSimple) => { };
+  //这边可能有问题，不能按照date来filter，但严格来说也可以，因为同一个日期只能有一个价格
+  const handleHpDel = (relation: IHistoryPriceSimple) => {
+    setHPRelations(
+      hpRelations.filter((rm) => rm.date !== relation.date)
+    );
+  };
 
   useImperativeHandle(ref, () => ({
     hpRelations,
@@ -79,6 +84,20 @@ const RawMaterialBaseEdit = (
               setRawMaterial({
                 ...(rawMaterial ?? ({} as IRawMaterial)),
                 rawMaterialName: event.target.value,
+              });
+            }}
+          />
+        </div>
+        {/* 原料标识 */}
+        <div className={styles.base}>
+          <p className={styles.field}>原料标识：</p>
+          <Input
+            className={styles.input}
+            value={rawMaterial?.rawMaterialId ?? 0}
+            onChange={(event) => {
+              setRawMaterial({
+                ...(rawMaterial ?? ({} as IRawMaterial)),
+                rawMaterialId: Number(event.target.value),
               });
             }}
           />
@@ -139,6 +158,20 @@ const RawMaterialBaseEdit = (
             }}
           />
         </div>
+        {/* 原料涨幅 */}
+        <div className={styles.base}>
+          <p className={styles.field}>原料涨幅：</p>
+          <Input
+            className={styles.input}
+            value={rawMaterial?.rawMaterialIncreasePercent ?? 0}
+            onChange={(event) => {
+              setRawMaterial({
+                ...(rawMaterial ?? ({} as IRawMaterial)),
+                rawMaterialIncreasePercent: Number(event.target.value),
+              });
+            }}
+          />
+        </div>
       </div>
       <div className={styles.right}>
         <div className={styles.price_relations}>
@@ -172,14 +205,16 @@ const RawMaterialBaseEdit = (
             </div>
           </div>
           <div className={styles.exist_relations}>
-            {hpRelations.map((relation, index: number) => (
-              <Tag closable key={index} onClose={() => handleHpDel(relation)}>
-                <span>{relation.date}</span>
-                <span className={styles.tag_inventory}>
-                  {Number(relation.price).toFixed(2)}
-                </span>
-              </Tag>
-            ))}
+            {
+              hpRelations.map((relation, index: number) => (
+                <Tag closable key={index} onClose={() => handleHpDel(relation)}>
+                  <span>{relation.date}</span>
+                  <span className={styles.tag_inventory}>
+                    {Number(relation.price).toFixed(2)}
+                  </span>
+                </Tag>
+              )
+              )}
           </div>
         </div>
       </div>

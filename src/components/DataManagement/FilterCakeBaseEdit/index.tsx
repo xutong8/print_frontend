@@ -45,8 +45,8 @@ export interface FilterCakeBaseEditRef {
   setRMRelations: (rmRelations: IRawMaterialSimple[]) => void;
   fcRelations: IFilterCakeSimple[];
   setFCRelations: (fcRelations: IFilterCakeSimple[]) => void;
-  hpRelations: IHistoryPriceSimple[];
-  setHPRelations: (hpRelations: IHistoryPriceSimple[]) => void;
+  // hpRelations: IHistoryPriceSimple[];
+  // setHPRelations: (hpRelations: IHistoryPriceSimple[]) => void;
 }
 
 const FilterCakeBaseEdit = (
@@ -71,12 +71,12 @@ const FilterCakeBaseEdit = (
   const [fcEnable, setFCEnable] = useState<boolean>(false);
 
   // 填写的价格
-  const [currentPrice, setCurrentPrice] = useState<number>(0);
+  // const [currentPrice, setCurrentPrice] = useState<number>(0);
 
   // 日期格式化
-  const dateFormat = "YYYY/MM/DD";
-  // 当前日期
-  const [currentDate, setCurrentDate] = useState<DayType>(null);
+  // const dateFormat = "YYYY/MM/DD";
+  // // 当前日期
+  // const [currentDate, setCurrentDate] = useState<DayType>(null);
 
   // 原料关联
   const [rmRelations, setRMRelations] = useState<IRawMaterialSimple[]>(
@@ -88,9 +88,9 @@ const FilterCakeBaseEdit = (
   );
 
   // TODO: 历史价格
-  const [hpRelations, setHPRelations] = useState<IHistoryPriceSimple[]>(
-    filterCake?.historyPriceSimpleList ?? []
-  );
+  // const [hpRelations, setHPRelations] = useState<IHistoryPriceSimple[]>(
+  //   filterCake?.historyPriceSimpleList ?? []
+  // );
 
   // 添加原料关联
   const handleRmAdd = () => {
@@ -100,8 +100,8 @@ const FilterCakeBaseEdit = (
     }
 
     const relation = {
-      rawMaterialId: selectedRawMaterial?.rawMaterialId ?? 0,
-      rawMaterialName: selectedRawMaterial?.rawMaterialName ?? "",
+      rawMaterialId: selectedRawMaterial?.id ?? 0,
+      rawMaterialName: selectedRawMaterial?.name ?? "",
       inventory: rmEnable ? rmAmount / 100 : rmAmount,
     };
     setRMRelations([...rmRelations, relation]);
@@ -121,8 +121,8 @@ const FilterCakeBaseEdit = (
     }
 
     const relation = {
-      filterCakeId: selectedFilterCake?.filterCakeId ?? 0,
-      filterCakeName: selectedFilterCake?.filterCakeName ?? "",
+      filterCakeId: selectedFilterCake?.id ?? 0,
+      filterCakeName: selectedFilterCake?.name ?? "",
       inventory: fcEnable ? fcAmount / 100 : fcAmount,
     };
     setFCRelations([...fcRelations, relation]);
@@ -135,29 +135,29 @@ const FilterCakeBaseEdit = (
   };
 
   // 添加历史价格
-  const handlePriceAdd = () => {
-    if (currentPrice <= 0 || currentDate === null) {
-      message.warning("历史价格数据不能为空，新增失败！");
-      return;
-    }
+  // const handlePriceAdd = () => {
+  //   if (currentPrice <= 0 || currentDate === null) {
+  //     message.warning("历史价格数据不能为空，新增失败！");
+  //     return;
+  //   }
 
-    const relation = {
-      historyPriceDate: currentDate.format(dateFormat),
-      value: currentPrice,
-    };
-    setHPRelations([...hpRelations, relation]);
-  };
+  //   const relation = {
+  //     historyPriceDate: currentDate.format(dateFormat),
+  //     value: currentPrice,
+  //   };
+  //   setHPRelations([...hpRelations, relation]);
+  // };
 
   // 删除历史价格
-  const handleHpDel = (relation: IHistoryPriceSimple) => { };
+  // const handleHpDel = (relation: IHistoryPriceSimple) => { };
 
   useImperativeHandle(ref, () => ({
     rmRelations,
     setRMRelations,
     fcRelations,
     setFCRelations,
-    hpRelations,
-    setHPRelations,
+    // hpRelations,
+    // setHPRelations,
   }));
 
   return (
@@ -173,6 +173,20 @@ const FilterCakeBaseEdit = (
               setFilterCake({
                 ...(filterCake ?? ({} as IFilterCake)),
                 filterCakeName: event.target.value,
+              });
+            }}
+          />
+        </div>
+        {/* 滤饼标识 */}
+        <div className={styles.base}>
+          <p className={styles.field}>滤饼标识：</p>
+          <Input
+            className={styles.input}
+            value={filterCake?.filterCakeId ?? 0}
+            onChange={(event) => {
+              setFilterCake({
+                ...(filterCake ?? ({} as IFilterCake)),
+                filterCakeId: Number(event.target.value),
               });
             }}
           />
@@ -214,7 +228,7 @@ const FilterCakeBaseEdit = (
             onChange={(event) => {
               setFilterCake({
                 ...(filterCake ?? ({} as IFilterCake)),
-                filterCakeAccountingQuantity: event.target.value,
+                filterCakeAccountingQuantity: Number(event.target.value),
               });
             }}
           />
@@ -228,7 +242,49 @@ const FilterCakeBaseEdit = (
             onChange={(event) => {
               setFilterCake({
                 ...(filterCake ?? ({} as IFilterCake)),
-                filterCakeProcessingCost: event.target.value,
+                filterCakeProcessingCost: Number(event.target.value),
+              });
+            }}
+          />
+        </div>
+        {/* 滤饼单价 */}
+        <div className={styles.base}>
+          <p className={styles.field}>滤饼单价：</p>
+          <Input
+            className={styles.input}
+            value={filterCake?.filterCakeUnitPrice ?? 0}
+            onChange={(event) => {
+              setFilterCake({
+                ...(filterCake ?? ({} as IFilterCake)),
+                filterCakeUnitPrice: Number(event.target.value),
+              });
+            }}
+          />
+        </div>
+        {/* 滤饼涨幅 */}
+        <div className={styles.base}>
+          <p className={styles.field}>滤饼涨幅：</p>
+          <Input
+            className={styles.input}
+            value={filterCake?.filterCakePriceIncreasePercent ?? 0}
+            onChange={(event) => {
+              setFilterCake({
+                ...(filterCake ?? ({} as IFilterCake)),
+                filterCakePriceIncreasePercent: Number(event.target.value),
+              });
+            }}
+          />
+        </div>
+        {/* 滤饼规格 */}
+        <div className={styles.base}>
+          <p className={styles.field}>滤饼规格：</p>
+          <Input
+            className={styles.input}
+            value={filterCake?.filterCakeSpecification ?? ""}
+            onChange={(event) => {
+              setFilterCake({
+                ...(filterCake ?? ({} as IFilterCake)),
+                filterCakeSpecification: event.target.value,
               });
             }}
           />
@@ -266,17 +322,17 @@ const FilterCakeBaseEdit = (
             <div className={styles.name}>
               <p>原料名称：</p>
               <Select
-                value={selectedRawMaterial?.rawMaterialName}
+                value={selectedRawMaterial?.name}
                 options={rawMaterials.map((rawMaterial) => ({
-                  value: rawMaterial?.rawMaterialName ?? "",
-                  label: rawMaterial?.rawMaterialName ?? "",
+                  value: rawMaterial?.name ?? "",
+                  label: rawMaterial?.name ?? "",
                 }))}
                 className={styles.select}
                 onChange={(rawMaterialName: string) => {
                   const rawMaterial =
                     rawMaterials.find(
                       (rawMaterial) =>
-                        rawMaterial.rawMaterialName === rawMaterialName
+                        rawMaterial.name === rawMaterialName
                     ) ?? null;
                   setSelectedRawMaterial(rawMaterial);
                 }}
@@ -328,17 +384,17 @@ const FilterCakeBaseEdit = (
             <div className={styles.name}>
               <p>滤饼名称：</p>
               <Select
-                value={selectedFilterCake?.filterCakeName}
+                value={selectedFilterCake?.name}
                 options={filterCakes.map((filterCake) => ({
-                  value: filterCake?.filterCakeName ?? "",
-                  label: filterCake?.filterCakeName ?? "",
+                  value: filterCake?.name ?? "",
+                  label: filterCake?.name ?? "",
                 }))}
                 className={styles.select}
                 onChange={(filterCakeName: string) => {
                   const filterCake =
                     filterCakes.find(
                       (filterCake) =>
-                        filterCake.filterCakeName === filterCakeName
+                        filterCake.name === filterCakeName
                     ) ?? null;
                   setSelectedFilterCake(filterCake);
                 }}
@@ -373,7 +429,7 @@ const FilterCakeBaseEdit = (
             ))}
           </div>
         </div>
-        <div className={styles.price_relations}>
+        {/* <div className={styles.price_relations}>
           <div className={styles.title}>
             <div className={styles.field}>历史价格</div>
             <Button
@@ -413,7 +469,7 @@ const FilterCakeBaseEdit = (
               </Tag>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
