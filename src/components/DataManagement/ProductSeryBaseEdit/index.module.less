@@ -1,0 +1,92 @@
+.container {
+    display: flex;
+    width: 100%;
+
+    .left {
+        flex: 1 0 0;
+        display: flex;
+        flex-direction: column;
+
+        .base {
+            height: 60px;
+            display: flex;
+            align-items: center;
+
+            .field {
+                color: #000000;
+            }
+
+            .input {
+                flex: 1 0 0;
+            }
+        }
+    }
+
+    .right {
+        margin-left: 48px;
+        flex: 3 0 0;
+        display: flex;
+        flex-direction: column;
+
+        .fc_relations,
+        .price_relations {
+            margin-top: 32px;
+        }
+
+        .rm_relations,
+        .fc_relations,
+        .price_relations {
+            display: flex;
+            flex-direction: column;
+
+            .title {
+                display: flex;
+                height: 60px;
+                align-items: center;
+
+                .field {
+                    color: #000000;
+                }
+
+                .btn {
+                    margin-left: 8px;
+                }
+            }
+
+            .new_relation {
+                display: flex;
+
+                .name {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .amount {
+                    margin-left: 8px;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .enable {
+                    margin-left: 8px;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .select {
+                    width: 100px;
+                }
+            }
+
+            .exist_relations {
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: 16px;
+            }
+        }
+    }
+}
+
+.tag_inventory {
+    margin-left: 8px;
+}

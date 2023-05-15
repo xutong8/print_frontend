@@ -3,6 +3,7 @@ import {
   PRODUCT_MANAGEMENT,
   FILTERCAKE_MANAGEMENT,
   RAWMATERIAL_MANAGEMENT,
+  PRODUCTSERY_MANAGEMENT,
 } from "@/constants/data-management";
 import routes from "@/router/data-management";
 import { manage, submanage, submanage_selected } from "@/assets";
@@ -11,6 +12,7 @@ import cn from "classnames";
 import { RouteType } from "@/types";
 import { useSelector } from "react-redux";
 import { StoreState } from "@/store/type";
+import Temp from "@/components/AuthorityManagement/AddMember/RegisterForm/temp";
 
 const directorys = [
   {
@@ -24,6 +26,10 @@ const directorys = [
   {
     title: "原料管理",
     abbr: RAWMATERIAL_MANAGEMENT,
+  },
+  {
+    title: "产品系列",
+    abbr: PRODUCTSERY_MANAGEMENT,
   },
 ];
 

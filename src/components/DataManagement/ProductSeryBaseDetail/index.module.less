@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    width: 100%;
+
+    .left {
+        flex: 1 0 0;
+        display: flex;
+        flex-direction: column;
+
+        .base {
+            height: 60px;
+            display: flex;
+            align-items: center;
+
+            .field {
+                color: #000000;
+            }
+
+            .value {
+                color: #949494;
+                flex: 1 0 0;
+            }
+        }
+    }
+
+    .right {
+        margin-left: 48px;
+        flex: 3 0 0;
+        display: flex;
+        flex-direction: column;
+
+        .relation {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

@@ -82,7 +82,8 @@ const genColumns = (
       key: "action",
       render: (record: IRecord) => {
         //判断用户权限
-
+        if (!checkPermission(MANAGER))
+          return;
         // 处理删除逻辑
         const handleDelFilterCake = async () => {
           if (!checkPermission(MANAGER))

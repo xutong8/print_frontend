@@ -19,7 +19,7 @@ const Search: React.FC<ISearchProps> = (props) => {
   } = props;
 
   // 全部的字段
-  const allFields = ['滤饼名称', '滤饼编号', '滤饼颜色'];
+  const allFields = ['系列名称', '系列功能'];
 
   // 缓存选中的查询字段
   const [tempSearchField, setTempSearchField] = useState<string>(searchField);

@@ -71,7 +71,7 @@ const Search: React.FC<ISearchProps> = (props) => {
         </div>
         <div className={styles.base}>
           <p>查询条件：</p>
-          <Input 
+          <Input
             value={tempSearchCondition}
             className={styles.select}
             onChange={handleSearchConditionChange}
@@ -87,7 +87,7 @@ const Search: React.FC<ISearchProps> = (props) => {
           danger
           icon={<ReloadOutlined />}
           className={styles.reset}
-          onReset={handleReset}
+          onClick={handleReset}
         >
           重置
         </Button>

@@ -12,7 +12,7 @@ const authorityManagement = [
         authority: OWNER,
     },
     {
-        title: "新增成员",
+        title: "功能测试",
         path: "add-member",
         element: <AddMember></AddMember>,
         // element: <CoSelect></CoSelect>,

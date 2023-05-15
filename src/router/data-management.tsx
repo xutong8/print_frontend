@@ -5,12 +5,15 @@ import {
   RAWMATERIAL_MANAGEMENT,
   MEMBER,
   MANAGER,
+  PRODUCTSERY_MANAGEMENT,
 } from "../constants/data-management";
 import FilterCakeList from "@/components/DataManagement/FilterCakeList";
 import RawMaterialList from "@/components/DataManagement/RawMaterialList";
 import ProductAdd from "@/components/DataManagement/ProductAdd";
 import FilterCakeAdd from "@/components/DataManagement/FilterCakeAdd";
 import RawMaterialAdd from "@/components/DataManagement/RawMaterialAdd";
+import ProductSeryAdd from "@/components/DataManagement/ProductSeryAdd";
+import ProductSeryList from "@/components/DataManagement/ProductSeryList";
 
 const dataManagement = [
   {
@@ -53,6 +56,20 @@ const dataManagement = [
     path: "add-rawmaterial",
     element: <RawMaterialAdd />,
     parentDir: RAWMATERIAL_MANAGEMENT,
+    authority: MANAGER,
+  },
+  {
+    title: "产品系列表",
+    path: "productSery-list",
+    element: <ProductSeryList />,
+    parentDir: PRODUCTSERY_MANAGEMENT,
+    authority: MEMBER,
+  },
+  {
+    title: "新增产品系列",
+    path: "add-prodSery",
+    element: <ProductSeryAdd />,
+    parentDir: PRODUCTSERY_MANAGEMENT,
     authority: MANAGER,
   },
 ];

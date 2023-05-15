@@ -151,6 +151,7 @@ const Search: React.FC<ISearchProps> = (props) => {
   };
 
   const handleReset = () => {
+    console.log("reset")
     setFilterCake(void 0);
     setProductSeries(void 0);
     setSearchType(SearchType.INDIRECT);
@@ -288,7 +289,7 @@ const Search: React.FC<ISearchProps> = (props) => {
           danger
           icon={<ReloadOutlined />}
           className={styles.reset}
-          onReset={handleReset}
+          onClick={handleReset}
         >
           重置
         </Button>
