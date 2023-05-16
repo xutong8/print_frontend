@@ -191,7 +191,7 @@ const Search: React.FC<ISearchProps> = (props) => {
   };
 
   // 全部的字段
-  const allFields = ['产品名称', '产品编号', '产品代码', '滤饼颜色'];
+  const allFields = ['产品名称', '产品编号', '产品代码', '产品颜色'];
 
   const mapFieldsData = allFields.map(field => ({
     value: field,

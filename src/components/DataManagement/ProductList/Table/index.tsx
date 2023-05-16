@@ -14,6 +14,9 @@ import { ProductEditRef } from "../../ProductEdit";
 import Header from "@/components/Header";
 import { ProductDetailRef } from "../../ProductDetail";
 import Uploader, { UploaderRef } from "../Uploader";
+import { downloadFile } from "@/services/downloadFile";
+import WithModal, { WithModalRef } from "@/components/WithModal";
+import DownloadBase from "@/components/DownloadBase";
 
 export interface ITableProps {
   filterCake: FilterCakeType;
@@ -54,9 +57,14 @@ const Table: React.FC<ITableProps> = (props) => {
       };
 
   const uploaderRef = useRef<UploaderRef>(null);
+  const downloadRef = useRef<WithModalRef>(null);
 
   const handleUpload = () => {
     uploaderRef.current?.showModal();
+  }
+
+  const handleDownload = () => {
+    downloadRef.current?.showModal();
   }
 
   return (
@@ -68,9 +76,19 @@ const Table: React.FC<ITableProps> = (props) => {
             上传
           </Button>
           <Uploader ref={uploaderRef}></Uploader>
-          <Button type="primary" icon={<DownloadOutlined />} className={styles.download}>
+          <Button type="primary" icon={<DownloadOutlined />} className={styles.download} onClick={handleDownload}>
             下载
           </Button>
+          <WithModal
+            componentList={
+              [
+                <DownloadBase text={"下载产品信息"} url={"product/exportExcel"}></DownloadBase>,
+                <DownloadBase text={"下载产品-滤饼关联信息"} url={"product/exportRelPFExcel"}></DownloadBase>,
+                <DownloadBase text={"下载产品-原料关联信息"} url={"product/exportRelPRExcel"}></DownloadBase>
+              ]
+            }
+            ref={downloadRef}
+          ></WithModal>
         </div>
       </div>
       <div className={styles.main}>

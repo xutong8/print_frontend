@@ -4,7 +4,7 @@ import { checkPermission, unitPriceFormat } from "@/utils";
 import ChangeRatio from "@/components/ChangeRatio";
 import { Dispatch, RefObject, SetStateAction } from "react";
 import { deleteRawMaterialById } from "@/services/deleteRawMaterialById";
-import { message } from "antd";
+import { Popconfirm, message } from "antd";
 import { fetchRawMaterialById } from "@/services/fetchRawMaterialById";
 import RawMaterialEdit, { RawMaterialEditRef } from "../../RawMaterialEdit";
 import RawMaterialDetail, {
@@ -115,9 +115,15 @@ const genColumns = (
 
         return (
           <div className={styles.action}>
-            <div className={styles.text} onClick={handleDelRawMaterial}>
-              删除
-            </div>
+            <Popconfirm
+              title="删除产品"
+              description="是否要删除这项产品?"
+              okText="是"
+              cancelText="否"
+              onConfirm={handleDelRawMaterial}
+            >
+              <div className={styles.text}>删除</div>
+            </Popconfirm>
             <div className={styles.text} onClick={handleEditRawMaterial}>
               编辑
             </div>

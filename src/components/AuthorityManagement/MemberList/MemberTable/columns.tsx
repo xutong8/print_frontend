@@ -57,6 +57,7 @@ const getColumns = (
                     console.log("record:", record);
                     editModalRef.current?.setUserInfo({ ...record });
                     editModalRef.current?.registerFormRef.current?.setShowPasswordItem(false);
+                    // editModalRef.current?.registerFormRef.current?.setForceUpdate({});
                     editModalRef.current?.setShowModal(true);
                 }
                 return (

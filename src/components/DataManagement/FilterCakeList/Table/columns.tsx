@@ -3,7 +3,7 @@ import styles from "./index.module.less";
 import { checkPermission, unitPriceFormat } from "@/utils";
 import ChangeRatio from "@/components/ChangeRatio";
 import { deleteFilterCakeById } from "@/services/deleteFilterCakeById";
-import { message } from "antd";
+import { Popconfirm, message } from "antd";
 import { Dispatch, RefObject, SetStateAction } from "react";
 import FilterCakeEdit, { FilterCakeEditRef } from "../../FilterCakeEdit";
 import { fetchFilterCakeById } from "@/services/fetchFilterCakeById";
@@ -131,9 +131,15 @@ const genColumns = (
 
         return (
           <div className={styles.action}>
-            <div className={styles.text} onClick={handleDelFilterCake}>
-              删除
-            </div>
+            <Popconfirm
+              title="删除产品"
+              description="是否要删除这项产品?"
+              okText="是"
+              cancelText="否"
+              onConfirm={handleDelFilterCake}
+            >
+              <div className={styles.text}>删除</div>
+            </Popconfirm>
             <div className={styles.text} onClick={handleEditFilterCake}>
               编辑
             </div>

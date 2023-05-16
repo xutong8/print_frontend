@@ -23,13 +23,13 @@ const RELATION_DETAIL = "关联信息";
 const pdRelationColumns = [
     {
         title: "产品序号",
-        dataIndex: "productSeriesId",
-        key: "productSeriesId",
+        dataIndex: "productId",
+        key: "productId",
     },
     {
         title: "产品名称",
-        dataIndex: "productSeriesName",
-        key: "productSeriesName",
+        dataIndex: "productName",
+        key: "productName",
     },
 ];
 
@@ -57,8 +57,10 @@ const ProductSeriesBaseDetail: React.FC<IProductSeriesBaseDetailProps> = (props)
 
 
     const renderOption = (option: string) => {
+        console.log("option: ", option);
         switch (option) {
             case RELATION_DETAIL: {
+                console.log("productSimpleList: ", productSeries?.productSimpleList);
                 return (
                     <div className={styles.relation}>
                         <Table
@@ -92,7 +94,9 @@ const ProductSeriesBaseDetail: React.FC<IProductSeriesBaseDetailProps> = (props)
                 <div className={styles.options}>
                     <Group
                         value={selectedOption}
-                        onChange={handleGroupChange}
+                        onChange={(event: RadioChangeEvent) =>
+                            setSelectedOption(event.target.value)
+                        }
                     >
                         {options.map((option) => (
                             <Button value={option} key={option}>

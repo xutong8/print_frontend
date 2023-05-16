@@ -188,9 +188,10 @@ const RegisterForm = (
     }))
 
     // -------------------------------------------------------------
+    console.log("update in RegisterForm")
     const [authorities, setAuthorities] = useState(authorityData[userTypeData[0] as UserType]);
     const [secondAuthority, setSecondeAuthority] = useState(authorityData[userTypeData[0] as UserType][0]);
-    const [userType, setUserType] = useState<string>('成员');
+    const [userType, setUserType] = useState<string>(userTypeMapping[props.userInfo?.userType as UserTypeMapType]);
     const [submitInfo, setSubmitInfo] = useState<ISubmitInfo>({
         applicant: store.getState().userName,
         userModified: props.userInfo?.userName,
@@ -216,7 +217,10 @@ const RegisterForm = (
     };
 
     useEffect(() => {
-        setAuthorities(authorityData[userType as UserType]);
+        console.log("update in useEffect");
+        setUserType(userTypeMapping[props.userInfo?.userType as UserTypeMapType]);
+        //这里需要注意，上面在设置userType变量后，并不会立即生效，也就是说下面这一行不能直接使用userType变量，可能用到的是旧值
+        setAuthorities(authorityData[userTypeMapping[props.userInfo?.userType as UserTypeMapType] as UserType]);
         setSecondeAuthority(authorityMapping[props.userInfo?.authority as AuthMapType]);
         setSubmitInfo({
             applicant: store.getState().userName,
@@ -226,7 +230,7 @@ const RegisterForm = (
         })
         if (props.userInfo)
             setUserType(userTypeMapping[props.userInfo?.userType as UserTypeMapType]);
-    }, [props])
+    }, [props.userInfo])
     // --------------------------------------------------------------
 
     return (
