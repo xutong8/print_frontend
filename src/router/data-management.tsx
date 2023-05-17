@@ -12,8 +12,8 @@ import RawMaterialList from "@/components/DataManagement/RawMaterialList";
 import ProductAdd from "@/components/DataManagement/ProductAdd";
 import FilterCakeAdd from "@/components/DataManagement/FilterCakeAdd";
 import RawMaterialAdd from "@/components/DataManagement/RawMaterialAdd";
-import ProductSeryAdd from "@/components/DataManagement/ProductSeryAdd";
-import ProductSeryList from "@/components/DataManagement/ProductSeryList";
+import ProductSeriesAdd from "@/components/DataManagement/ProductSeryAdd";
+import ProductSeriesList from "@/components/DataManagement/ProductSeryList";
 
 const dataManagement = [
   {
@@ -61,14 +61,14 @@ const dataManagement = [
   {
     title: "产品系列表",
     path: "productSery-list",
-    element: <ProductSeryList />,
+    element: <ProductSeriesList />,
     parentDir: PRODUCTSERY_MANAGEMENT,
     authority: MEMBER,
   },
   {
     title: "新增产品系列",
     path: "add-prodSery",
-    element: <ProductSeryAdd />,
+    element: <ProductSeriesAdd />,
     parentDir: PRODUCTSERY_MANAGEMENT,
     authority: MANAGER,
   },

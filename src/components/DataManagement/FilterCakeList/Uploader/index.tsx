@@ -52,8 +52,8 @@ const Uploader = (
         <Modal title="数据上传" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <div>
                 <UploaderBase ref={loader_1} text={"上传滤饼文件"} url={BASE_URL + 'filterCake/upload'}></UploaderBase>
-                <UploaderBase ref={loader_2} text={"上传滤饼-滤饼关联文件"} url={BASE_URL + 'filterCake/uploadRelFF'}></UploaderBase>
-                <UploaderBase ref={loader_3} text={"上传滤饼-原料关联文件"} url={BASE_URL + 'filterCake/uploadRelFR'}></UploaderBase>
+                <UploaderBase ref={loader_2} text={"上传滤饼-原料关联文件"} url={BASE_URL + 'filterCake/uploadRelFR'}></UploaderBase>
+                <UploaderBase ref={loader_3} text={"上传滤饼-滤饼关联文件"} url={BASE_URL + 'filterCake/uploadRelFF'}></UploaderBase>
             </div>
         </Modal>
     );

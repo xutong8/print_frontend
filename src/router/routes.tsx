@@ -3,6 +3,7 @@ import DataManagement from "@/components/DataManagement";
 import authorityManagement from "./authority-management";
 import AuthorityManagement from "@/components/AuthorityManagement";
 import { MEMBER, OWNER } from "@/constants/data-management";
+import DataAnalysis from "@/components/DataAnalysis";
 
 export const routes = [
   {
@@ -13,9 +14,16 @@ export const routes = [
     authority: MEMBER,
   },
   {
+    title: "数据分析",
+    path: "analysis/*",
+    element: <DataAnalysis></DataAnalysis>,
+    // children: dataManagement,
+    authority: MEMBER,
+  },
+  {
     title: "权限管理",
     path: "permission/*",
-    element: <AuthorityManagement></AuthorityManagement>,
+    element: <AuthorityManagement />,
     children: authorityManagement,
     authority: OWNER,
   },

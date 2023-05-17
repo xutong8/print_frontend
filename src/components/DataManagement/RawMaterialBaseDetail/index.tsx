@@ -3,7 +3,7 @@ import styles from "./index.module.less";
 import { unitPriceFormat } from "@/utils";
 import { Button, Group, RadioChangeEvent } from "antd/es/radio";
 import { RawMaterialType } from "../RawMaterialEdit";
-import HistoryBasePrice from "@/components/Echarts/HistoryBasePrice";
+import HistoryBasePrice from "@/components/Echarts/BasicLineChart";
 import { IHistoryPriceSimple } from "@/services/fetchRawMaterialById";
 
 export interface IRawMaterialBaseDetailProps {

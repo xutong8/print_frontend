@@ -8,7 +8,7 @@ interface IProps {
     dataSeries: Array<number>;
 }
 
-const HistoryBasePrice: React.FC<IProps> = (props) => {
+const BasicLineChart: React.FC<IProps> = (props) => {
     const chartDom: any = useRef();
     let existInstance = echarts.getInstanceByDom(chartDom);
     if (existInstance)
@@ -35,9 +35,9 @@ const HistoryBasePrice: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <div ref={chartDom} className={styles.history_price}></div>
+            <div ref={chartDom} className={styles.chart}></div>
         </>
     );
 }
 
-export default HistoryBasePrice;
+export default BasicLineChart;

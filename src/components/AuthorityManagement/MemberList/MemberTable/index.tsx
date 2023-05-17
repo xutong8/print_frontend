@@ -20,7 +20,11 @@ const MemberTable = (props: IMemberTableProps) => {
     }, [data.length, forceUpdate]);
     return (
         <div className={styles.member_list}>
-            <Table columns={columns} dataSource={data} />
+            <Table
+                columns={columns}
+                dataSource={data}
+                rowKey={(record: IMemberInfo) => record.userName}
+            />
         </div>
     );
 };

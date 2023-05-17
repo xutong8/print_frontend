@@ -1,8 +1,8 @@
-import ProductSales from "@/components/Echarts";
+import ProductSales from "@/components/Echarts/LineRace";
 import RegisterForm from "./RegisterForm";
 import styles from "./index.module.less"
 import Temp from "./RegisterForm/temp";
-import HistoryBasePrice from "@/components/Echarts/HistoryBasePrice";
+import HistoryBasePrice from "@/components/Echarts/BasicLineChart";
 import WithModal from "@/components/WithModal";
 
 const AddMember = () => {

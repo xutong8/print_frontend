@@ -6,7 +6,7 @@ import { Button, Group, RadioChangeEvent } from "antd/es/radio";
 import { Table } from "antd";
 import { IFilterCakeSimple } from "@/services/fetchFilterCakeById";
 import { IRawMaterialSimple } from "@/services/fetchProductById";
-import HistoryBasePrice from "@/components/Echarts/HistoryBasePrice";
+import HistoryBasePrice from "@/components/Echarts/BasicLineChart";
 import { fetchProductHistoryPriceById } from "@/services/fetchProductHistoryPrice";
 import { IHistoryPriceSimple } from "@/services/fetchRawMaterialById";
 
@@ -67,7 +67,7 @@ const ProductBaseDetail: React.FC<IProductBaseDetailProps> = (props) => {
   const handleGroupChange = async (event: RadioChangeEvent) => {
     setSelectedOption(event.target.value);
     const res = await fetchProductHistoryPriceById({
-      productId: 1012,
+      productId: product?.productId as number,
       months: 12
     })
     setHistoryPriceList(res.reverse());

@@ -6,7 +6,7 @@ import { Button, Group, RadioChangeEvent } from "antd/es/radio";
 import { Table } from "antd";
 import { IFilterCakeSimple } from "@/services/fetchFilterCakeById";
 import { IRawMaterialSimple } from "@/services/fetchProductById";
-import HistoryBasePrice from "@/components/Echarts/HistoryBasePrice";
+import HistoryBasePrice from "@/components/Echarts/BasicLineChart";
 import { fetchFCakeHistoryPriceById } from "@/services/fetchFCakeHistoryPrice";
 import { IHistoryPriceSimple } from "@/services/fetchRawMaterialById";
 import { ProductSeriesType } from "../ProductSeryEdit";

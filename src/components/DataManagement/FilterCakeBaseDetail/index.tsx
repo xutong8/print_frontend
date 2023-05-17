@@ -6,7 +6,7 @@ import { Button, Group, RadioChangeEvent } from "antd/es/radio";
 import { Table } from "antd";
 import { IFilterCakeSimple } from "@/services/fetchFilterCakeById";
 import { IRawMaterialSimple } from "@/services/fetchProductById";
-import HistoryBasePrice from "@/components/Echarts/HistoryBasePrice";
+import HistoryBasePrice from "@/components/Echarts/BasicLineChart";
 import { fetchFCakeHistoryPriceById } from "@/services/fetchFCakeHistoryPrice";
 import { IHistoryPriceSimple } from "@/services/fetchRawMaterialById";
 
@@ -70,7 +70,7 @@ const FilterCakeBaseDetail: React.FC<IFilterCakeBaseDetailProps> = (props) => {
       const res = await fetchFCakeHistoryPriceById({
         //TO DO 这里后续有真实数据之后要用选定的ID
         // filterCakeId: filterCake?.filterCakeId as number,
-        filterCakeId: 1002,
+        filterCakeId: filterCake?.filterCakeId as number,
         months: 12,
       }) as IHistoryPriceSimple[];
       setHistoryPriceList(res.reverse());

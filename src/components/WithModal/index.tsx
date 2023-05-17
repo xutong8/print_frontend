@@ -35,7 +35,7 @@ const WithModal = (
 
     return (
         <Modal title="数据下载" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-            {componentList.map(comp => comp)}
+            {componentList.map((comp, index) => <div key={index}>{comp}</div>)}
         </Modal>
     );
 };

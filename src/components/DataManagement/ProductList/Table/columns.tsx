@@ -111,6 +111,7 @@ const genColumns = (
           if (!checkPermission(MANAGER))
             return;
           editModalRef.current?.setShowModal(false);
+          console.log("id: ", record.productId);
           const [product, series, rawMaterials, filterCakes] =
             await Promise.all([
               fetchProductById(record.productId),
@@ -129,7 +130,9 @@ const genColumns = (
         // 查看详情逻辑
         const handlePreviewProduct = async () => {
           previewModalRef.current?.setShowModal(false);
+          console.log("id: ", record.productId);
           const product = await fetchProductById(record.productId);
+          console.log("product: ", product);
           previewModalRef.current?.setProduct(product);
           previewModalRef.current?.setShowModal(true);
         };
