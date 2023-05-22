@@ -55,8 +55,8 @@ const SearchChart: React.FC<ISearchChartProps> = (props) => {
         else {
             return (
                 <>
-                    <BasicLineChart datax={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']} dataSeries={[150, 230, 224, 218, 135, 147, 260]}></BasicLineChart>
-                    <BasicLineChart datax={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']} dataSeries={[150, 230, 224, 218, 135, 147, 260]}></BasicLineChart>
+                    <BasicLineChart title={"销售量"} datax={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']} dataSeries={[150, 230, 224, 218, 135, 147, 260]}></BasicLineChart>
+                    <BasicLineChart title={"利润"} datax={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']} dataSeries={[150, 230, 224, 218, 135, 147, 260]}></BasicLineChart>
                 </>
             )
         }
