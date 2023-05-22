@@ -1,6 +1,6 @@
 import React, { ForwardedRef, forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { Button, Modal, message } from 'antd';
-import UploaderBase, { UploaderBaseRef } from '@/components/uploadBase';
+import UploaderBase from '@/components/uploadBase';
 import { BASE_URL } from '@/services';
 
 export interface IUploader {
@@ -23,15 +23,7 @@ const Uploader = (
     };
 
     const handleOk = () => {
-
-        if (loader_1.current) {
-            if (loader_1.current.fileListLength === 0)
-                message.error("没有可上传的文件！");
-            else {
-                loader_1.current.startUpload();
-                setIsModalOpen(false);
-            }
-        }
+        setIsModalOpen(false);
     };
 
     const handleCancel = () => {
@@ -42,12 +34,10 @@ const Uploader = (
         showModal
     }))
 
-    const loader_1 = useRef<UploaderBaseRef>(null);
-
     return (
         <Modal title="数据上传" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <div>
-                <UploaderBase ref={loader_1} text={"上传产品系列文件"} url={BASE_URL + 'productSeries/upload'}></UploaderBase>
+                <UploaderBase text={"上传产品系列文件"} url={BASE_URL + 'productSeries/upload'}></UploaderBase>
             </div>
 
         </Modal>

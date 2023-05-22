@@ -178,7 +178,7 @@ const FilterCakeBaseEdit = (
           />
         </div>
         {/* 滤饼标识 */}
-        <div className={styles.base}>
+        {/* <div className={styles.base}>
           <p className={styles.field}>滤饼标识：</p>
           <Input
             className={styles.input}
@@ -190,7 +190,7 @@ const FilterCakeBaseEdit = (
               });
             }}
           />
-        </div>
+        </div> */}
         {/* 滤饼编号 */}
         <div className={styles.base}>
           <p className={styles.field}>滤饼编号：</p>

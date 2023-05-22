@@ -168,7 +168,7 @@ const ProductBaseEdit = (
           />
         </div>
         {/* 产品ID */}
-        <div className={styles.base}>
+        {/* <div className={styles.base}>
           <p className={styles.field}>产品标识：</p>
           <Input
             className={styles.input}
@@ -180,7 +180,7 @@ const ProductBaseEdit = (
               });
             }}
           />
-        </div>
+        </div> */}
         {/* 生产工厂 */}
         <div className={styles.base}>
           <p className={styles.field}>生产工厂：</p>

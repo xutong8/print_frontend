@@ -89,7 +89,7 @@ const RawMaterialBaseEdit = (
           />
         </div>
         {/* 原料标识 */}
-        <div className={styles.base}>
+        {/* <div className={styles.base}>
           <p className={styles.field}>原料标识：</p>
           <Input
             className={styles.input}
@@ -101,7 +101,7 @@ const RawMaterialBaseEdit = (
               });
             }}
           />
-        </div>
+        </div> */}
         {/* 原料编号 */}
         <div className={styles.base}>
           <p className={styles.field}>原料编号：</p>

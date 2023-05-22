@@ -5,6 +5,7 @@ import { Button, Group, RadioChangeEvent } from "antd/es/radio";
 import { RawMaterialType } from "../RawMaterialEdit";
 import HistoryBasePrice from "@/components/Echarts/BasicLineChart";
 import { IHistoryPriceSimple } from "@/services/fetchRawMaterialById";
+import HistoryPriceBase from "@/components/Echarts/HistoryPriceBase";
 
 export interface IRawMaterialBaseDetailProps {
   rawMaterial: RawMaterialType;
@@ -29,10 +30,10 @@ const RawMaterialBaseDetail: React.FC<IRawMaterialBaseDetailProps> = (
     }));
     const datax = rawMaterial?.rawMaterialHistoryPrice.map((item: IHistoryPriceSimple) => item.date);
     const dataSeries = rawMaterial?.rawMaterialHistoryPrice.map((item: IHistoryPriceSimple) => item.price);
-    return <HistoryBasePrice
+    return <HistoryPriceBase
       datax={datax as string[]}
       dataSeries={dataSeries as number[]}
-    ></HistoryBasePrice>
+    ></HistoryPriceBase>
   };
 
   return (

@@ -9,6 +9,7 @@ import { IRawMaterialSimple } from "@/services/fetchProductById";
 import HistoryBasePrice from "@/components/Echarts/BasicLineChart";
 import { fetchFCakeHistoryPriceById } from "@/services/fetchFCakeHistoryPrice";
 import { IHistoryPriceSimple } from "@/services/fetchRawMaterialById";
+import HistoryPriceBase from "@/components/Echarts/HistoryPriceBase";
 
 export interface IFilterCakeBaseDetailProps {
   filterCake: FilterCakeType;
@@ -102,12 +103,12 @@ const FilterCakeBaseDetail: React.FC<IFilterCakeBaseDetailProps> = (props) => {
         console.log("history price: ", historyPriceList);
         const datax = historyPriceList.map((item) => item.date);
         const dataSeries = historyPriceList.map((item) => item.price);
-        return <HistoryBasePrice
+        return <HistoryPriceBase
           // datax={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
           // dataSeries={[150, 230, 224, 218, 135, 147, 260]}
           datax={datax}
           dataSeries={dataSeries}
-        ></HistoryBasePrice>
+        ></HistoryPriceBase>
       }
       default: {
       }

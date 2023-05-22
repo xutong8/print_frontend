@@ -9,7 +9,7 @@ interface IProps {
     title?: string;
 }
 
-const BasicLineChart: React.FC<IProps> = (props) => {
+const HistoryPriceBase: React.FC<IProps> = (props) => {
     const { datax, dataSeries, title } = props;
     const chartDom: any = useRef();
     let existInstance = echarts.getInstanceByDom(chartDom);
@@ -59,4 +59,4 @@ const BasicLineChart: React.FC<IProps> = (props) => {
     );
 }
 
-export default BasicLineChart;
+export default HistoryPriceBase;

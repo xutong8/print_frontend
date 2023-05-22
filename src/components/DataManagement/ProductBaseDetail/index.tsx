@@ -9,6 +9,7 @@ import { IRawMaterialSimple } from "@/services/fetchProductById";
 import HistoryBasePrice from "@/components/Echarts/BasicLineChart";
 import { fetchProductHistoryPriceById } from "@/services/fetchProductHistoryPrice";
 import { IHistoryPriceSimple } from "@/services/fetchRawMaterialById";
+import HistoryPriceBase from "@/components/Echarts/HistoryPriceBase";
 
 export interface IProductBaseDetailProps {
   product: ProductType;
@@ -96,12 +97,12 @@ const ProductBaseDetail: React.FC<IProductBaseDetailProps> = (props) => {
         // TODO: 添加历史价格逻辑
         const datax = historyPriceList.map((item) => item.date);
         const dataSeries = historyPriceList.map((item) => item.price);
-        return <HistoryBasePrice
+        return <HistoryPriceBase
           // datax={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
           // dataSeries={[150, 230, 224, 218, 135, 147, 260]}
           datax={datax}
           dataSeries={dataSeries}
-        ></HistoryBasePrice>
+        ></HistoryPriceBase>
         // return null;
       }
       default: {
