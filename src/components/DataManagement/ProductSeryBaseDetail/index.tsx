@@ -42,20 +42,6 @@ const ProductSeriesBaseDetail: React.FC<IProductSeriesBaseDetailProps> = (props)
     // 选中的选项
     const [selectedOption, setSelectedOption] = useState<string>(RELATION_DETAIL);
 
-    const handleGroupChange = async (event: RadioChangeEvent) => {
-        setSelectedOption(event.target.value);
-        // if (event.target.value === HISTORY_PRICE) {
-        //     const res = await fetchFCakeHistoryPriceById({
-        //         //TO DO 这里后续有真实数据之后要用选定的ID
-        //         // filterCakeId: filterCake?.filterCakeId as number,
-        //         filterCakeId: 1002,
-        //         months: 12,
-        //     }) as IHistoryPriceSimple[];
-        //     setHistoryPriceList(res.reverse());
-        // }
-    }
-
-
     const renderOption = (option: string) => {
         console.log("option: ", option);
         switch (option) {

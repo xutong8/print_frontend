@@ -20,6 +20,7 @@ const ProductSeryDetail = (
     ref: ForwardedRef<ProductSeriesDetailRef>
 ) => {
     const [showModal, setShowModal] = useState<boolean>(false);
+    //产品系列信息
     const [productSeries, setProductSeries] = useState<ProductSeriesType>(null);
 
     // 点击确认

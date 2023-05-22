@@ -35,7 +35,7 @@ const Uploader = (
     }))
 
     return (
-        <Modal title="数据上传" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <Modal title="数据上传" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="确定" cancelText="取消">
             <div>
                 <UploaderBase text={"上传滤饼文件"} url={BASE_URL + 'filterCake/upload'}></UploaderBase>
                 <UploaderBase text={"上传滤饼-原料关联文件"} url={BASE_URL + 'filterCake/uploadRelFR'}></UploaderBase>

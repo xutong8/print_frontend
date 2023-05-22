@@ -40,7 +40,7 @@ const EditMember = (
 
     return (
         <>
-            <Modal title="成员信息编辑" open={showModal} onOk={handleOk} onCancel={handleCancel} width={720}>
+            <Modal title="成员信息编辑" open={showModal} onOk={handleOk} onCancel={handleCancel} width={720} footer={null}>
                 <RegisterForm userInfo={userInfo} setForceUpdate={props.setForceUpdate} onOk={handleOk} ref={registerFormRef}></RegisterForm>
             </Modal>
         </>

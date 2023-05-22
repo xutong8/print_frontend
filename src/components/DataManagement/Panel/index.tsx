@@ -12,7 +12,6 @@ import cn from "classnames";
 import { RouteType } from "@/types";
 import { useSelector } from "react-redux";
 import { StoreState } from "@/store/type";
-import Temp from "@/components/AuthorityManagement/AddMember/RegisterForm/temp";
 
 const directorys = [
   {

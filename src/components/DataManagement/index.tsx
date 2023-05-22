@@ -8,10 +8,6 @@ import { StoreState } from "@/store/type";
 import { MEMBER } from "@/constants/data-management";
 
 const DataManagement = () => {
-  const user = useSelector(state => state) as StoreState;
-
-  if (user.authority < MEMBER)
-    return <></>;
   return (
     <div className={styles.data}>
       <Panel />

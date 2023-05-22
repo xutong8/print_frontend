@@ -11,13 +11,13 @@ const authorityManagement = [
         Element: <div></div>,
         authority: OWNER,
     },
-    {
-        title: "功能测试",
-        path: "add-member",
-        element: <AddMember></AddMember>,
-        // element: <CoSelect></CoSelect>,
-        authority: OWNER,
-    }
+    // {
+    //     title: "功能测试",
+    //     path: "add-member",
+    //     element: <AddMember></AddMember>,
+    //     // element: <CoSelect></CoSelect>,
+    //     authority: OWNER,
+    // }
 ];
 
 export default authorityManagement;

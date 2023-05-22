@@ -22,10 +22,12 @@ const Uploader = (
         setIsModalOpen(true);
     };
 
+    //点击确认
     const handleOk = () => {
         setIsModalOpen(false);
     };
 
+    //点击取消
     const handleCancel = () => {
         setIsModalOpen(false);
     };
@@ -35,7 +37,7 @@ const Uploader = (
     }))
 
     return (
-        <Modal title="数据上传" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <Modal title="数据上传" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="确定" cancelText="取消">
             <div>
                 <UploaderBase text={"上传产品系列文件"} url={BASE_URL + 'productSeries/upload'}></UploaderBase>
             </div>

@@ -22,6 +22,7 @@ const ProductSeriesEdit = (
     ref: ForwardedRef<ProductSeriesEditRef>
 ) => {
     const [showModal, setShowModal] = useState<boolean>(false);
+    // 产品系列信息
     const [productSeries, setProductSeries] = useState<ProductSeriesType>(null);
     // 产品名称
     const [products, setProducts] = useState<IProductName[]>([]);
@@ -30,7 +31,6 @@ const ProductSeriesEdit = (
     // 点击确认
     const handleOk = async () => {
         setShowModal(false);
-        // TODO：添加修改产品的逻辑
         if (productSeries === null) {
             message.warning("产品系列对象不能为空");
             return;

@@ -27,10 +27,12 @@ const Table: React.FC<ITableProps> = (props) => {
   const uploaderRef = useRef<UploaderRef>(null);
   const downloadRef = useRef<WithModalRef>(null);
 
+  // 点击上传
   const handleUpload = () => {
     uploaderRef.current?.showModal();
   }
 
+  // 点击下载
   const handleDownload = () => {
     downloadRef.current?.showModal();
   }

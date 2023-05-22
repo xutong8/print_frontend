@@ -25,6 +25,7 @@ const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //处理登录逻辑
   const onFinish = async (values: any) => {
     const userLogin: IUserLogin = { userName: values.username, password: values.password };
     const res = (await httpRequest.post("/User/login", userLogin)) as AxiosResponse<IUserRes>;
@@ -41,10 +42,12 @@ const LoginForm: React.FC = () => {
     navigate("/data/product-list");
   };
 
+  //处理登录失败逻辑
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
 
+  //处理注册逻辑
   const handleRegister = () => {
     navigate("/register");
   }

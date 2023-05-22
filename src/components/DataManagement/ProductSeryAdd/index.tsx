@@ -9,6 +9,7 @@ import { IProductSeries } from "@/services/fetchProductSeriesById";
 import { addProductSeries } from "@/services/addProductSeries";
 
 const ProductSeriesAdd = () => {
+    // 产品系列信息
     const [productSeries, setProductSeries] = useState<ProductSeriesType>(null);
     // 产品名称
     const [products, setProducts] = useState<IProductName[]>([]);
@@ -23,6 +24,7 @@ const ProductSeriesAdd = () => {
         fetchInitialData();
     }, []);
 
+    // 确认新增
     const handleConfirm = async () => {
         if (productSeries === null) {
             message.warning("产品系列对象不能为空");

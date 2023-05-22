@@ -3,6 +3,7 @@ import { ExclamationCircleFilled } from '@ant-design/icons';
 
 const { confirm } = Modal;
 
+//封装后的确认框
 export const showConfirm = (title: string, msg: string[]) => {
     confirm({
         title: title,

@@ -51,6 +51,7 @@ const RegisterForm: React.FC = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
 
+    // 处理注册逻辑
     const onFinish = (values: any) => {
         console.log('Received values of form: ', values);
         const registerInfo: IRegisterInfo = {
@@ -77,6 +78,7 @@ const RegisterForm: React.FC = () => {
             style={{ maxWidth: 600 }}
             scrollToFirstError
         >
+            {/* 用户名 */}
             <Form.Item
                 name="userName"
                 label="用户名"
@@ -85,6 +87,7 @@ const RegisterForm: React.FC = () => {
                 <Input />
             </Form.Item>
 
+            {/* 密码 */}
             <Form.Item
                 name="password"
                 label="密码"
@@ -99,6 +102,7 @@ const RegisterForm: React.FC = () => {
                 <Input.Password />
             </Form.Item>
 
+            {/* 确认密码 */}
             <Form.Item
                 name="confirm"
                 label="确认密码"
@@ -122,24 +126,10 @@ const RegisterForm: React.FC = () => {
                 <Input.Password />
             </Form.Item>
 
-            <Form.Item
-                name="agreement"
-                valuePropName="checked"
-                rules={[
-                    {
-                        validator: (_, value) =>
-                            value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
-                    },
-                ]}
-                {...tailFormItemLayout}
-            >
-                <Checkbox>
-                    I have read the <a href="">agreement</a>
-                </Checkbox>
-            </Form.Item>
+            {/* 点击确认 */}
             <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">
-                    Register
+                    注 册
                 </Button>
             </Form.Item>
         </Form>

@@ -11,17 +11,17 @@ const NavBar = () => {
   const location = useLocation();
   const selected = (route: RouteType) =>
     location.pathname.includes(route.path.split("/")[0]);
-  const store = useSelector(state => state) as StoreState;
+  const user = useSelector(state => state) as StoreState;
 
   return (
     <div className={styles.navbar}>
       <div className={styles.title}>
         <img src={icon} alt="default icon" />
-        <span className={styles.desc}>印染数据可视分析系统</span>
+        <span className={styles.desc}>成本定价分析系统</span>
       </div>
       <div className={styles.links}>
         {routes
-          .filter((route) => store.authority >= route.authority)
+          .filter((route) => user.authority >= route.authority)
           .map((route) => (
             <NavLink
               key={route.title}
