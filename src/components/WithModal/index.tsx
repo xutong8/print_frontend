@@ -1,6 +1,5 @@
-import React, { ForwardedRef, ReactNode, forwardRef, useImperativeHandle, useState } from 'react';
-import { Button, Modal } from 'antd';
-import styles from './index.module.less'
+import { ForwardedRef, ReactNode, forwardRef, useImperativeHandle, useState } from 'react';
+import { Modal } from 'antd';
 
 export interface IWithModalProps {
     componentList: ReactNode[];

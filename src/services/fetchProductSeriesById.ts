@@ -1,6 +1,5 @@
 import { httpRequest } from "@/services";
 import { AxiosResponse } from "axios";
-// import { IHistoryPriceSimple } from "./fetchRawMaterialById";
 
 export interface IProductSimple {
   productId: number;

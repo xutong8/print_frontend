@@ -17,8 +17,8 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Navigate to="/login" />}></Route>
-        <Route path="login" element={<Login></Login>}></Route>
-        <Route path="register" element={<Register></Register>}></Route>
+        <Route path="login" element={<Login />}></Route>
+        <Route path="register" element={<Register />}></Route>
         {routes.map((route) => (
           <Route key={route.title} path={route.path} element={route.element} />
         ))}

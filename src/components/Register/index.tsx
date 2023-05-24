@@ -1,21 +1,12 @@
 import { registerNewUser } from '@/services/RegisterNewUser';
-import { CascaderProps, Drawer, message } from 'antd';
+import { Drawer, message } from 'antd';
 import {
-    AutoComplete,
     Button,
-    Cascader,
-    Checkbox,
-    Col,
     Form,
     Input,
-    InputNumber,
-    Row,
-    Select,
 } from 'antd';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-const { Option } = Select;
 
 
 const formItemLayout = {

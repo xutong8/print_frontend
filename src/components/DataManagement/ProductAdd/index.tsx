@@ -66,7 +66,7 @@ const ProductAdd = () => {
         rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
       });
-      message.info("新建对象成功！");
+      message.success("新建对象成功！");
     } catch (err) {
       message.error("新建对象失败！");
     }

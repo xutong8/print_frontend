@@ -1,6 +1,5 @@
 import { httpRequest } from "@/services";
 import { AxiosResponse } from "axios";
-// import { IHistoryPriceSimple } from "./fetchRawMaterialById";
 
 export interface IFilterCakeSimple {
   filterCakeId: number;
@@ -28,15 +27,12 @@ export interface IFilterCake {
   filterCakeColor: string;
   filterCakeUnitPrice: number;
   filterCakePriceIncreasePercent: number;
-  // filterCakeSeriesName: string;
-  // filterCakeFactoryName: string;
   filterCakeSpecification:string;
   filterCakeRemarks: string;
   filterCakeProcessingCost: number;
   filterCakeAccountingQuantity: number;
   filterCakeSimpleList: IFilterCakeSimple[];
   rawMaterialSimpleList: IRawMaterialSimple[];
-  // historyPriceSimpleList: IHistoryPriceSimple[];
 }
 
 const fetchFilterCakeById = async (filterCakeId: string) => {

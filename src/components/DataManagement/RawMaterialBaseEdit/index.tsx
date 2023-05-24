@@ -145,7 +145,7 @@ const RawMaterialBaseEdit = (
           />
         </div>
         {/* 原料价格 */}
-        <div className={styles.base}>
+        {/* <div className={styles.base}>
           <p className={styles.field}>原料价格：</p>
           <Input
             className={styles.input}
@@ -157,9 +157,9 @@ const RawMaterialBaseEdit = (
               });
             }}
           />
-        </div>
+        </div> */}
         {/* 原料涨幅 */}
-        <div className={styles.base}>
+        {/* <div className={styles.base}>
           <p className={styles.field}>原料涨幅：</p>
           <Input
             className={styles.input}
@@ -171,7 +171,7 @@ const RawMaterialBaseEdit = (
               });
             }}
           />
-        </div>
+        </div> */}
       </div>
       <div className={styles.right}>
         <div className={styles.price_relations}>

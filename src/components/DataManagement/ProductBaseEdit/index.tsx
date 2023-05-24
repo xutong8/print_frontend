@@ -256,7 +256,7 @@ const ProductBaseEdit = (
           />
         </div>
         {/* 产品单价 */}
-        <div className={styles.base}>
+        {/* <div className={styles.base}>
           <p className={styles.field}>产品单价：</p>
           <Input
             className={styles.input}
@@ -268,9 +268,9 @@ const ProductBaseEdit = (
               });
             }}
           />
-        </div>
+        </div> */}
         {/* 产品涨幅 */}
-        <div className={styles.base}>
+        {/* <div className={styles.base}>
           <p className={styles.field}>产品涨幅：</p>
           <Input
             className={styles.input}
@@ -282,7 +282,7 @@ const ProductBaseEdit = (
               });
             }}
           />
-        </div>
+        </div> */}
         {/* 附加信息 */}
         <div className={styles.base}>
           <p className={styles.field}>附加信息：</p>

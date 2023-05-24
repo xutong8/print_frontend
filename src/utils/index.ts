@@ -12,9 +12,3 @@ export function checkPermission(authority: number) {
   }
   return true;
 }
-
-// export function checkPermissionOnRoute(title: string) {
-//   if (title.includes("新增") && store.getState().authority > 1)
-//     return false;
-//   return true;
-// }

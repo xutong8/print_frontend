@@ -248,7 +248,7 @@ const FilterCakeBaseEdit = (
           />
         </div>
         {/* 滤饼单价 */}
-        <div className={styles.base}>
+        {/* <div className={styles.base}>
           <p className={styles.field}>滤饼单价：</p>
           <Input
             className={styles.input}
@@ -260,9 +260,9 @@ const FilterCakeBaseEdit = (
               });
             }}
           />
-        </div>
+        </div> */}
         {/* 滤饼涨幅 */}
-        <div className={styles.base}>
+        {/* <div className={styles.base}>
           <p className={styles.field}>滤饼涨幅：</p>
           <Input
             className={styles.input}
@@ -274,7 +274,7 @@ const FilterCakeBaseEdit = (
               });
             }}
           />
-        </div>
+        </div> */}
         {/* 滤饼规格 */}
         <div className={styles.base}>
           <p className={styles.field}>滤饼规格：</p>

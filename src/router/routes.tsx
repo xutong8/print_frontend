@@ -16,8 +16,7 @@ export const routes = [
   {
     title: "数据分析",
     path: "analysis/*",
-    element: <DataAnalysis></DataAnalysis>,
-    // children: dataManagement,
+    element: <DataAnalysis />,
     authority: MEMBER,
   },
   {

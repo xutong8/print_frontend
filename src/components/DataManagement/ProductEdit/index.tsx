@@ -51,7 +51,7 @@ const ProductEdit = (
     try {
       console.log("-------------: ", baseEditRef.current)
       console.log("updateProduct: ", {
-        ...{ productAccountingQuantity: 0, productProcessingCost: 0 },
+        ...{ productAccountingQuantity: 0, productProcessingCost: 0, productUnitPrice: 0, productPriceIncreasePercent: 0 },
         ...(product as IProduct),
         rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
@@ -62,7 +62,7 @@ const ProductEdit = (
         rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
       });
-      message.info("新建对象成功！");
+      message.success("新建对象成功！");
     } catch (err) {
       message.error("新建对象失败！");
     }

@@ -6,8 +6,6 @@ export const BASE_URL = "http://10.196.55.11:8080/";
 
 const instance = axios.create({
   baseURL: BASE_URL,
-  // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  // headers: { 'Content-Type': 'application/json' },
 });
 
 const httpRequest = {

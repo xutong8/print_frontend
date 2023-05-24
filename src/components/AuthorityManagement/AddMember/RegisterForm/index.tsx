@@ -111,7 +111,7 @@ const handleSubmit = async (userInfo: ISubmitInfo) => {
     console.log("ISubmitInfo: ", userInfo);
     try {
         await updateMemberInfo(userInfo);
-        message.info("修改成功！");
+        message.success("修改成功！");
     } catch (err) {
         message.error("修改失败！");
     }
@@ -133,21 +133,21 @@ interface IRegisterForm {
 const userTypeData = ['拥有者', '管理员', '成员'];
 
 const authorityData = {
-    拥有者: ['只读', '读写', '可编辑权限'],
-    管理员: ['只读', '读写', '可编辑权限'],
+    拥有者: ['只读', '读写', 'root权限'],
+    管理员: ['只读', '读写', 'root权限'],
     成员: ['只读', '读写']
 };
 
 export const authorityMapping = {
     1: '只读',
     3: '读写',
-    7: '可编辑权限'
+    7: 'root权限'
 }
 
 const authorityReverseMapping = {
     只读: 1,
     读写: 3,
-    可编辑权限: 7
+    root权限: 7
 }
 
 export const userTypeMapping = {

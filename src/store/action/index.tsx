@@ -1,4 +1,4 @@
-import { ADDUSER, ADDUSER_TYPE } from "../const";
+import { ADDUSER_TYPE } from "../const";
 import { StoreState } from "../type";
 
 export interface IADDUSERAction {
@@ -7,7 +7,3 @@ export interface IADDUSERAction {
 }
 
 export type ModifyAction = IADDUSERAction;
-
-// export const addUser = (): IADDUSERAction => ({
-//   type: ADDUSER,
-// })
