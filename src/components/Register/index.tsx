@@ -44,12 +44,10 @@ const RegisterForm: React.FC = () => {
 
     // 处理注册逻辑
     const onFinish = (values: any) => {
-        console.log('Received values of form: ', values);
         const registerInfo: IRegisterInfo = {
             userName: values.userName,
             password: values.password
         }
-        console.log("registerInfo: ", registerInfo);
         try {
             registerNewUser(registerInfo);
             message.info("注册成功！请登录");
@@ -65,7 +63,6 @@ const RegisterForm: React.FC = () => {
             form={form}
             name="register"
             onFinish={onFinish}
-            initialValues={{ residence: ['zhejiang', 'hangzhou', 'xihu'], prefix: '86' }}
             style={{ maxWidth: 600 }}
             scrollToFirstError
         >
@@ -85,7 +82,7 @@ const RegisterForm: React.FC = () => {
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your password!',
+                        message: '请输入密码！',
                     },
                 ]}
                 hasFeedback
@@ -102,14 +99,14 @@ const RegisterForm: React.FC = () => {
                 rules={[
                     {
                         required: true,
-                        message: 'Please confirm your password!',
+                        message: '请输入确认密码！',
                     },
                     ({ getFieldValue }) => ({
                         validator(_, value) {
                             if (!value || getFieldValue('password') === value) {
                                 return Promise.resolve();
                             }
-                            return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                            return Promise.reject(new Error('两次输入的密码不一致！'));
                         },
                     }),
                 ]}

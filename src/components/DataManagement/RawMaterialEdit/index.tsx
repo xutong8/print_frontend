@@ -33,11 +33,6 @@ const RawMaterialEdit = (
       return;
     }
     try {
-      console.log("updateRawMaterial: ", {
-        ...{ rawMaterialUnitPrice: 0, rawMaterialIncreasePercent: 0 },
-        ...(rawMaterial as IRawMaterial),
-        rawMaterialHistoryPrice: baseEditRef.current?.hpRelations ?? [],
-      })
       await updateRawMaterial({
         ...(rawMaterial as IRawMaterial),
         rawMaterialHistoryPrice: baseEditRef.current?.hpRelations ?? [],

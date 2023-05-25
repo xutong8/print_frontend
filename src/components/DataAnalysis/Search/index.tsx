@@ -79,8 +79,8 @@ const Search: React.FC<ISearchProps> = (props) => {
         setProducts(products);
     };
 
+    // 重置逻辑
     const handleReset = () => {
-        console.log("reset")
         setSearchType(SearchType.SINGLEPRODUCT);
         setTimeScale('');
         setSingleCondition(void 0);
@@ -125,21 +125,22 @@ const Search: React.FC<ISearchProps> = (props) => {
         setTempTimeScale(value)
     }
 
+    // 单一产品查询条件逻辑
     const handleSingleConditionChange = (value: number) => {
         const product = products.find((product) => product.id === value) ??
             void 0;
         setTempSingleCondition(product);
     };
 
+    // TopN查询依据逻辑
     const handleMultiFieldChange = (value: string) => {
         setTempMultiField(value);
     }
 
+    // TopN查询条件逻辑
     const handleMultiConditionChange = (event: ChangeEvent<HTMLInputElement>) => {
         setTempMultiCondition(event.target.value);
     }
-
-
 
     const renderSearchContent = () => {
         if (tempSearchType === SearchType.SINGLEPRODUCT) {

@@ -16,7 +16,6 @@ const ProductSeriesAdd = () => {
 
     const fetchInitialData = async () => {
         const products = await fetchProductNames();
-        console.log("product names: ", products);
         setProducts(products);
     };
 
@@ -31,11 +30,6 @@ const ProductSeriesAdd = () => {
             return;
         }
         try {
-            console.log("addProductSeries: ", {
-                ...{ productSeriesId: 0 },
-                ...(productSeries as IProductSeries),
-                productSimpleList: baseEditRef.current?.pdRelations ?? [],
-            })
             await addProductSeries({
                 ...(productSeries as IProductSeries),
                 productSimpleList: baseEditRef.current?.pdRelations ?? [],

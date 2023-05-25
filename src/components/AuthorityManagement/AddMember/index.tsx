@@ -1,7 +1,7 @@
 import ProductSales from "@/components/Echarts/LineRace";
-import RegisterForm from "./RegisterForm";
+import RegisterForm from "./EditForm";
 import styles from "./index.module.less"
-import Temp from "./RegisterForm/temp";
+import Temp from "./EditForm/temp";
 import HistoryBasePrice from "@/components/Echarts/BasicLineChart";
 import WithModal from "@/components/WithModal";
 

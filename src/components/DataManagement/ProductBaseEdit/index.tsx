@@ -85,11 +85,9 @@ const ProductBaseEdit = (
   };
   // 删除原料关联
   const handleRmDel = (relation: IRawMaterialSimple) => {
-    console.log("RMRelations b: ", rmRelations);
     setRMRelations(
       rmRelations.filter((rm) => rm.rawMaterialId !== relation.rawMaterialId)
     );
-    console.log("RMRelations a: ", rmRelations);
   };
 
   // 添加滤饼关联
@@ -104,9 +102,7 @@ const ProductBaseEdit = (
       filterCakeName: selectedFilterCake?.name ?? "",
       inventory: fcEnable ? fcAmount / 100 : fcAmount,
     };
-    console.log("relation: ", relation);
     setFCRelations([...fcRelations, relation]);
-    console.log("FCRelation: ", fcRelations);
   };
   // 删除滤饼关联
   const handleFcDel = (relation: IFilterCakeSimple) => {
@@ -167,20 +163,6 @@ const ProductBaseEdit = (
             }}
           />
         </div>
-        {/* 产品ID */}
-        {/* <div className={styles.base}>
-          <p className={styles.field}>产品标识：</p>
-          <Input
-            className={styles.input}
-            value={product?.productId ?? 0}
-            onChange={(event) => {
-              setProduct({
-                ...(product ?? ({} as IProduct)),
-                productId: Number(event.target.value),
-              });
-            }}
-          />
-        </div> */}
         {/* 生产工厂 */}
         <div className={styles.base}>
           <p className={styles.field}>生产工厂：</p>

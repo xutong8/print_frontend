@@ -51,13 +51,6 @@ const FilterCakeAdd = () => {
       return;
     }
     try {
-      console.log("addFilterCake: ", {
-        ...{ filterCakeAccountingQuantity: 0, filterCakeProcessingCost: 0, filterCakeRemarks: "" },
-        ...(filterCake as IFilterCake),
-        rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
-        filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
-        // historyPriceSimpleList: baseEditRef.current?.hpRelations ?? [],
-      })
       await addFilterCake({
         ...{ filterCakeAccountingQuantity: 0, filterCakeProcessingCost: 0, filterCakeRemarks: "" },
         ...(filterCake as IFilterCake),

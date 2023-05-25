@@ -1,8 +1,18 @@
 import { httpRequest } from "@/services";
-import { ISubmitInfo } from "@/components/AuthorityManagement/AddMember/RegisterForm";
+import { ISubmitInfo } from "@/components/AuthorityManagement/AddMember/EditForm";
+import { AxiosResponse } from "axios";
+
+export interface IUpdateResponse {
+  code: number;
+  data: {};
+  msg: string;
+}
 
 const updateMemberInfo = async (userInfo: ISubmitInfo) => {
-  return httpRequest.put("/User/manageUser", userInfo);
+  const res =await httpRequest.put("/User/manageUser", userInfo) as AxiosResponse<IUpdateResponse>;
+  if(res.data.code === 201 )
+    throw res.data.msg;
+  return res;
 };
 
 export { updateMemberInfo };

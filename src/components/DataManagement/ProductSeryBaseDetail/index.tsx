@@ -1,14 +1,7 @@
-import React, { ReactNode, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import styles from "./index.module.less";
-import { FilterCakeType } from "../FilterCakeEdit";
-import { unitPriceFormat } from "@/utils";
 import { Button, Group, RadioChangeEvent } from "antd/es/radio";
 import { Table } from "antd";
-import { IFilterCakeSimple } from "@/services/fetchFilterCakeById";
-import { IRawMaterialSimple } from "@/services/fetchProductById";
-import HistoryBasePrice from "@/components/Echarts/BasicLineChart";
-import { fetchFCakeHistoryPriceById } from "@/services/fetchFCakeHistoryPrice";
-import { IHistoryPriceSimple } from "@/services/fetchRawMaterialById";
 import { ProductSeriesType } from "../ProductSeryEdit";
 import { IProductSimple } from "@/services/fetchProductSeriesById";
 
@@ -43,10 +36,8 @@ const ProductSeriesBaseDetail: React.FC<IProductSeriesBaseDetailProps> = (props)
     const [selectedOption, setSelectedOption] = useState<string>(RELATION_DETAIL);
 
     const renderOption = (option: string) => {
-        console.log("option: ", option);
         switch (option) {
             case RELATION_DETAIL: {
-                console.log("productSimpleList: ", productSeries?.productSimpleList);
                 return (
                     <div className={styles.relation}>
                         <Table

@@ -15,9 +15,14 @@ interface IUserLogin {
 };
 
 interface IUserRes {
-  status: number;
-  userName: string;
-  authority: number;
+  code: number;
+  data: {
+    authority: number;
+    status: number;
+    userName: string;
+    userType: string;
+  }
+  msg: string;
 }
 
 //只需要在这个函数中写提交用户登录信息，并设置用户信息
@@ -29,15 +34,14 @@ const LoginForm: React.FC = () => {
   const onFinish = async (values: any) => {
     const userLogin: IUserLogin = { userName: values.username, password: values.password };
     const res = (await httpRequest.post("/User/login", userLogin)) as AxiosResponse<IUserRes>;
-    if (res.data.status === -1) {
+    if (res.data.data.status === -1) {
       message.error("用户不存在或密码错误");
       navigate("/login");
       return;
     }
-    console.log("res: ", res.data);
     dispatch({
       type: ADDUSER,
-      user: { userName: res.data.userName, authority: res.data.authority },
+      user: { userName: res.data.data.userName, authority: res.data.data.authority },
     })
     navigate("/data/product-list");
   };

@@ -74,7 +74,6 @@ const genColumns = (
             fetchProductSeriesById(record.productSeriesId),
             fetchProductNames(),
           ]);
-          console.log("productSeries: ", productSeries);
           editModalRef.current?.setProducts(products);
           editModalRef.current?.setProductSeries(productSeries);
           editModalRef.current?.setShowModal(true);

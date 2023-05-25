@@ -36,10 +36,6 @@ const ProductSeriesEdit = (
             return;
         }
         try {
-            console.log("updateProductSeries: ", {
-                ...(productSeries as IProductSeries),
-                productSimpleList: baseEditRef.current?.pdRelations ?? [],
-            })
             await updateProductSeries({
                 ...(productSeries as IProductSeries),
                 productSimpleList: baseEditRef.current?.pdRelations ?? [],

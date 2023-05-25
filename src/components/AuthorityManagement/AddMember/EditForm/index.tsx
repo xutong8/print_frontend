@@ -5,15 +5,13 @@ import {
     Select,
     message,
 } from 'antd';
-import { IMemberEditProps, IMemberInfoType } from '../../EditMember';
-import { Dispatch, ForwardedRef, RefObject, SetStateAction, forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import { IMemberInfoType } from '../../EditMember';
+import { Dispatch, ForwardedRef, SetStateAction, forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import React from 'react';
 import store from '@/store';
 import { updateMemberInfo } from '@/services/updateMemberInfo';
 import styles from './index.module.less'
 import { updatePassword } from '@/services/updatePassword';
-
-const { Option } = Select;
 
 const formItemLayout = {
     labelCol: {
@@ -23,19 +21,6 @@ const formItemLayout = {
     wrapperCol: {
         xs: { span: 24 },
         sm: { span: 16 },
-    },
-};
-
-const tailFormItemLayout = {
-    wrapperCol: {
-        xs: {
-            span: 24,
-            offset: 0,
-        },
-        sm: {
-            span: 16,
-            offset: 8,
-        },
     },
 };
 
@@ -108,7 +93,6 @@ export interface IUpdatePassword {
 }
 
 const handleSubmit = async (userInfo: ISubmitInfo) => {
-    console.log("ISubmitInfo: ", userInfo);
     try {
         await updateMemberInfo(userInfo);
         message.success("修改成功！");
@@ -116,6 +100,8 @@ const handleSubmit = async (userInfo: ISubmitInfo) => {
         message.error("修改失败！");
     }
 }
+
+
 
 export interface RegisterFormRef {
     setShowPasswordItem: (state: boolean) => void;
@@ -129,7 +115,6 @@ interface IRegisterForm {
     onOk: () => void;
 }
 
-// ----------------------------------------------------------------------------
 const userTypeData = ['拥有者', '管理员', '成员'];
 
 const authorityData = {
@@ -167,9 +152,8 @@ export type AuthMapType = keyof typeof authorityMapping;
 export type UserTypeMapType = keyof typeof userTypeMapping;
 type AuthRevMapType = keyof typeof authorityReverseMapping;
 type UserTypeRevMapType = keyof typeof userTypeReverseMapping;
-// ------------------------------------------------------------------------------
 
-const RegisterForm = (
+const EditForm = (
     props: IRegisterForm,
     ref: ForwardedRef<RegisterFormRef>
 ) => {
@@ -177,8 +161,6 @@ const RegisterForm = (
     const [forceUpdata, setForceUpdate] = useState<{}>({});
 
     const onFinish = (values: any) => {
-        console.log('Received values of form: ', values);
-
     };
 
     useImperativeHandle(ref, () => ({
@@ -187,8 +169,20 @@ const RegisterForm = (
         onFinish,
     }))
 
-    // -------------------------------------------------------------
-    console.log("update in RegisterForm")
+    const handleChangePassword = async () => {
+        try {
+            await updatePassword({
+                applicant: store.getState().userName,
+                userModified: props.userInfo?.userName,
+                password: password
+            })
+            message.success("修改密码成功！");
+        }
+        catch {
+            message.error("修改密码失败!");
+        }
+    }
+
     const [authorities, setAuthorities] = useState(authorityData[userTypeData[0] as UserType]);
     const [secondAuthority, setSecondeAuthority] = useState(authorityData[userTypeData[0] as UserType][0]);
     const [userType, setUserType] = useState<string>(userTypeMapping[props.userInfo?.userType as UserTypeMapType]);
@@ -217,7 +211,6 @@ const RegisterForm = (
     };
 
     useEffect(() => {
-        console.log("update in useEffect");
         setUserType(userTypeMapping[props.userInfo?.userType as UserTypeMapType]);
         //这里需要注意，上面在设置userType变量后，并不会立即生效，也就是说下面这一行不能直接使用userType变量，可能用到的是旧值
         setAuthorities(authorityData[userTypeMapping[props.userInfo?.userType as UserTypeMapType] as UserType]);
@@ -231,7 +224,6 @@ const RegisterForm = (
         if (props.userInfo)
             setUserType(userTypeMapping[props.userInfo?.userType as UserTypeMapType]);
     }, [props.userInfo])
-    // --------------------------------------------------------------
 
     return (
         <div className={styles.register_form}>
@@ -264,15 +256,12 @@ const RegisterForm = (
             </a>
             <Button type="primary" style={{ display: 'block', width: 80, margin: '20px 0 0 50px' }} onClick={async () => {
                 await handleSubmit(submitInfo);
-                if (password)
-                    updatePassword({
-                        applicant: store.getState().userName,
-                        userModified: props.userInfo?.userName,
-                        password: password
-                    })
+                if (password) {
+                    handleChangePassword();
+                }
+
                 props.onOk();
                 props.setForceUpdate({});
-                console.log("11111111111");
             }}>
                 提 交
             </Button>
@@ -281,4 +270,4 @@ const RegisterForm = (
 };
 
 
-export default forwardRef<RegisterFormRef, IRegisterForm>(RegisterForm);
+export default forwardRef<RegisterFormRef, IRegisterForm>(EditForm);

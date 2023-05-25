@@ -111,7 +111,6 @@ const genColumns = (
             fetchAllRawMaterials(),
             fetchAllFilterCakes(),
           ]);
-          console.log("filterCake: ", filterCake);
           editModalRef.current?.setRawMaterials(rawMaterials);
           editModalRef.current?.setFilterCakes(filterCakes);
           editModalRef.current?.setFilterCake(filterCake);
@@ -122,7 +121,6 @@ const genColumns = (
         const handlePreviewFilterCake = async () => {
           previewModalRef.current?.setShowModal(false);
           const filterCake = await fetchFilterCakeById(record.filterCakeId);
-          console.log("filterCake: ", filterCake);
           previewModalRef.current?.setFilterCake(filterCake);
           previewModalRef.current?.setShowModal(true);
         };

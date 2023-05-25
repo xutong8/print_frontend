@@ -151,7 +151,6 @@ const Search: React.FC<ISearchProps> = (props) => {
   };
 
   const handleReset = () => {
-    console.log("reset")
     setFilterCake(void 0);
     setProductSeries(void 0);
     setSearchType(SearchType.INDIRECT);

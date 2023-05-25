@@ -25,9 +25,6 @@ const RawMaterialBaseDetail: React.FC<IRawMaterialBaseDetailProps> = (
 
   const renderOption = (option: string) => {
     // TODO: 添加历史价格逻辑
-    console.log("rawM history price: ", rawMaterial?.rawMaterialHistoryPrice.map((item: IHistoryPriceSimple) => {
-      return item.date;
-    }));
     const datax = rawMaterial?.rawMaterialHistoryPrice.map((item: IHistoryPriceSimple) => item.date);
     const dataSeries = rawMaterial?.rawMaterialHistoryPrice.map((item: IHistoryPriceSimple) => item.price);
     return <HistoryPriceBase

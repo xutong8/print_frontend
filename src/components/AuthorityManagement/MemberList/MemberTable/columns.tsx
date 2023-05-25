@@ -5,7 +5,7 @@ import { ColumnsType } from "antd/es/table";
 import styles from "./index.module.less"
 import { Dispatch, RefObject, SetStateAction } from "react";
 import EditMember, { MemberEditRef } from "../../EditMember";
-import { authorityMapping, userTypeMapping, UserTypeMapType, AuthMapType } from "../../AddMember/RegisterForm";
+import { authorityMapping, userTypeMapping, UserTypeMapType, AuthMapType } from "../../AddMember/EditForm";
 
 const getColumns = (
     setForceUpdate: Dispatch<SetStateAction<{}>>,
@@ -35,7 +35,6 @@ const getColumns = (
             dataIndex: '',
             key: 'action',
             render: (_, record: IMemberInfo) => {
-
                 // 处理删除逻辑
                 const handleDelUser = async () => {
                     try {
@@ -54,10 +53,8 @@ const getColumns = (
                 };
 
                 const handleEditMember = () => {
-                    console.log("record:", record);
                     editModalRef.current?.setUserInfo({ ...record });
                     editModalRef.current?.registerFormRef.current?.setShowPasswordItem(false);
-                    // editModalRef.current?.registerFormRef.current?.setForceUpdate({});
                     editModalRef.current?.setShowModal(true);
                 }
                 return (

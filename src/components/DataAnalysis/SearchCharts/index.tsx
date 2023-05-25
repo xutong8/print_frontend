@@ -85,7 +85,14 @@ const SearchChart: React.FC<ISearchChartProps> = (props) => {
         }
 
     const fetchApiData = async () => {
-        console.log("query: ", query);
+        if (!timeScale) {
+            setSingleList([]);
+            setTopNdata([]);
+            setProductName([]);
+            setAllDate([]);
+            setSeries([]);
+            return;
+        }
         //TO DO 从后端获取销量或者利润信息
         if (searchType === SearchType.SINGLEPRODUCT) {
             const res = (await httpRequest.get(
@@ -97,7 +104,6 @@ const SearchChart: React.FC<ISearchChartProps> = (props) => {
                 }
             )) as AxiosResponse<ISingleSalesResponse>;
             const salesInfo = (res?.data ?? []) as ISingleSalesResponse;
-            console.log("res: ", salesInfo);
             setSingleList(salesInfo.data.list)
         }
         else {
@@ -110,7 +116,6 @@ const SearchChart: React.FC<ISearchChartProps> = (props) => {
                 }
             )) as AxiosResponse<ITopNSalesResponse>;
             const salesInfo = (res?.data ?? []) as ITopNSalesResponse;
-            console.log("res: ", salesInfo);
             const temp = salesInfo.data.map(item => item.list.map(item1 => item1.list));
             const salesList: ISingleProductSales[][] = [];
             const tempProductName: string[] = [];
@@ -147,10 +152,6 @@ const SearchChart: React.FC<ISearchChartProps> = (props) => {
             setAllDate(tempDate);
             setTopNdata(tempData);
             setProductName(tempProductName)
-            console.log("tempSeries: ", tempSeries);
-            console.log("tempDate: ", tempDate);
-            console.log("tempData: ", tempData);
-            console.log("productName: ", tempProductName);
         }
     }
 

@@ -49,13 +49,6 @@ const ProductEdit = (
       return;
     }
     try {
-      console.log("-------------: ", baseEditRef.current)
-      console.log("updateProduct: ", {
-        ...{ productAccountingQuantity: 0, productProcessingCost: 0, productUnitPrice: 0, productPriceIncreasePercent: 0 },
-        ...(product as IProduct),
-        rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
-        filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
-      })
       await updateProduct({
         ...{ productAccountingQuantity: 0, productProcessingCost: 0 },
         ...(product as IProduct),

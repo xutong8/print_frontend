@@ -42,19 +42,11 @@ const FilterCakeEdit = (
       return;
     }
     try {
-      console.log("updateFilterCake: ", {
-        ...{ filterCakeAccountingQuantity: 0, filterCakeProcessingCost: 0, filterCakeUnitPrice: 0, filterCakePriceIncreasePercent: 0 },
-        ...(filterCake as IFilterCake),
-        rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
-        filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
-        // historyPriceSimpleList: baseEditRef.current?.hpRelations ?? [],
-      })
       await updateFilterCake({
         ...{ filterCakeAccountingQuantity: 0, filterCakeProcessingCost: 0 },
         ...(filterCake as IFilterCake),
         rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
-        // historyPriceSimpleList: baseEditRef.current?.hpRelations ?? [],
       });
       message.success("新建对象成功！");
     } catch (err) {
