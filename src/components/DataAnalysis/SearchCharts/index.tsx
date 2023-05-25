@@ -5,11 +5,17 @@ import StackedAreaChart, { ISeries } from "@/components/Echarts/StackedAreaChart
 import styles from './index.module.less'
 import { SearchType } from "..";
 import { IProductName } from "@/services/fetchProductNames";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { httpRequest } from "@/services";
 import { nowDate } from "@/utils";
 import { AxiosResponse, all } from "axios";
 import { SALES_VOLUME } from "../Search/constants";
+import Header from "@/components/Header";
+import { Button } from "antd";
+import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
+import Uploader, { UploaderRef } from "./Uploader";
+import WithModal, { WithModalRef } from "@/components/WithModal";
+import DownloadBase from "@/components/DownloadBase";
 
 export interface ISearchChartProps {
     searchType: SearchType;
@@ -181,12 +187,43 @@ const SearchChart: React.FC<ISearchChartProps> = (props) => {
         }
     }
 
+    const uploaderRef = useRef<UploaderRef>(null);
+    const downloadRef = useRef<WithModalRef>(null);
+
+    const handleUpload = () => {
+        uploaderRef.current?.showModal();
+    }
+
+    const handleDownload = () => {
+        downloadRef.current?.showModal();
+    }
+
     return (
-        <>
+        <div className={styles.table}>
+            <div className={styles.header}>
+                <Header desc="数据分析" />
+                <div className={styles.right}>
+                    <Button type="primary" icon={<UploadOutlined />} className={styles.upload} onClick={handleUpload}>
+                        上传
+                    </Button>
+                    <Uploader ref={uploaderRef}></Uploader>
+                    <Button type="primary" icon={<DownloadOutlined />} className={styles.download} onClick={handleDownload}>
+                        下载
+                    </Button>
+                    <WithModal
+                        componentList={
+                            [
+                                <DownloadBase text={"下载销售信息"} url={"Sales/exportExcel"}></DownloadBase>,
+                            ]
+                        }
+                        ref={downloadRef}
+                    ></WithModal>
+                </div>
+            </div>
             <div className={styles.chart}>
                 {renderSearchContent()}
             </div>
-        </>
+        </div>
     )
 }
 
