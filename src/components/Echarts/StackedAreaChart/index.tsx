@@ -2,13 +2,27 @@ import * as echarts from 'echarts';
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import styles from './index.module.less';
 
-interface IStackedAreaChart {
+export interface ISeries {
+    name: string,
+    type: string,
+    stack: string,
+    areaStyle: {},
+    emphasis: {
+        focus: 'series'
+    },
+    data: number[]
+}
+
+export interface IStackedAreaChart {
     title?: string;
+    productName: string[];
+    allDate: string[];
+    series: ISeries[];
 }
 
 const StackedAreaChart: React.FC<IStackedAreaChart> = (props) => {
     const chartDom: any = useRef();
-    const { title } = props;
+    const { title, productName, allDate, series } = props;
 
     const option = {
         title: {
@@ -27,7 +41,7 @@ const StackedAreaChart: React.FC<IStackedAreaChart> = (props) => {
         },
         //TO DO 从返回的数据中获取所有的产品名
         legend: {
-            data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
+            data: productName
         },
         toolbox: {
             feature: {
@@ -45,7 +59,7 @@ const StackedAreaChart: React.FC<IStackedAreaChart> = (props) => {
                 type: 'category',
                 boundaryGap: false,
                 //TO DO 从返回的数据中获取日期数据
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                data: allDate
             }
         ],
         yAxis: [
@@ -54,62 +68,7 @@ const StackedAreaChart: React.FC<IStackedAreaChart> = (props) => {
             }
         ],
         //TO DO这里做一个映射
-        series: [
-            {
-                name: 'Email',
-                type: 'line',
-                stack: 'Total',
-                areaStyle: {},
-                emphasis: {
-                    focus: 'series'
-                },
-                data: [120, 132, 101, 134, 90, 230, 210]
-            },
-            {
-                name: 'Union Ads',
-                type: 'line',
-                stack: 'Total',
-                areaStyle: {},
-                emphasis: {
-                    focus: 'series'
-                },
-                data: [220, 182, 191, 234, 290, 330, 310]
-            },
-            {
-                name: 'Video Ads',
-                type: 'line',
-                stack: 'Total',
-                areaStyle: {},
-                emphasis: {
-                    focus: 'series'
-                },
-                data: [150, 232, 201, 154, 190, 330, 410]
-            },
-            {
-                name: 'Direct',
-                type: 'line',
-                stack: 'Total',
-                areaStyle: {},
-                emphasis: {
-                    focus: 'series'
-                },
-                data: [320, 332, 301, 334, 390, 330, 320]
-            },
-            {
-                name: 'Search Engine',
-                type: 'line',
-                stack: 'Total',
-                label: {
-                    show: true,
-                    position: 'top'
-                },
-                areaStyle: {},
-                emphasis: {
-                    focus: 'series'
-                },
-                data: [820, 932, 901, 934, 1290, 1330, 1320]
-            }
-        ]
+        series: series
     };
     useEffect(
         () => {

@@ -12,9 +12,6 @@ interface IProps {
 const BasicLineChart: React.FC<IProps> = (props) => {
     const { datax, dataSeries, title } = props;
     const chartDom: any = useRef();
-    let existInstance = echarts.getInstanceByDom(chartDom);
-    if (existInstance)
-        echarts.dispose(existInstance);
     useEffect(() => {
         const myChart = echarts.init(chartDom.current);
         let option: EChartsOption = {

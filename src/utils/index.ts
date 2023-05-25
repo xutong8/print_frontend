@@ -1,6 +1,8 @@
 import store from "@/store";
 import { message } from "antd";
 
+export let nowDate = new Date();
+
 export function unitPriceFormat(price: number) {
   return '¥' + Number(price).toFixed(2);
 }

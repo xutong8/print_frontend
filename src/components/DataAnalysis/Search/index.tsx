@@ -5,6 +5,7 @@ import { SearchOutlined, ReloadOutlined } from "@ant-design/icons";
 import Input from "antd/es/input/Input";
 import { SearchType } from '../'
 import { IProductName, fetchProductNames } from "@/services/fetchProductNames";
+import { GROSS_INCOME, SALES_VOLUME } from "./constants";
 
 export interface ISearchProps {
     searchType: SearchType;
@@ -47,7 +48,7 @@ const Search: React.FC<ISearchProps> = (props) => {
     const [products, setProducts] = useState<IProductName[]>([]);
 
     const allTimeScales = ['最近三个月', '最近半年', '最近一年', '最近两年', '全部数据'];
-    const allFields = ['销售量', '利润'];
+    const allFields = [SALES_VOLUME, GROSS_INCOME];
 
     const mapTimeScalesData = allTimeScales.map((timeScale) => ({
         value: timeScale,

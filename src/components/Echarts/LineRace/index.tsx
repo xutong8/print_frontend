@@ -7,12 +7,8 @@ var ROOT_PATH = 'https://echarts.apache.org/examples';
 type EChartsOption = echarts.EChartsOption;
 var option: EChartsOption;
 
-const data = [["Product", "Date", "Sales"], ["A", "2020", "1234"], ["A", "2021", "1257"], ["A", "2022", "1114"], ["A", "2023", "1339"]];
-function run(_rawData: any, myChart: echarts.ECharts, title: string | undefined) {
-    // var countries = ['Australia', 'Canada', 'China', 'Cuba', 'Finland', 'France', 'Germany', 'Iceland', 'India', 'Japan', 'North Korea', 'South Korea', 'New Zealand', 'Norway', 'Poland', 'Russia', 'Turkey', 'United Kingdom', 'United States'];
-    const products = [
-        'A',
-    ];
+function run(_rawData: any, myChart: echarts.ECharts, title: string | undefined, productName: string[]) {
+    const products = productName;
     const datasetWithFilters: echarts.DatasetComponentOption[] = [];
     const seriesList: echarts.SeriesOption[] = [];
     echarts.util.each(products, function (product) {
@@ -101,15 +97,17 @@ function run(_rawData: any, myChart: echarts.ECharts, title: string | undefined)
 
 interface ILineRace {
     title?: string;
+    data: (string | number)[][];
+    productName: string[];
 }
 
 const LineRace: React.FC<ILineRace> = (props) => {
     const chartDom: any = useRef();
-    const { title } = props;
+    const { title, data, productName } = props;
     useEffect(
         () => {
             const myChart = echarts.init(chartDom.current);
-            run(data, myChart, title);
+            run(data, myChart, title, productName);
         }
     )
     return <div
