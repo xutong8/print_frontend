@@ -1,29 +1,14 @@
 import React from 'react';
 import { Button, Form, Input, message } from 'antd';
 import { useDispatch } from 'react-redux';
-import { httpRequest } from '@/services';
 import { ADDUSER } from '@/store/const';
 import { useNavigate } from 'react-router-dom';
 import styles from "./index.module.less";
 
 import { useState } from 'react';
 import { Drawer } from 'antd';
-import { AxiosResponse } from 'axios';
-interface IUserLogin {
-  userName: string;
-  password: string;
-};
+import { IUserLogin, login } from '@/services/login';
 
-interface IUserRes {
-  code: number;
-  data: {
-    authority: number;
-    status: number;
-    userName: string;
-    userType: string;
-  }
-  msg: string;
-}
 
 //只需要在这个函数中写提交用户登录信息，并设置用户信息
 const LoginForm: React.FC = () => {
@@ -33,17 +18,21 @@ const LoginForm: React.FC = () => {
   //处理登录逻辑
   const onFinish = async (values: any) => {
     const userLogin: IUserLogin = { userName: values.username, password: values.password };
-    const res = (await httpRequest.post("/User/login", userLogin)) as AxiosResponse<IUserRes>;
-    if (res.data.data.status === -1) {
-      message.error("用户不存在或密码错误");
-      navigate("/login");
-      return;
+    try {
+      const res = await login(userLogin);
+      dispatch({
+        type: ADDUSER,
+        user: { userName: res.data.data.userName, authority: res.data.data.authority },
+      })
+      message.success("登录成功！");
+      console.log("login: ", res.data);
+      navigate("/data/product-list");
     }
-    dispatch({
-      type: ADDUSER,
-      user: { userName: res.data.data.userName, authority: res.data.data.authority },
-    })
-    navigate("/data/product-list");
+    catch (err) {
+      if (typeof err === 'string')
+        message.error(err as string);
+      navigate("/login");
+    }
   };
 
   //处理登录失败逻辑

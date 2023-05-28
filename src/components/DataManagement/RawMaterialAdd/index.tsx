@@ -19,12 +19,13 @@ const RawMaterialAdd = () => {
     }
     try {
       await addRawMaterial({
+        ...{ rawMaterialUnitPrice: 0, rawMaterialIncreasePercent: 0, rawMaterialId: 0 },
         ...(rawMaterial as IRawMaterial),
         rawMaterialHistoryPrice: baseEditRef.current?.hpRelations ?? [],
       });
       message.success("新建对象成功！");
     } catch (err) {
-      message.error("新建对象失败！");
+      message.error(err as string + ", 新建对象失败！");
     }
   };
 

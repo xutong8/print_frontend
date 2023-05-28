@@ -1,4 +1,4 @@
-import React, {
+import {
   ChangeEvent,
   ForwardedRef,
   forwardRef,
@@ -12,7 +12,6 @@ import {
   Select,
   Tag,
   message,
-  DatePicker,
 } from "antd";
 import styles from "./index.module.less";
 import TextArea from "antd/es/input/TextArea";
@@ -26,12 +25,10 @@ import {
 import {
   IFilterCake,
   IFilterCakeSimple,
-  IHistoryPriceSimple,
   IRawMaterialSimple,
 } from "@/services/fetchFilterCakeById";
 import { IRawMaterialName } from "@/services/fetchRawMaterials";
 import { IFilterCakeName } from "@/services/fetchFilterCakes";
-import { DayType } from "@/types";
 
 export interface IFilterCakeBaseEditProps {
   filterCake: FilterCakeType;
@@ -45,8 +42,6 @@ export interface FilterCakeBaseEditRef {
   setRMRelations: (rmRelations: IRawMaterialSimple[]) => void;
   fcRelations: IFilterCakeSimple[];
   setFCRelations: (fcRelations: IFilterCakeSimple[]) => void;
-  // hpRelations: IHistoryPriceSimple[];
-  // setHPRelations: (hpRelations: IHistoryPriceSimple[]) => void;
 }
 
 const FilterCakeBaseEdit = (
@@ -86,11 +81,6 @@ const FilterCakeBaseEdit = (
   const [fcRelations, setFCRelations] = useState<IFilterCakeSimple[]>(
     filterCake?.filterCakeSimpleList ?? []
   );
-
-  // TODO: 历史价格
-  // const [hpRelations, setHPRelations] = useState<IHistoryPriceSimple[]>(
-  //   filterCake?.historyPriceSimpleList ?? []
-  // );
 
   // 添加原料关联
   const handleRmAdd = () => {
@@ -134,30 +124,11 @@ const FilterCakeBaseEdit = (
     );
   };
 
-  // 添加历史价格
-  // const handlePriceAdd = () => {
-  //   if (currentPrice <= 0 || currentDate === null) {
-  //     message.warning("历史价格数据不能为空，新增失败！");
-  //     return;
-  //   }
-
-  //   const relation = {
-  //     historyPriceDate: currentDate.format(dateFormat),
-  //     value: currentPrice,
-  //   };
-  //   setHPRelations([...hpRelations, relation]);
-  // };
-
-  // 删除历史价格
-  // const handleHpDel = (relation: IHistoryPriceSimple) => { };
-
   useImperativeHandle(ref, () => ({
     rmRelations,
     setRMRelations,
     fcRelations,
     setFCRelations,
-    // hpRelations,
-    // setHPRelations,
   }));
 
   return (
@@ -177,20 +148,6 @@ const FilterCakeBaseEdit = (
             }}
           />
         </div>
-        {/* 滤饼标识 */}
-        {/* <div className={styles.base}>
-          <p className={styles.field}>滤饼标识：</p>
-          <Input
-            className={styles.input}
-            value={filterCake?.filterCakeId ?? 0}
-            onChange={(event) => {
-              setFilterCake({
-                ...(filterCake ?? ({} as IFilterCake)),
-                filterCakeId: Number(event.target.value),
-              });
-            }}
-          />
-        </div> */}
         {/* 滤饼编号 */}
         <div className={styles.base}>
           <p className={styles.field}>滤饼编号：</p>
@@ -247,34 +204,6 @@ const FilterCakeBaseEdit = (
             }}
           />
         </div>
-        {/* 滤饼单价 */}
-        {/* <div className={styles.base}>
-          <p className={styles.field}>滤饼单价：</p>
-          <Input
-            className={styles.input}
-            value={filterCake?.filterCakeUnitPrice ?? 0}
-            onChange={(event) => {
-              setFilterCake({
-                ...(filterCake ?? ({} as IFilterCake)),
-                filterCakeUnitPrice: Number(event.target.value),
-              });
-            }}
-          />
-        </div> */}
-        {/* 滤饼涨幅 */}
-        {/* <div className={styles.base}>
-          <p className={styles.field}>滤饼涨幅：</p>
-          <Input
-            className={styles.input}
-            value={filterCake?.filterCakePriceIncreasePercent ?? 0}
-            onChange={(event) => {
-              setFilterCake({
-                ...(filterCake ?? ({} as IFilterCake)),
-                filterCakePriceIncreasePercent: Number(event.target.value),
-              });
-            }}
-          />
-        </div> */}
         {/* 滤饼规格 */}
         <div className={styles.base}>
           <p className={styles.field}>滤饼规格：</p>
@@ -345,16 +274,17 @@ const FilterCakeBaseEdit = (
                 onChange={(value) => setRMAmount(value as number)}
               />
             </div>
-            <div className={styles.enable}>
+            {/* <div className={styles.enable}>
               <Checkbox
                 checked={rmEnable}
                 onChange={(e: CheckboxChangeEvent) => {
+                  console.log("setRMEnable");
                   setRMEnable(e.target.checked);
                 }}
               >
                 启用百分比
               </Checkbox>
-            </div>
+            </div> */}
           </div>
           <div className={styles.exist_relations}>
             {rmRelations.map((relation, index: number) => (
@@ -407,16 +337,17 @@ const FilterCakeBaseEdit = (
                 onChange={(value) => setFCAmount(value as number)}
               />
             </div>
-            <div className={styles.enable}>
+            {/* <div className={styles.enable}>
               <Checkbox
                 checked={fcEnable}
-                onChange={(e: CheckboxChangeEvent) =>
-                  setFCEnable(e.target.value)
-                }
+                onChange={(e: CheckboxChangeEvent) => {
+                  console.log("setFCEnable");
+                  setFCEnable(e.target.checked);
+                }}
               >
                 启用百分比
               </Checkbox>
-            </div>
+            </div> */}
           </div>
           <div className={styles.exist_relations}>
             {fcRelations.map((relation, index: number) => (
@@ -429,47 +360,6 @@ const FilterCakeBaseEdit = (
             ))}
           </div>
         </div>
-        {/* <div className={styles.price_relations}>
-          <div className={styles.title}>
-            <div className={styles.field}>历史价格</div>
-            <Button
-              className={styles.btn}
-              type="primary"
-              ghost
-              icon={<PlusCircleTwoTone />}
-              onClick={handlePriceAdd}
-            >
-              新增
-            </Button>
-          </div>
-          <div className={styles.new_relation}>
-            <div className={styles.name}>
-              <p>当期价格：</p>
-              <InputNumber
-                value={currentPrice}
-                onChange={(value) => setCurrentPrice(value as number)}
-              />
-            </div>
-            <div className={styles.amount}>
-              <p>当期日期：</p>
-              <DatePicker
-                value={currentDate}
-                format={dateFormat}
-                onChange={(date: DayType) => setCurrentDate(date)}
-              />
-            </div>
-          </div>
-          <div className={styles.exist_relations}>
-            {hpRelations.map((relation, index: number) => (
-              <Tag closable key={index} onClose={() => handleHpDel(relation)}>
-                <span>{relation.historyPriceDate}</span>
-                <span className={styles.tag_inventory}>
-                  {Number(relation.value).toFixed(2)}
-                </span>
-              </Tag>
-            ))}
-          </div>
-        </div> */}
       </div>
     </div>
   );

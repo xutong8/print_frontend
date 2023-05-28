@@ -5,7 +5,7 @@ import { IUpdateResponse } from "./updateMemberInfo";
 
 const updatePassword = async (updateInfo: IUpdatePassword) => {
   const res = await httpRequest.put("/User/updatePassword", updateInfo) as AxiosResponse<IUpdateResponse>;
-  if(res.data.code === 201 )
+  if(res.data.code === 301 )
     throw res.data.msg;
   return res;
 };

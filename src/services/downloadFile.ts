@@ -1,4 +1,4 @@
-import { BASE_URL, httpRequest } from "@/services";
+import { BASE_URL} from "@/services";
 
 const downloadFile = (url:string) => {
     let eleLink = document.createElement('a');

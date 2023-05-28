@@ -39,7 +39,7 @@ const RawMaterialEdit = (
       });
       message.success("新建对象成功！");
     } catch (err) {
-      message.error("新建对象失败！");
+      message.error(err as string + ", 新建对象失败！");
     }
   };
 

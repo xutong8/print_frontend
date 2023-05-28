@@ -55,14 +55,14 @@ const ProductAdd = () => {
     }
     try {
       await addProduct({
-        ...{ productAccountingQuantity: 0, productProcessingCost: 0, productRemarks: "" },
+        ...{ productPriceIncreasePercent: 0, productUnitPrice: 0, productId: 0 },
         ...(product as IProduct),
         rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
       });
       message.success("新建对象成功！");
     } catch (err) {
-      message.error("新建对象失败！");
+      message.error(err as string + ", 新建对象失败！");
     }
   };
 

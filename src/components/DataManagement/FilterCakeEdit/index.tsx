@@ -43,14 +43,13 @@ const FilterCakeEdit = (
     }
     try {
       await updateFilterCake({
-        ...{ filterCakeAccountingQuantity: 0, filterCakeProcessingCost: 0 },
         ...(filterCake as IFilterCake),
         rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
       });
-      message.success("新建对象成功！");
+      message.success("更新对象成功！");
     } catch (err) {
-      message.error("新建对象失败！");
+      message.error(err as string + ", 更新对象失败！");
     }
   };
 

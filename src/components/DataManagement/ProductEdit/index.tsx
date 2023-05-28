@@ -50,14 +50,13 @@ const ProductEdit = (
     }
     try {
       await updateProduct({
-        ...{ productAccountingQuantity: 0, productProcessingCost: 0 },
         ...(product as IProduct),
         rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
       });
-      message.success("新建对象成功！");
+      message.success("更新对象成功！");
     } catch (err) {
-      message.error("新建对象失败！");
+      message.error(err as string + ", 更新对象失败！");
     }
   };
 

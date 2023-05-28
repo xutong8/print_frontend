@@ -1,8 +1,14 @@
 import { httpRequest } from "@/services";
 import { IProduct } from "./fetchProductById";
+import { AxiosResponse } from "axios";
+import { IUpdateResponse } from "./updateMemberInfo";
 
 const addProduct = async (product: IProduct) => {
-  return httpRequest.post("/product/addProduct", product);
+  const res =await httpRequest.post("/product/addProduct", product) as AxiosResponse<IUpdateResponse>;
+  if(res.data.code === 301 ){
+    throw res.data.msg;
+  }
+  return res;
 };
 
 export { addProduct };

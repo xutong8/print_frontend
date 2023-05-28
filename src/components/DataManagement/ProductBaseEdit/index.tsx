@@ -54,11 +54,11 @@ const ProductBaseEdit = (
   // 原料投入量
   const [rmAmount, setRMAmount] = useState<number>(0);
   // 原料启用百分比
-  const [rmEnable, setRMEnable] = useState<boolean>(false);
+  const [rmEnable, setRMEnable] = useState<boolean>(true);
   // 滤饼投入量
   const [fcAmount, setFCAmount] = useState<number>(0);
   // 滤饼启用百分比
-  const [fcEnable, setFCEnable] = useState<boolean>(false);
+  const [fcEnable, setFCEnable] = useState<boolean>(true);
 
   // 原料关联
   const [rmRelations, setRMRelations] = useState<IRawMaterialSimple[]>(
@@ -237,34 +237,6 @@ const ProductBaseEdit = (
             }}
           />
         </div>
-        {/* 产品单价 */}
-        {/* <div className={styles.base}>
-          <p className={styles.field}>产品单价：</p>
-          <Input
-            className={styles.input}
-            value={product?.productUnitPrice ?? 0}
-            onChange={(event) => {
-              setProduct({
-                ...(product ?? ({} as IProduct)),
-                productUnitPrice: Number(event.target.value),
-              });
-            }}
-          />
-        </div> */}
-        {/* 产品涨幅 */}
-        {/* <div className={styles.base}>
-          <p className={styles.field}>产品涨幅：</p>
-          <Input
-            className={styles.input}
-            value={product?.productPriceIncreasePercent ?? 0}
-            onChange={(event) => {
-              setProduct({
-                ...(product ?? ({} as IProduct)),
-                productPriceIncreasePercent: Number(event.target.value),
-              });
-            }}
-          />
-        </div> */}
         {/* 附加信息 */}
         <div className={styles.base}>
           <p className={styles.field}>附加信息：</p>
@@ -321,23 +293,13 @@ const ProductBaseEdit = (
                 onChange={(value) => setRMAmount(value as number)}
               />
             </div>
-            <div className={styles.enable}>
-              <Checkbox
-                checked={rmEnable}
-                onChange={(e: CheckboxChangeEvent) => {
-                  setRMEnable(e.target.checked);
-                }}
-              >
-                启用百分比
-              </Checkbox>
-            </div>
           </div>
           <div className={styles.exist_relations}>
             {rmRelations.map((relation, index: number) => (
               <Tag closable key={index} onClose={() => handleRmDel(relation)}>
                 <span>{relation.rawMaterialName}</span>
                 <span className={styles.tag_inventory}>
-                  {Number(relation.inventory).toFixed(2)}
+                  {relation.inventory.toFixed(2)}
                 </span>
               </Tag>
             ))}
@@ -383,23 +345,13 @@ const ProductBaseEdit = (
                 onChange={(value) => setFCAmount(value as number)}
               />
             </div>
-            <div className={styles.enable}>
-              <Checkbox
-                checked={fcEnable}
-                onChange={(e: CheckboxChangeEvent) =>
-                  setFCEnable(e.target.value)
-                }
-              >
-                启用百分比
-              </Checkbox>
-            </div>
           </div>
           <div className={styles.exist_relations}>
             {fcRelations.map((relation, index: number) => (
               <Tag closable key={index} onClose={() => handleFcDel(relation)}>
                 <span>{relation.filterCakeName}</span>
                 <span className={styles.tag_inventory}>
-                  {Number(relation.inventory).toFixed(2)}
+                  {relation.inventory.toFixed(2)}
                 </span>
               </Tag>
             ))}

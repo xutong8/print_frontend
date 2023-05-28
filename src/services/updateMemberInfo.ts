@@ -10,7 +10,7 @@ export interface IUpdateResponse {
 
 const updateMemberInfo = async (userInfo: ISubmitInfo) => {
   const res =await httpRequest.put("/User/manageUser", userInfo) as AxiosResponse<IUpdateResponse>;
-  if(res.data.code === 201 )
+  if(res.data.code === 301 )
     throw res.data.msg;
   return res;
 };

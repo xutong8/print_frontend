@@ -52,15 +52,14 @@ const FilterCakeAdd = () => {
     }
     try {
       await addFilterCake({
-        ...{ filterCakeAccountingQuantity: 0, filterCakeProcessingCost: 0, filterCakeRemarks: "" },
+        ...{ filterCakePriceIncreasePercent: 0, filterCakeUnitPrice: 0, filterCakeId: 0 },
         ...(filterCake as IFilterCake),
         rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
-        // historyPriceSimpleList: baseEditRef.current?.hpRelations ?? [],
       });
       message.success("新建对象成功！");
     } catch (err) {
-      message.error("新建对象失败！");
+      message.error(err as string + ", 新建对象失败！");
     }
   };
 

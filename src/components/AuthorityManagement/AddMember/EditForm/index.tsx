@@ -211,6 +211,7 @@ const EditForm = (
     };
 
     useEffect(() => {
+        setPassword('');
         setUserType(userTypeMapping[props.userInfo?.userType as UserTypeMapType]);
         //这里需要注意，上面在设置userType变量后，并不会立即生效，也就是说下面这一行不能直接使用userType变量，可能用到的是旧值
         setAuthorities(authorityData[userTypeMapping[props.userInfo?.userType as UserTypeMapType] as UserType]);

@@ -25,6 +25,8 @@ const UploaderBase: React.FC<IUploadBase> = (props) => {
                 const res = info.file.response;
                 if (res.code === 201)
                     showConfirm(res.msg, res.data);
+                else if (res.code === 301)
+                    message.error(res.msg + ", 上传失败！");
                 else
                     message.success(`${info.file.name} 上传成功！`);
             } else if (info.file.status === 'error') {

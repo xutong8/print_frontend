@@ -51,9 +51,9 @@ const Table: React.FC<ITableProps> = (props) => {
         typeOfQuery: searchField,
       }
       : {
-        filterCakeName: filterCake?.name ?? void 0,
-        productSeriesName: productSeries?.name ?? void 0,
-        rawMaterialName: rawMaterial?.name ?? void 0,
+        filterCakeName: filterCake?.name ?? "",
+        productSeriesName: productSeries?.name ?? "",
+        rawMaterialName: rawMaterial?.name ?? "",
       };
 
   const uploaderRef = useRef<UploaderRef>(null);

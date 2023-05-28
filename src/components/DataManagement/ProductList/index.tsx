@@ -5,6 +5,9 @@ import { IFilterCakeName } from "@/services/fetchFilterCakes";
 import { IProductSeriesName } from "@/services/fetchProductSeries";
 import { IRawMaterialName } from "@/services/fetchRawMaterials";
 import Table from "./Table";
+import { useSelector } from "react-redux";
+import { StoreState } from "@/store/type";
+import { MEMBER } from "@/constants/data-management";
 
 export type FilterCakeType = IFilterCakeName | undefined;
 export type ProductSeriesType = IProductSeriesName | undefined;
@@ -16,6 +19,7 @@ export enum SearchType {
 };
 
 const ProductList = () => {
+
   // 搜索方式
   const [searchType, setSearchType] = useState<SearchType>(SearchType.INDIRECT);
   // 选中的滤饼

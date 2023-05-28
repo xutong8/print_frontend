@@ -5,7 +5,7 @@ import { IUpdateResponse } from "./updateMemberInfo";
 
 const updateProductSeries = async (productSeries: IProductSeries) => {
   const res = await httpRequest.put("/productSeries/updateProductSeries", productSeries) as AxiosResponse<IUpdateResponse>;
-  if(res.data.code === 201 )
+  if(res.data.code === 301 )
     throw res.data.msg;
   return res;
 };

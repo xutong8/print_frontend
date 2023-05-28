@@ -107,7 +107,7 @@ const ProductSeriesBaseEdit = (
                 </div>
             </div>
             <div className={styles.right}>
-                <div className={styles.rm_relations}>
+                {/* <div className={styles.rm_relations}>
                     <div className={styles.title}>
                         <div className={styles.field}>产品关联</div>
                         <Button
@@ -149,7 +149,7 @@ const ProductSeriesBaseEdit = (
                             </Tag>
                         ))}
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );
