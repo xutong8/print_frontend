@@ -298,7 +298,7 @@ const ProductBaseEdit = (
               <Tag closable key={index} onClose={() => handleRmDel(relation)}>
                 <span>{relation.rawMaterialName}</span>
                 <span className={styles.tag_inventory}>
-                  {relation.inventory.toFixed(2)}
+                  {(relation.inventory * 100).toFixed(2) + "%"}
                 </span>
               </Tag>
             ))}
@@ -350,7 +350,7 @@ const ProductBaseEdit = (
               <Tag closable key={index} onClose={() => handleFcDel(relation)}>
                 <span>{relation.filterCakeName}</span>
                 <span className={styles.tag_inventory}>
-                  {relation.inventory.toFixed(2)}
+                  {(relation.inventory * 100).toFixed(2) + "%"}
                 </span>
               </Tag>
             ))}
