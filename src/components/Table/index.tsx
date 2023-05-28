@@ -31,7 +31,6 @@ const DEFAULT_TOTAL = 10;
 const CustomTable = <T extends object>(props: ICustomTableProps<T>) => {
   const { columns, baseUrl, query, rowKey } = props;
 
-  console.log("query: ", query);
   // 加载器
   const [loading, setLoading] = useState<boolean>(false);
   // 页码
@@ -60,7 +59,6 @@ const CustomTable = <T extends object>(props: ICustomTableProps<T>) => {
       },
     })) as AxiosResponse<Base<T>>;
     setLoading(false);
-    console.log("product: ", data.list);
     setDataSource(data?.list ?? []);
     setPageNo(data?.pageNo ?? DEFAUTL_PAGE_NO);
     setPageSize(data?.pageSize ?? DEFAULT_PAGE_SIZE);

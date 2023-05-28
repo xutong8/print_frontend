@@ -29,11 +29,6 @@ const ProductSeriesAdd = () => {
             message.warning("产品系列对象不能为空");
             return;
         }
-        console.log("productSery: ", {
-            ...{ productSeriesId: 0 },
-            ...(productSeries as IProductSeries),
-            productSimpleList: baseEditRef.current?.pdRelations ?? [],
-        })
         try {
             await addProductSeries({
                 ...{ productSeriesId: 0 },

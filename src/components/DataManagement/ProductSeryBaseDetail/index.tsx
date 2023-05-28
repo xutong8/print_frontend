@@ -36,7 +36,6 @@ const ProductSeriesBaseDetail: React.FC<IProductSeriesBaseDetailProps> = (props)
     const [selectedOption, setSelectedOption] = useState<string>(RELATION_DETAIL);
 
     const renderOption = (option: string) => {
-        console.log("res prodSery: ", productSeries);
         switch (option) {
             case RELATION_DETAIL: {
                 return (

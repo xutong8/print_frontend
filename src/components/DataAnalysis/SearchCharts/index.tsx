@@ -84,8 +84,6 @@ const SearchChart: React.FC<ISearchChartProps> = (props) => {
             number: Number(multiCondition)
         }
 
-    console.log("")
-
     const fetchApiData = async () => {
         if (!timeScale) {
             setSingleList([]);

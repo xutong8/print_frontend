@@ -16,7 +16,6 @@ import {
 import styles from "./index.module.less";
 import TextArea from "antd/es/input/TextArea";
 import { PlusCircleTwoTone } from "@ant-design/icons";
-import Checkbox, { CheckboxChangeEvent } from "antd/es/checkbox/Checkbox";
 import {
   FilterCakeType,
   RawMaterialNameType,
@@ -274,17 +273,6 @@ const FilterCakeBaseEdit = (
                 onChange={(value) => setRMAmount(value as number)}
               />
             </div>
-            {/* <div className={styles.enable}>
-              <Checkbox
-                checked={rmEnable}
-                onChange={(e: CheckboxChangeEvent) => {
-                  console.log("setRMEnable");
-                  setRMEnable(e.target.checked);
-                }}
-              >
-                启用百分比
-              </Checkbox>
-            </div> */}
           </div>
           <div className={styles.exist_relations}>
             {rmRelations.map((relation, index: number) => (
@@ -337,17 +325,6 @@ const FilterCakeBaseEdit = (
                 onChange={(value) => setFCAmount(value as number)}
               />
             </div>
-            {/* <div className={styles.enable}>
-              <Checkbox
-                checked={fcEnable}
-                onChange={(e: CheckboxChangeEvent) => {
-                  console.log("setFCEnable");
-                  setFCEnable(e.target.checked);
-                }}
-              >
-                启用百分比
-              </Checkbox>
-            </div> */}
           </div>
           <div className={styles.exist_relations}>
             {fcRelations.map((relation, index: number) => (

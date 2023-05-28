@@ -144,34 +144,6 @@ const RawMaterialBaseEdit = (
             }}
           />
         </div>
-        {/* 原料价格 */}
-        {/* <div className={styles.base}>
-          <p className={styles.field}>原料价格：</p>
-          <Input
-            className={styles.input}
-            value={rawMaterial?.rawMaterialUnitPrice ?? ""}
-            onChange={(event) => {
-              setRawMaterial({
-                ...(rawMaterial ?? ({} as IRawMaterial)),
-                rawMaterialUnitPrice: Number(event.target.value),
-              });
-            }}
-          />
-        </div> */}
-        {/* 原料涨幅 */}
-        {/* <div className={styles.base}>
-          <p className={styles.field}>原料涨幅：</p>
-          <Input
-            className={styles.input}
-            value={rawMaterial?.rawMaterialIncreasePercent ?? 0}
-            onChange={(event) => {
-              setRawMaterial({
-                ...(rawMaterial ?? ({} as IRawMaterial)),
-                rawMaterialIncreasePercent: Number(event.target.value),
-              });
-            }}
-          />
-        </div> */}
       </div>
       <div className={styles.right}>
         <div className={styles.price_relations}>

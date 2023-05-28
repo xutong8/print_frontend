@@ -25,7 +25,6 @@ const LoginForm: React.FC = () => {
         user: { userName: res.data.data.userName, authority: res.data.data.authority },
       })
       message.success("登录成功！");
-      console.log("login: ", res.data);
       navigate("/data/product-list");
     }
     catch (err) {
