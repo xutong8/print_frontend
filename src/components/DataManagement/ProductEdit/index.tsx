@@ -11,7 +11,9 @@ import { checkPermission } from "@/utils";
 import { MANAGER } from "@/constants/data-management";
 import { updateProduct } from "@/services/updateProduct";
 
-export interface IProductEditProps { }
+export interface IProductEditProps {
+  setForceUpdate: (forceUpdate: {}) => void;
+}
 
 export interface ProductEditRef {
   setShowModal: (showModal: boolean) => void;
@@ -55,6 +57,7 @@ const ProductEdit = (
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
       });
       message.success("更新对象成功！");
+      props.setForceUpdate({});
     } catch (err) {
       message.error(err as string + ", 更新对象失败！");
     }

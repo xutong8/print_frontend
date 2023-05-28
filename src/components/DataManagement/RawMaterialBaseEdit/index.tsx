@@ -144,6 +144,20 @@ const RawMaterialBaseEdit = (
             }}
           />
         </div>
+        {/* 原料标识 */}
+        <div className={styles.base}>
+          <p className={styles.field}>原料单价：</p>
+          <Input
+            className={styles.input}
+            value={rawMaterial?.rawMaterialUnitPrice ?? 0}
+            onChange={(event) => {
+              setRawMaterial({
+                ...(rawMaterial ?? ({} as IRawMaterial)),
+                rawMaterialUnitPrice: Number(event.target.value),
+              });
+            }}
+          />
+        </div>
       </div>
       <div className={styles.right}>
         <div className={styles.price_relations}>

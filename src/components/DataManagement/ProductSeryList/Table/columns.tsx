@@ -104,7 +104,7 @@ const genColumns = (
             <div className={styles.text} onClick={handlePreviewProductSeries}>
               查看详细信息
             </div>
-            <ProductSeriesEdit ref={editModalRef} />
+            <ProductSeriesEdit ref={editModalRef} setForceUpdate={setForceUpdate} />
             <ProductSeriesDetail ref={previewModalRef} />
           </div>
         );

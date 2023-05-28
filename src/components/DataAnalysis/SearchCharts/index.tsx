@@ -11,7 +11,7 @@ import { nowDate } from "@/utils";
 import { AxiosResponse, all } from "axios";
 import { SALES_VOLUME } from "../Search/constants";
 import Header from "@/components/Header";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import Uploader, { UploaderRef } from "./Uploader";
 import WithModal, { WithModalRef } from "@/components/WithModal";
@@ -66,6 +66,7 @@ const SearchChart: React.FC<ISearchChartProps> = (props) => {
     const [productName, setProductName] = useState<string[]>([]);
     const [allDate, setAllDate] = useState<string[]>([]);
     const [series, setSeries] = useState<ISeries[]>([]);
+    const [loading, setLoading] = useState(false);
 
     const base_url = searchType === SearchType.SINGLEPRODUCT ?
         "/Sales/getSingleProductSales" :
@@ -93,6 +94,7 @@ const SearchChart: React.FC<ISearchChartProps> = (props) => {
             setSeries([]);
             return;
         }
+        setLoading(true);
         //TO DO 从后端获取销量或者利润信息
         if (searchType === SearchType.SINGLEPRODUCT) {
             const res = (await httpRequest.get(
@@ -153,6 +155,7 @@ const SearchChart: React.FC<ISearchChartProps> = (props) => {
             setTopNdata(tempData);
             setProductName(tempProductName)
         }
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -161,6 +164,8 @@ const SearchChart: React.FC<ISearchChartProps> = (props) => {
 
     //TO DO 根据真实数据修改组件的参数
     const renderSearchContent = () => {
+        if (loading === true)
+            return <div style={{ margin: 'auto' }}><Spin /></div>;
         if (searchType === SearchType.MULTIPRODUCT) {
             return (
                 <>
@@ -170,7 +175,7 @@ const SearchChart: React.FC<ISearchChartProps> = (props) => {
                         productName={productName}
                     ></LineRace>
                     <StackedAreaChart
-                        title="毛收入"
+                        title="利润"
                         productName={productName}
                         allDate={allDate}
                         series={series}
@@ -182,7 +187,7 @@ const SearchChart: React.FC<ISearchChartProps> = (props) => {
             return (
                 <>
                     <BasicLineChart title={"销售量"} datax={singleList.map(item => item.endTime)} dataSeries={singleList.map(item => item.number)}></BasicLineChart>
-                    <BasicLineChart title={"毛收入"} datax={singleList.map(item => item.endTime)} dataSeries={singleList.map(item => item.profit)}></BasicLineChart>
+                    <BasicLineChart title={"利润"} datax={singleList.map(item => item.endTime)} dataSeries={singleList.map(item => item.profit)}></BasicLineChart>
                 </>
             )
         }

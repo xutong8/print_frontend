@@ -48,7 +48,7 @@ const genColumns = (
       key: "rawMaterialConventional",
     },
     {
-      title: "原料单价",
+      title: "原料成本",
       dataIndex: "rawMaterialUnitPrice",
       key: "rawMaterialUnitPrice",
       render: (value: number) => {
@@ -130,7 +130,7 @@ const genColumns = (
             <div className={styles.text} onClick={handlePreviewRawMaterial}>
               查看详细信息
             </div>
-            <RawMaterialEdit ref={editModalRef} />
+            <RawMaterialEdit ref={editModalRef} setForceUpdate={setForceUpdate} />
             <RawMaterialDetail ref={previewModalRef} />
           </div>
         );

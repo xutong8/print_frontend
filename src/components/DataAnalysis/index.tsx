@@ -15,6 +15,7 @@ const DataAnalysis = () => {
   const [singleCondition, setSingleCondition] = useState<IProductName | undefined | null>(void 0);
   const [multiField, setMultiField] = useState<string>('');
   const [multiCondition, setMultiCondition] = useState<string>('');
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className={styles.data}>

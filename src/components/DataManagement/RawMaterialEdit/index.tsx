@@ -6,7 +6,9 @@ import { IRawMaterial } from "@/services/fetchRawMaterialById";
 import RawMaterialBaseEdit, { RawMaterialBaseEditRef } from "../RawMaterialBaseEdit";
 import { updateRawMaterial } from "@/services/updateRawMaterial";
 
-export interface IRawMaterialEditProps { }
+export interface IRawMaterialEditProps {
+  setForceUpdate: (forceUpdate: {}) => void;
+}
 
 export interface RawMaterialEditRef {
   setShowModal: (showModal: boolean) => void;
@@ -38,6 +40,7 @@ const RawMaterialEdit = (
         rawMaterialHistoryPrice: baseEditRef.current?.hpRelations ?? [],
       });
       message.success("新建对象成功！");
+      props.setForceUpdate({});
     } catch (err) {
       message.error(err as string + ", 新建对象失败！");
     }

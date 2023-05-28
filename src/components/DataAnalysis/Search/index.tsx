@@ -66,10 +66,11 @@ const Search: React.FC<ISearchProps> = (props) => {
             setTempTimeScale('');
             setTempSingleCondition(void 0);
         } else {
-            setTimeScale('');
+            setTempTimeScale('');
             setTempMultiField('');
             setTempMultiCondition('');
         }
+
     };
 
 

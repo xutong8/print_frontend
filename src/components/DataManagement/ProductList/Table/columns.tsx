@@ -59,7 +59,7 @@ const genColumns = (
       key: "productColor",
     },
     {
-      title: "产品单价",
+      title: "产品成本",
       dataIndex: "productUnitPrice",
       key: "productUnitPrice",
       render: (value: number) => {
@@ -150,7 +150,7 @@ const genColumns = (
             <div className={styles.text} onClick={handlePreviewProduct}>
               查看详细信息
             </div>
-            <ProductEdit ref={editModalRef} />
+            <ProductEdit ref={editModalRef} setForceUpdate={setForceUpdate} />
             <ProductDetail ref={previewModalRef} />
           </div>
         );

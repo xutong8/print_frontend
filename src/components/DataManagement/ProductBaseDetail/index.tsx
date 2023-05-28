@@ -16,7 +16,7 @@ export interface IProductBaseDetailProps {
 }
 
 const RELATION_DETAIL = "关联信息";
-const HISTORY_PRICE = "历史价格";
+const HISTORY_PRICE = "历史成本价格";
 
 // 滤饼关联表columns
 const fcRelationColumns = [

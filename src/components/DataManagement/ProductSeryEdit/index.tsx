@@ -6,7 +6,9 @@ import { IProductSeries } from "@/services/fetchProductSeriesById";
 import ProductSerieBaseEdit, { ProductSeriesBaseEditRef } from "../ProductSeryBaseEdit";
 import { updateProductSeries } from "@/services/updateProductSeries";
 
-export interface IProductSeriesEditProps { }
+export interface IProductSeriesEditProps {
+    setForceUpdate: (forceUpdate: {}) => void;
+}
 
 export interface ProductSeriesEditRef {
     setShowModal: (showModal: boolean) => void;
@@ -41,6 +43,7 @@ const ProductSeriesEdit = (
                 productSimpleList: baseEditRef.current?.pdRelations ?? [],
             });
             message.success("新建对象成功！");
+            props.setForceUpdate({});
         } catch (err) {
             message.error("新建对象失败！");
         }

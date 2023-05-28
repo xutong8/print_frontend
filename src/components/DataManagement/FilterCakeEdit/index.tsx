@@ -8,7 +8,9 @@ import { IRawMaterialName } from "@/services/fetchRawMaterials";
 import { IFilterCakeName } from "@/services/fetchFilterCakes";
 import { updateFilterCake } from "@/services/updateFilterCake";
 
-export interface IFilterCakeEditProps { }
+export interface IFilterCakeEditProps {
+  setForceUpdate: (forceUpdate: {}) => void;
+}
 
 export interface FilterCakeEditRef {
   setShowModal: (showModal: boolean) => void;
@@ -48,6 +50,7 @@ const FilterCakeEdit = (
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
       });
       message.success("更新对象成功！");
+      props.setForceUpdate({});
     } catch (err) {
       message.error(err as string + ", 更新对象失败！");
     }

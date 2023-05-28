@@ -50,7 +50,7 @@ const genColumns = (
       key: "filterCakeColor",
     },
     {
-      title: "滤饼单价",
+      title: "滤饼成本",
       dataIndex: "filterCakeUnitPrice",
       key: "filterCakeUnitPrice",
       render: (value: number) => {
@@ -142,7 +142,7 @@ const genColumns = (
             <div className={styles.text} onClick={handlePreviewFilterCake}>
               查看详细信息
             </div>
-            <FilterCakeEdit ref={editModalRef} />
+            <FilterCakeEdit ref={editModalRef} setForceUpdate={setForceUpdate} />
             <FilterCakeDetail ref={previewModalRef} />
           </div>
         );

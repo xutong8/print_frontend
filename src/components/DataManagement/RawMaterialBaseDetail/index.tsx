@@ -11,7 +11,7 @@ export interface IRawMaterialBaseDetailProps {
   rawMaterial: RawMaterialType;
 }
 
-const HISTORY_PRICE = "历史价格";
+const HISTORY_PRICE = "历史成本价格";
 
 const RawMaterialBaseDetail: React.FC<IRawMaterialBaseDetailProps> = (
   props
