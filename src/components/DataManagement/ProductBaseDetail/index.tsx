@@ -5,7 +5,7 @@ import { unitPriceFormat } from "@/utils";
 import { Button, Group, RadioChangeEvent } from "antd/es/radio";
 import { Table } from "antd";
 import { IFilterCakeSimple } from "@/services/fetchFilterCakeById";
-import { IRawMaterialSimple } from "@/services/fetchProductById";
+import { IProductSimple, IRawMaterialSimple } from "@/services/fetchProductById";
 import HistoryBasePrice from "@/components/Echarts/BasicLineChart";
 import { fetchProductHistoryPriceById } from "@/services/fetchProductHistoryPrice";
 import { IHistoryPriceSimple } from "@/services/fetchRawMaterialById";
@@ -17,6 +17,25 @@ export interface IProductBaseDetailProps {
 
 const RELATION_DETAIL = "关联信息";
 const HISTORY_PRICE = "历史成本价格";
+
+// 滤饼关联表columns
+const pdRelationColumns = [
+  {
+    title: "产品序号",
+    dataIndex: "productId",
+    key: "productId",
+  },
+  {
+    title: "产品名称",
+    dataIndex: "productName",
+    key: "productName",
+  },
+  {
+    title: "投料量",
+    dataIndex: "inventory",
+    key: "inventory",
+  },
+];
 
 // 滤饼关联表columns
 const fcRelationColumns = [
@@ -80,6 +99,11 @@ const ProductBaseDetail: React.FC<IProductBaseDetailProps> = (props) => {
       case RELATION_DETAIL: {
         return (
           <div className={styles.relation}>
+            <Table
+              columns={pdRelationColumns}
+              dataSource={product?.productSimpleList ?? []}
+              rowKey={(record: IProductSimple) => record.productId}
+            />
             <Table
               columns={fcRelationColumns}
               dataSource={product?.filterCakeSimpleList ?? []}

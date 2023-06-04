@@ -10,6 +10,7 @@ import ProductBaseEdit, { ProductBaseEditRef } from "../ProductBaseEdit";
 import { checkPermission } from "@/utils";
 import { MANAGER } from "@/constants/data-management";
 import { updateProduct } from "@/services/updateProduct";
+import { IProductName } from "@/services/fetchProductNames";
 
 export interface IProductEditProps {
   setForceUpdate: (forceUpdate: {}) => void;
@@ -21,11 +22,13 @@ export interface ProductEditRef {
   setSeries: (series: IProductSeriesName[]) => void;
   setRawMaterials: (rawMaterials: IRawMaterialName[]) => void;
   setFilterCakes: (filterCakes: IFilterCakeName[]) => void;
+  setProducts: (products: IProductName[]) => void;
 }
 
 export type ProductType = IProduct | null;
 export type RawMaterialNameType = IRawMaterialName | null;
 export type FilterCakeNameType = IFilterCakeName | null;
+export type ProductNameType = IProductName | null;
 
 const ProductEdit = (
   props: IProductEditProps,
@@ -39,6 +42,8 @@ const ProductEdit = (
   const [rawMaterials, setRawMaterials] = useState<IRawMaterialName[]>([]);
   // 滤饼名称
   const [filterCakes, setFilterCakes] = useState<IFilterCakeName[]>([]);
+  // 滤饼名称
+  const [products, setProducts] = useState<IProductName[]>([]);
 
 
   const baseEditRef = useRef<ProductBaseEditRef>(null);
@@ -55,6 +60,7 @@ const ProductEdit = (
         ...(product as IProduct),
         rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
+        productSimpleList: baseEditRef.current?.pdRelations ?? [],
       });
       message.success("更新对象成功！");
       props.setForceUpdate({});
@@ -74,6 +80,7 @@ const ProductEdit = (
     setSeries,
     setRawMaterials,
     setFilterCakes,
+    setProducts,
   }));
 
   return (
@@ -93,6 +100,7 @@ const ProductEdit = (
         series={series}
         rawMaterials={rawMaterials}
         filterCakes={filterCakes}
+        products={products}
         ref={baseEditRef}
       />
     </Modal>

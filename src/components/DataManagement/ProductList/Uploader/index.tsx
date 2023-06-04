@@ -40,6 +40,7 @@ const Uploader = (
                 <UploaderBase text={"上传产品文件"} url={BASE_URL + 'product/upload'}></UploaderBase>
                 <UploaderBase text={"上传产品-原料关联文件"} url={BASE_URL + 'product/uploadRelPR'}></UploaderBase>
                 <UploaderBase text={"上传产品-滤饼关联文件"} url={BASE_URL + 'product/uploadRelPF'}></UploaderBase>
+                <UploaderBase text={"上传产品-产品关联文件"} url={BASE_URL + 'product/uploadRelPP'}></UploaderBase>
             </div>
 
         </Modal>

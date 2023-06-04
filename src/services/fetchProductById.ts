@@ -1,6 +1,12 @@
 import { httpRequest } from "@/services";
 import { AxiosResponse } from "axios";
 
+export interface IProductSimple {
+  productId: number;
+  productName: string;
+  inventory: number;
+}
+
 export interface IFilterCakeSimple {
   filterCakeId: number;
   filterCakeName: string;
@@ -28,6 +34,7 @@ export interface IProduct {
   productAccountingQuantity: number;
   filterCakeSimpleList: IFilterCakeSimple[];
   rawMaterialSimpleList: IRawMaterialSimple[];
+  productSimpleList: IProductSimple[];
 }
 
 const fetchProductById = async (productId: string) => {

@@ -256,6 +256,7 @@ const EditForm = (
                 显示密码选项
             </a>
             <Button type="primary" style={{ display: 'block', width: 80, margin: '20px 0 0 50px' }} onClick={async () => {
+                console.log("info: ", submitInfo);
                 await handleSubmit(submitInfo);
                 if (password) {
                     handleChangePassword();

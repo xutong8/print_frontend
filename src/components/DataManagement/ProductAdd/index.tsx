@@ -20,6 +20,7 @@ import { addProduct } from "@/services/addProduct";
 import { IProduct } from "@/services/fetchProductById";
 import { checkPermission } from "@/utils";
 import { MANAGER } from "@/constants/data-management";
+import { IProductName, fetchProductNames } from "@/services/fetchProductNames";
 
 const ProductAdd = () => {
   const [product, setProduct] = useState<ProductType>(null);
@@ -29,16 +30,20 @@ const ProductAdd = () => {
   const [rawMaterials, setRawMaterials] = useState<IRawMaterialName[]>([]);
   // 滤饼名称
   const [filterCakes, setFilterCakes] = useState<IFilterCakeName[]>([]);
+  // 产品名称
+  const [products, setProducts] = useState<IProductName[]>([]);
 
   const fetchInitialData = async () => {
-    const [series, rawMaterials, filterCakes] = await Promise.all([
+    const [series, rawMaterials, filterCakes, products] = await Promise.all([
       fetchAllProductSeries(),
       fetchAllRawMaterials(),
       fetchAllFilterCakes(),
+      fetchProductNames(),
     ]);
     setSeries(series);
     setRawMaterials(rawMaterials);
     setFilterCakes(filterCakes);
+    setProducts(products);
   };
 
   useEffect(() => {
@@ -59,6 +64,7 @@ const ProductAdd = () => {
         ...(product as IProduct),
         rawMaterialSimpleList: baseEditRef.current?.rmRelations ?? [],
         filterCakeSimpleList: baseEditRef.current?.fcRelations ?? [],
+        productSimpleList: baseEditRef.current?.pdRelations ?? [],
       });
       message.success("新建对象成功！");
     } catch (err) {
@@ -72,6 +78,7 @@ const ProductAdd = () => {
     setProduct(null);
     baseEditRef.current?.setRMRelations(product?.rawMaterialSimpleList ?? []);
     baseEditRef.current?.setFCRelations(product?.filterCakeSimpleList ?? []);
+    baseEditRef.current?.setPDRelations(product?.productSimpleList ?? []);
   };
 
   return (
@@ -86,6 +93,7 @@ const ProductAdd = () => {
           series={series}
           rawMaterials={rawMaterials}
           filterCakes={filterCakes}
+          products={products}
           ref={baseEditRef}
         />
       </div>

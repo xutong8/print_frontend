@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-// export const BASE_URL = "http://172.18.192.1:8080/";
+// export const BASE_URL = "http://121.41.99.27:8080/";
 export const BASE_URL = "http://10.162.109.94:8080/";
 // export const BASE_URL = "http://10.196.55.11:8080/";
 

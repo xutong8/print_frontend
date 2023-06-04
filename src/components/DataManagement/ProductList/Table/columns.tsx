@@ -12,6 +12,7 @@ import { fetchAllRawMaterials } from "@/services/fetchRawMaterials";
 import { fetchAllFilterCakes } from "@/services/fetchFilterCakes";
 import ProductDetail, { ProductDetailRef } from "../../ProductDetail";
 import { MANAGER } from "@/constants/data-management";
+import { fetchProductNames } from "@/services/fetchProductNames";
 
 export interface IRecord {
   productId: string;
@@ -111,17 +112,19 @@ const genColumns = (
           if (!checkPermission(MANAGER))
             return;
           editModalRef.current?.setShowModal(false);
-          const [product, series, rawMaterials, filterCakes] =
+          const [product, series, rawMaterials, filterCakes, products] =
             await Promise.all([
               fetchProductById(record.productId),
               fetchAllProductSeries(),
               fetchAllRawMaterials(),
               fetchAllFilterCakes(),
+              fetchProductNames(),
             ]);
           editModalRef.current?.setProduct(product);
           editModalRef.current?.setSeries(series);
           editModalRef.current?.setFilterCakes(filterCakes);
           editModalRef.current?.setRawMaterials(rawMaterials);
+          editModalRef.current?.setProducts(products);
           editModalRef.current?.setShowModal(true);
         };
 

@@ -83,6 +83,7 @@ const Table: React.FC<ITableProps> = (props) => {
             componentList={
               [
                 <DownloadBase text={"下载产品信息"} url={"product/exportExcel"}></DownloadBase>,
+                <DownloadBase text={"下载产品-产品关联信息"} url={"product/exportRelPPExcel"}></DownloadBase>,
                 <DownloadBase text={"下载产品-滤饼关联信息"} url={"product/exportRelPFExcel"}></DownloadBase>,
                 <DownloadBase text={"下载产品-原料关联信息"} url={"product/exportRelPRExcel"}></DownloadBase>
               ]
